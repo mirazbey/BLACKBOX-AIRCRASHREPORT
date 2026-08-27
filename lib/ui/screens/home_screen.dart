@@ -6,6 +6,7 @@ import '../../providers/matchmaking_provider.dart';
 import 'matchmaking_screen.dart';
 import 'investigation_screen.dart';
 import 'case_dossier_library_screen.dart';
+import 'inspector_profile_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -43,16 +44,31 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: AppTheme.surfaceAlt,
-                      borderRadius: BorderRadius.circular(4),
-                      border: Border.all(color: AppTheme.surfaceBorder),
-                    ),
-                    child: Text(
-                      'SICIL: #44102',
-                      style: Theme.of(context).textTheme.labelSmall,
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const InspectorProfileScreen()),
+                      );
+                    },
+                    borderRadius: BorderRadius.circular(4),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: AppTheme.surfaceAlt,
+                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(color: AppTheme.amber),
+                      ),
+                      child: Row(
+                        children: const [
+                          Icon(Icons.badge, size: 12, color: AppTheme.amber),
+                          SizedBox(width: 4),
+                          Text(
+                            'SİCİL: #44102',
+                            style: TextStyle(fontSize: 10, color: AppTheme.amber, fontWeight: FontWeight.bold, fontFamily: 'IBM Plex Mono'),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
