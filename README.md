@@ -1,12 +1,12 @@
-# BLACK BOX: AIR CRASH BUREAU (CHASE THE CASE)
-> **Mobil Çok Oyunculu Asimetrik Havacılık Kazası Soruşturma Oyunu**
+# BLACKBOX-AIRCRASHREPORT
+> **Mobil Çok Oyunculu Asimetrik Havacılık Kazası Soruşturma Oyunu (Rainbow Six Tarzı 5 Operatörlü Kriz Masası)**
 
 ---
 
 ## 📌 PROJE ÖZETİ
-*Black Box: Air Crash Bureau*, oyuncuları gerçek kaza soruşturma raporlarından kurgulanmış vakaların içine atan **çok oyunculu, asimetrik bir dedüksiyon oyunudur**. 
+**BLACKBOX-AIRCRASHREPORT**, oyuncuları gerçek kaza soruşturma raporlarından kurgulanmış vakaların içine atan **5 oyunculu, asimetrik bir dedüksiyon ve adli tıp kriz masası simülasyonudur**.
 
-Klasik çoktan seçmeli test veya bilgi yarışması mantığı yoktur. Oyuncular kaza alanına ve verilere bağımsız olarak dalar; telsizden birbirlerine bulgularını aktararak uçağın neden düştüğünü **İsviçre Peyniri Kaza Modeli (Swiss Cheese Model)** üzerinden çözerler.
+Klasik çoktan seçmeli test mantığı yoktur. 5 uzman operatör (FDR Mühendisi, CVR Akustik Analisti, FLIR Video Uzmanı, Adli Bakım Müfettişi ve Adli Psikolog/CRM Sorgucusu) kendi özel terminallerindeki gizli verileri çözümler; telsiz çarkından delil ve direktif paslaşarak uçağın neden düştüğünü **İsviçre Peyniri Kaza Modeli (Swiss Cheese Model)** üzerinden NTSB/BEA heyet raporuna dönüştürürler.
 
 ---
 
@@ -16,36 +16,39 @@ Proje dizininde yer alan temel mimari şartnameler:
 
 | Doküman | Açıklama |
 | :--- | :--- |
-| **[`GAME_DESIGN_DOCUMENT.md`](./GAME_DESIGN_DOCUMENT.md)** | Oyun Mekanikleri, Core Loop, Asimetrik Rol Tasarımları, Dahili Telsiz Sistemi, Çelişki ve Yanıltıcı Delil Dinamikleri, Gelir Modeli. |
-| **[`CASE_DOCUMENT_ARCHITECTURE.md`](./CASE_DOCUMENT_ARCHITECTURE.md)** | Vaka Paketi JSON Şemaları, FDR Telemetri Zaman Serileri, CVR Kokpit Ses Dökümleri, MEL Bakım Kayıtları, Nedensellik Grafiği ve Prosedürel Üretim Şablonu. |
-| **[`SERVER_EDGE_ARCHITECTURE.md`](./SERVER_EDGE_ARCHITECTURE.md)** | Aylık 0$ – 5$ Maliyetli Serverless Edge Altyapısı (Cloudflare Workers + Durable Objects, LiveKit WebRTC Telsiz, Cloudflare R2 CDN). |
+| **[`MIMARI_RAPOR_V3.html`](./MIMARI_RAPOR_V3.html)** | İnteraktif SVG Grafiksel Mimari Raporu ve Soruşturma Akışı. |
+| **[`GAME_DESIGN_DOCUMENT.md`](./GAME_DESIGN_DOCUMENT.md)** | Oyun Mekanikleri, Core Loop, 5 Asimetrik Operatör Tasarımı, Taktik Telsiz Çarkı, Adli Psikolog Sorgu Ağacı, Çelişki ve Yanıltıcı Delil Dinamikleri, Rütbe Sistemi. |
+| **[`CASE_DOCUMENT_ARCHITECTURE.md`](./CASE_DOCUMENT_ARCHITECTURE.md)** | Vaka Paketi JSON Şemaları, FDR Telemetri Zaman Serileri, CVR Kokpit Ses Dökümleri, MEL Bakım Kayıtları, Nedensellik Grafiği (DAG) ve Prosedürel Üretim Şablonu. |
+| **[`SERVER_EDGE_ARCHITECTURE.md`](./SERVER_EDGE_ARCHITECTURE.md)** | Aylık 0$ – 5$ Maliyetli Serverless Edge Altyapısı (Cloudflare Workers + Durable Objects, Taktiksel WebSocket Relay, Cloudflare R2 CDN). |
 
 ---
 
-## 🎯 4 TEMEL OYUN SÜTUNU
+## 🎯 5 UZMAN OPERATÖR & SORUŞTURMA SÜTUNLARI
 
 ```
-                   ┌──────────────────────────────────────────────┐
-                   │    BLACK BOX: AIR CRASH BUREAU CORE LOOP     │
-                   └──────────────────────┬───────────────────────┘
-                                          │
-    ┌──────────────────────┬──────────────┴──────────────┬──────────────────────┐
-    ▼                      ▼                             ▼                      ▼
-┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐
-│  1. ASİMETRİK    │  │  2. SESLİ TELSİZ │  │  3. ORTAK TAHTA  │  │  4. NEDENSELLİK  │
-│  ROLLER (2-4 Kişi│  │  (Push-to-Talk)  │  │  (Investigation) │  │  (Swiss Cheese)  │
-├──────────────────┤  ├──────────────────┤  ├──────────────────┤  ├──────────────────┤
-│ Herkes kendi     │  │ Dahili havacılık │  │ Deliller tahtaya │  │ Tek bir neden yok│
-│ ekranındaki gizli│  │ cızırtı filtreli │  │ pinlenir; araya  │  │ Tetikleyici, hata│
-│ veriyi inceler.  │  │ bas-konuş telsiz.│  │ kırmızı ip çekilir│ ve çevre birleşir. │
-└──────────────────┘  └──────────────────┘  └──────────────────┘  └──────────────────┘
+                            ┌──────────────────────────────────────────────┐
+                            │      BLACKBOX-AIRCRASHREPORT CORE LOOP       │
+                            └──────────────────────┬───────────────────────┘
+                                                   │
+     ┌──────────────────────┬──────────────────────┼──────────────────────┬──────────────────────┐
+     ▼                      ▼                      ▼                      ▼                      ▼
+┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐
+│ OP-01: TELEMETRİ │  │ OP-02: AKUSTİK   │  │ OP-03: FLIR      │  │ OP-04: BAKIM     │  │ OP-05: PSİKOLOG  │
+│ (FDR Mühendisi)  │  │ (CVR Ses Analisti│  │ (Aviyonik & Video│  │ (MEL Müfettişi)  │  │ (CRM & Çapraz So.)│
+├──────────────────┤  ├──────────────────┤  ├──────────────────┤  ├──────────────────┤  ├──────────────────┤
+│ Canlı PFD yapay  │  │ 4-kanallı ses    │  │ Termal FLIR Cam, │  │ MEL ertelemeleri,│  │ Pilot, teknisyen │
+│ ufkunu, sürat ve │  │ spektrogramı ve  │  │ kokpit CCTV ve 3D│  │ şirket gizli yazı│  │ ve kuleyi sorgular│
+│ lövye açısını    │  │ alarm izolasyon  │  │ çarpışma tel     │  │ ma ve sahte imza │  │ yalan/stresi     │
+│ inceler.         │  │ filtrelerini     │  │ kafes modelini   │  │ taramalarını     │  │ açığa çıkarır.   │
+│                  │  │ yönetir.         │  │ inceler.         │  │ belgeler.        │  │                  │
+└──────────────────┘  └──────────────────┘  └──────────────────┘  └──────────────────┘  └──────────────────┘
 ```
 
 ---
 
 ## ⚡ TEKNOLOJİ STACK & ALTYAPI
 
-* **İstemci (Client):** Flutter (iOS & Android) — Offline-first yerel önbellek.
-* **Sesli Muhabere (VoIP):** LiveKit Cloud (WebRTC tabanlı, düşük gecikmeli Bas-Konuş).
+* **İstemci (Client):** Flutter (iOS & Android) — Space Grotesk / IBM Plex Mono havacılık teması, FL Chart telemetrisi, canlı PFD yapay ufku, CVR spektrogramı, CRT video rekonstrüksiyon oynatıcısı.
+* **Taktik Haberleşme (Comms):** Apex/R6 tarzı hızlı direktif çarkı (Quick Pings) + Edge WebSocket senkronu.
 * **Oda & Senkronizasyon:** Cloudflare Workers + Durable Objects (Edge WebSocket, sıfır sabit sunucu maliyeti).
 * **Medya & Vaka İndirme CDN:** Cloudflare R2 (Sıfır çıkış trafiği ücreti).
