@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../theme/app_theme.dart';
 import '../../providers/investigation_provider.dart';
 import 'interactive_waveform_widget.dart';
+import 'cvr_spectrogram_widget.dart';
 
 class CvrAudioPlayerWidget extends StatelessWidget {
   const CvrAudioPlayerWidget({super.key});
@@ -16,6 +17,12 @@ class CvrAudioPlayerWidget extends StatelessWidget {
       children: [
         // Interactive Waveform Audio Visualizer
         InteractiveWaveformWidget(
+          currentOffsetSeconds: provider.currentTimeSeconds,
+          onSeek: (newSec) => provider.setTimelineCursor(newSec),
+        ),
+
+        // 2D Spectrogram Waterfall & DSP Filter
+        CvrSpectrogramWidget(
           currentOffsetSeconds: provider.currentTimeSeconds,
           onSeek: (newSec) => provider.setTimelineCursor(newSec),
         ),

@@ -4,6 +4,7 @@ import '../../theme/app_theme.dart';
 import '../../models/evaluation_model.dart';
 import '../../providers/investigation_provider.dart';
 import '../widgets/jury_voting_modal.dart';
+import '../widgets/causal_graph_inspector_widget.dart';
 
 class ReportBuilderScreen extends StatefulWidget {
   const ReportBuilderScreen({super.key});
@@ -76,6 +77,10 @@ class _ReportBuilderScreenState extends State<ReportBuilderScreen> {
               ],
             ),
           ),
+          const SizedBox(height: 16),
+
+          // Interactive Causal DAG Inspector
+          const CausalGraphInspectorWidget(),
           const SizedBox(height: 20),
 
           // 1. Doğrudan Tetikleyici (Direct Trigger)

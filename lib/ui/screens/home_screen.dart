@@ -8,6 +8,7 @@ import 'investigation_screen.dart';
 import 'case_dossier_library_screen.dart';
 import 'inspector_profile_screen.dart';
 import 'multiplayer_room_screen.dart';
+import 'bureau_leaderboard_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -242,6 +243,27 @@ class HomeScreen extends StatelessWidget {
                   style: OutlinedButton.styleFrom(
                     foregroundColor: AppTheme.amber,
                     side: const BorderSide(color: AppTheme.surfaceBorder),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+
+              // Global Leaderboard Button
+              SizedBox(
+                width: double.infinity,
+                height: 44,
+                child: OutlinedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const BureauLeaderboardScreen()),
+                    );
+                  },
+                  icon: const Icon(Icons.leaderboard, color: AppTheme.cyan),
+                  label: const Text('KÜRESEL MÜFETTİŞ SIRALAMASI', style: TextStyle(fontSize: 11, color: AppTheme.cyan)),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: AppTheme.cyan,
+                    side: const BorderSide(color: AppTheme.cyan),
                   ),
                 ),
               ),
