@@ -16,6 +16,7 @@ Proje dizininde yer alan temel mimari şartnameler:
 
 | Doküman | Açıklama |
 | :--- | :--- |
+| **[`ANTIGRAVITY_REVISION_BRIEF.md`](./ANTIGRAVITY_REVISION_BRIEF.md)** | Antigravity uygulama brifi: görev derinliği düzeltmeleri, 5×30 sn uzman nöbeti, yazılı müzakere ve Başmüfettiş nihai karar sistemi. |
 | **[`MIMARI_RAPOR_V3.html`](./MIMARI_RAPOR_V3.html)** | İnteraktif SVG Grafiksel Mimari Raporu ve Soruşturma Akışı. |
 | **[`GAME_DESIGN_DOCUMENT.md`](./GAME_DESIGN_DOCUMENT.md)** | Oyun Mekanikleri, Core Loop, 5 Asimetrik Operatör Tasarımı, Taktik Telsiz Çarkı, Adli Psikolog Sorgu Ağacı, Çelişki ve Yanıltıcı Delil Dinamikleri, Rütbe Sistemi. |
 | **[`CASE_DOCUMENT_ARCHITECTURE.md`](./CASE_DOCUMENT_ARCHITECTURE.md)** | Vaka Paketi JSON Şemaları, FDR Telemetri Zaman Serileri, CVR Kokpit Ses Dökümleri, MEL Bakım Kayıtları, Nedensellik Grafiği (DAG) ve Prosedürel Üretim Şablonu. |

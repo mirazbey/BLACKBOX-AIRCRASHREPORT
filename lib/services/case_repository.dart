@@ -90,6 +90,72 @@ class CaseRepository {
     ),
   );
 
+  static final CaseBundle heliosCaseManifest = CaseBundle(
+    id: 'CASE-002',
+    code: 'HCU-522-GHOST',
+    title: 'Hayalet Uçak (The Ghost Flight)',
+    subtitle: 'FL340 Tırmanışta Sessizliğe Gömülen Kabin & Hipoksi',
+    difficulty: CaseDifficulty.medium,
+    durationMinutes: 18,
+    isHistorical: true,
+    aircraft: const AircraftProfile(
+      model: 'Boeing 737-300',
+      tailNumber: '5B-DBY',
+      engines: '2x CFM56-3B2 Turbofan',
+      operatorName: 'Helios Sun Airways',
+      avionicsSuite: 'Pneumatic Pressurization / Master Caution',
+    ),
+    flight: const FlightProfile(
+      flightNumber: 'HCU-522',
+      departure: 'Larnaka (LCA)',
+      destination: 'Atina & Prag (ATH/PRG)',
+      phaseOfFlight: 'Tırmanış & Seyir (FL340)',
+      soulsOnBoard: 121,
+      lastKnownAltitude: '34,000 ft (FL340)',
+      locationDescription: 'Grammatiko Dağlık Bölgesi (Yunanistan)',
+      initialSummary:
+          'Uçak 12.000 ft tırmanıştayken kabin basınç uyarısı çalmış, kule ile irtibat kesilmiştir. '
+          'Otopilotta 2 saat boyunca Atina üzerinde daire çizen uçağa F-16 savaş jetleri eşlik etmiş; '
+          'pilotların baygın olduğu ve yakıt bitince uçağın düştüğü bildirilmiştir.',
+    ),
+  );
+
+  static final CaseBundle tenerifeCaseManifest = CaseBundle(
+    id: 'CASE-001',
+    code: 'TEN-1977-COLLISION',
+    title: 'Sisli Pist Faciası (Tenerife Runway Collision)',
+    subtitle: 'Yoğun Siste Kalkış İzni Karmaşası & Çift 747 Faciası',
+    difficulty: CaseDifficulty.extreme,
+    durationMinutes: 25,
+    isHistorical: true,
+    aircraft: const AircraftProfile(
+      model: 'Boeing 747-206B / 747-121',
+      tailNumber: 'PH-BUF / N736PA',
+      engines: '4x JT9D-7Q Turbofan',
+      operatorName: 'KLM / Pan American',
+      avionicsSuite: 'VHF Radio / Non-Radar Tower Procedures',
+    ),
+    flight: const FlightProfile(
+      flightNumber: 'KLM-4805 / PA-1736',
+      departure: 'Amsterdam / New York',
+      destination: 'Gran Canaria (LPA) ➔ Los Rodeos',
+      phaseOfFlight: 'Kalkış & Pist Kat Etme',
+      soulsOnBoard: 583,
+      lastKnownAltitude: '0 ft (Pist Yüzeyi)',
+      locationDescription: 'Los Rodeos Havalimanı (Tenerife)',
+      initialSummary:
+          'Yoğun sis altında görüş 300 metrenin altına düşmüşken, kule ve uçaklar arasındaki '
+          'telsiz paraziti ve yanlış anlaşılan "Take-off" ibaresi nedeniyle iki dev jumbo jet '
+          'aynı pistte kafa kafaya çarpışmıştır. Havacılık tarihinin en ölümcül kazasıdır.',
+    ),
+  );
+
+  static final List<CaseBundle> allCaseManifests = [
+    sampleCaseManifest,
+    heliosCaseManifest,
+    tenerifeCaseManifest,
+  ];
+
   static final EventAxis sampleEventAxis = EventAxis(
     epochUtc: '02:09:00',
     totalDurationSeconds: 240,

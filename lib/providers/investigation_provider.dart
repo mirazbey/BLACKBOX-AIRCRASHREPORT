@@ -66,6 +66,18 @@ class InvestigationProvider extends ChangeNotifier {
     _recalculateUnlocks();
   }
 
+  void loadCase(CaseBundle newCase) {
+    activeCase = newCase;
+    discoveredEvidenceIds.clear();
+    boardPins.clear();
+    boardConnections.clear();
+    tacticalPings.clear();
+    lastEvaluationResult = null;
+    currentTimeSeconds = 60;
+    _initDefaultState();
+    notifyListeners();
+  }
+
   void switchRole(InvestigatorRole newRole) {
     currentRole = newRole;
     notifyListeners();

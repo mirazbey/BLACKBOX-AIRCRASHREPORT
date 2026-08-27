@@ -5,6 +5,7 @@ import '../../models/case_model.dart';
 import '../../providers/matchmaking_provider.dart';
 import 'matchmaking_screen.dart';
 import 'investigation_screen.dart';
+import 'case_dossier_library_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -74,56 +75,70 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                'Gerçek havacılık raporlarından kurgulanmış asimetrik soruşturma simülasyonu.',
+                'Gerçek havacılık raporlarından kurgulanmış 5 operatörlü dedüksiyon simülasyonu.',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               const Spacer(),
 
-              // Active Highlight Case Card
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: AppTheme.surfaceAlt,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: AppTheme.surfaceBorder),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: AppTheme.redDim,
-                            borderRadius: BorderRadius.circular(4),
+              // Active Highlight Case Card (Clickable to Archive)
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const CaseDossierLibraryScreen()),
+                  );
+                },
+                borderRadius: BorderRadius.circular(8),
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: AppTheme.surfaceAlt,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: AppTheme.surfaceBorder),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: AppTheme.redDim,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: const Text(
+                              'GÜNÜN VAKASI',
+                              style: TextStyle(fontSize: 9, color: AppTheme.red, fontWeight: FontWeight.bold),
+                            ),
                           ),
-                          child: const Text(
-                            'GÜNÜN VAKASI',
-                            style: TextStyle(fontSize: 9, color: AppTheme.red, fontWeight: FontWeight.bold),
+                          const SizedBox(width: 8),
+                          const Text(
+                            'ARŞİVE GÖZ AT ➔',
+                            style: TextStyle(fontSize: 9, color: AppTheme.cyan, fontWeight: FontWeight.bold, fontFamily: 'IBM Plex Mono'),
                           ),
-                        ),
-                        const Spacer(),
-                        const Text(
-                          'ZORLUK: ZOR',
-                          style: TextStyle(fontSize: 10, color: AppTheme.amber, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      'CASE #017 — ATLANTİK GECESİ',
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 17),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Airbus A330 • 02:10 UTC • 228 Yolcu • FL350 Seyir',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ],
+                          const Spacer(),
+                          const Text(
+                            'ZORLUK: ZOR',
+                            style: TextStyle(fontSize: 10, color: AppTheme.amber, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        'CASE #017 — ATLANTİK GECESİ',
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 17),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Airbus A330 • 02:10 UTC • 228 Yolcu • FL350 Seyir',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 20),
 
               // Main Action: OYUN ARA (Quick Matchmaking)
               SizedBox(
@@ -145,12 +160,12 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 10),
 
               // Solo Mode / Solo Soruşturma
               SizedBox(
                 width: double.infinity,
-                height: 48,
+                height: 46,
                 child: OutlinedButton.icon(
                   onPressed: () {
                     Navigator.push(
@@ -163,6 +178,27 @@ class HomeScreen extends StatelessWidget {
                   style: OutlinedButton.styleFrom(
                     foregroundColor: AppTheme.cyan,
                     side: const BorderSide(color: AppTheme.cyan),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+
+              // Dossiers Archive Button
+              SizedBox(
+                width: double.infinity,
+                height: 44,
+                child: OutlinedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const CaseDossierLibraryScreen()),
+                    );
+                  },
+                  icon: const Icon(Icons.folder_special, color: AppTheme.amber),
+                  label: const Text('GİZLİ VAKA DOSYALARI ARŞİVİ', style: TextStyle(fontSize: 11, color: AppTheme.amber)),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: AppTheme.amber,
+                    side: const BorderSide(color: AppTheme.surfaceBorder),
                   ),
                 ),
               ),
