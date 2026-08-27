@@ -68,6 +68,8 @@ class InvestigationProvider extends ChangeNotifier {
 
   void loadCase(CaseBundle newCase) {
     activeCase = newCase;
+    suspects = CaseRepository.getSuspectsForCase(newCase.id);
+    reconstructionScenes = CaseRepository.getReconstructionScenesForCase(newCase.id);
     discoveredEvidenceIds.clear();
     boardPins.clear();
     boardConnections.clear();

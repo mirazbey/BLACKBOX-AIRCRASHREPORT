@@ -761,6 +761,126 @@ class CaseRepository {
     ),
   ];
 
+  static final List<SuspectProfile> heliosSuspects = [
+    const SuspectProfile(
+      id: 'SUSPECT_H_MECH',
+      name: 'Alan Irwin',
+      title: 'Larnaka Yer Bakım Teknisyeni',
+      organization: 'Helios Ground Maintenance',
+      avatarCode: '🛠️',
+      stressStatus: 'AĞIR VİCDAN AZABI (132 BPM)',
+      questions: [
+        DialogueQuestion(
+          id: 'Q_HMECH_01',
+          questionText: 'Uçuş öncesi kapı basınç kaçak testini nasıl tamamladınız?',
+          answerText: 'Kabin basınçlandırma şalterini MANUAL moduna alıp basınç testi yaptık. Test bittikten sonra şalteri AUTO moduna geri almayı unuttum...',
+          stressReaction: 'Gözyaşlarını tutamıyor, ellerini yüzüne kapatıyor (Gerçek İtiraf).',
+          stressNature: StressNature.guiltAnxiety,
+          contradictionHint: 'Kokpit pnömatik şalter paneliyle %100 örtüşüyor.',
+          unlocksEvidenceId: 'EVD_MEL_HEATER',
+          unlockedEvidenceTitle: 'Basınçlandırma Şalterinin MANUAL Unutulması',
+        ),
+      ],
+    ),
+    const SuspectProfile(
+      id: 'SUSPECT_F16_PILOT',
+      name: 'Binbaşı Prodromou',
+      title: 'Hellenic Air Force F-16 Kol Lideri',
+      organization: 'Yunan Hava Kuvvetleri • 111. Filo',
+      avatarCode: '🪖',
+      stressStatus: 'SAKİN & GÖZLEMCİ (72 BPM)',
+      questions: [
+        DialogueQuestion(
+          id: 'Q_F16_01',
+          questionText: 'Havada uçağa yaklaştığınızda kokpitte ne gördünüz?',
+          answerText: 'Kaptan koltuğunda baygın yatıyordu. Kabin pencereleri tamamen buz tutmuştu. Sol koltuğa elinde taşınabilir oksijen tüpü olan bir kabin memuru oturdu...',
+          stressReaction: 'F-16 kask kamera kaydını masaya koyuyor.',
+          stressNature: StressNature.calmTruth,
+          contradictionHint: 'FLIR kask kamerasıyla teyitli (Hipoksi / Kabin Donması).',
+          unlocksEvidenceId: 'EVD_METAR_ICING',
+          unlockedEvidenceTitle: 'F-16 Kask Kamerası: Kokpitte Hipoksi Teyidi',
+        ),
+      ],
+    ),
+  ];
+
+  static final List<CinematicReconstructionScene> heliosReconstructionScenes = [
+    const CinematicReconstructionScene(
+      sequenceOrder: 1,
+      timeUtc: '09:00 UTC',
+      timeOffsetLabel: 'T-30m',
+      primaryOperatorRole: InvestigatorRole.maintenanceOps,
+      stageTitle: 'AŞAMA 1: GİZLİ BAKIM İHMALİ',
+      headline: 'Basınçlandırma Şalterinin MANUAL Konumunda Unutulması',
+      description: 'Larnaka yer bakım teknisyeni kaçak testinden sonra tavan panelindeki basınç şalterini AUTO konumuna geri almadı.',
+      mediaAssetOrSceneType: 'mel_log',
+      audioVoiceOver: '[YER BAKIM]: "Basınç testi tamamlandı. Şalter MANUAL\'de unutuldu."',
+      swissCheeseHoleTitle: 'Gizli Bakım İhmali (Latent Failure)',
+    ),
+    const CinematicReconstructionScene(
+      sequenceOrder: 2,
+      timeUtc: '09:12 UTC',
+      timeOffsetLabel: 'T+120s',
+      primaryOperatorRole: InvestigatorRole.telemetryFdr,
+      stageTitle: 'AŞAMA 2: BASINÇ ALARMI & GÖSTERGE YANILSAMASI',
+      headline: 'Kabin İrtifası 10.000 ft\'i Aşınca Çalan Master Caution',
+      description: 'Pilotlar kalkış konfigürasyon düdüğü sandıkları kabin basınç alarmını teşhis edemedi.',
+      mediaAssetOrSceneType: 'pfd_stall',
+      audioVoiceOver: '[FDR TELEMETRİ]: "Kabin irtifası alarmı çalıyor: BEEP-BEEP-BEEP!"',
+      swissCheeseHoleTitle: 'Gösterge İllüzyonu & Alarm Yanılgısı',
+    ),
+    const CinematicReconstructionScene(
+      sequenceOrder: 3,
+      timeUtc: '09:30 UTC',
+      timeOffsetLabel: 'T+1800s',
+      primaryOperatorRole: InvestigatorRole.humanFactorsPsych,
+      stageTitle: 'AŞAMA 3: SİNSİ HİPOKSİ & BİLİNÇ KAYBI',
+      headline: 'Oksijensiz Kalan Tüm Mürettebat ve Yolcuların Bayılması',
+      description: 'FL340 seyir irtifasında 15 saniyede faydalı bilinç süresi doldu; tüm uçak hipoksiye girdi.',
+      mediaAssetOrSceneType: 'pfd_stall',
+      audioVoiceOver: '[ADLİ PSİKOLOJİ]: "Sinsi hipoksi oksijen eksikliğini fark ettirmeden bilinci kapattı."',
+      swissCheeseHoleTitle: 'İnsan Faktörü & Hipoksiye Bağlı Bayılma',
+    ),
+    const CinematicReconstructionScene(
+      sequenceOrder: 4,
+      timeUtc: '11:24 UTC',
+      timeOffsetLabel: 'T+7000s',
+      primaryOperatorRole: InvestigatorRole.avionicsFlir,
+      stageTitle: 'AŞAMA 4: F-16 JET ÖNLEMESİ & KAHRAMANCA MÜCADELE',
+      headline: 'Kabin Memuru Andreas\'ın Kokpitteki Son Çabası',
+      description: 'Taşınabilir oksijenle kokpite giren kabin memuru uçağı kurtarmaya çalıştı ancak yakıt tükendi.',
+      mediaAssetOrSceneType: 'flir_ice',
+      audioVoiceOver: '[F-16 KASK KAMERA]: "Pilotlar baygın, kokpitte bir kabin memuru el sallıyor!"',
+      swissCheeseHoleTitle: 'Otopilot Eşliğinde Yakıt Tükenişi',
+    ),
+    const CinematicReconstructionScene(
+      sequenceOrder: 5,
+      timeUtc: '11:41 UTC',
+      timeOffsetLabel: 'T+7350s',
+      primaryOperatorRole: InvestigatorRole.humanFactorsPsych,
+      stageTitle: 'AŞAMA 5: GRAMMATIKO DAĞLIK ALAN DARBESİ',
+      headline: 'Çift Motor Durması Sonucu Dağa Çarpış',
+      description: 'Yakıtı tamamen biten uçak spiral dalışla dağa çarptı. 121 can kaybı.',
+      mediaAssetOrSceneType: 'impact_3d',
+      audioVoiceOver: '[NTSB / AAIASB KARARI]: "Kaza zinciri doğrulandı. Soruşturma tamamlandı."',
+      swissCheeseHoleTitle: 'Nihai Kaza Sonucu (Fatal Crash Event)',
+    ),
+  ];
+
+  static List<SuspectProfile> getSuspectsForCase(String caseId) {
+    if (caseId == 'CASE-002') {
+      return heliosSuspects;
+    }
+    return sampleSuspects;
+  }
+
+  static List<CinematicReconstructionScene> getReconstructionScenesForCase(String caseId) {
+    if (caseId == 'CASE-002') {
+      return heliosReconstructionScenes;
+    }
+    return sampleReconstructionScenes;
+  }
+
   static List<OperatorScoreDetail> getSampleOperatorScores(int totalScore) {
     return [
       const OperatorScoreDetail(

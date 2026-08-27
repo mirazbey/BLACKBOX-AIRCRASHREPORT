@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import '../../theme/app_theme.dart';
 import '../../models/evaluation_model.dart';
 import '../../providers/investigation_provider.dart';
-import 'result_reveal_screen.dart';
+import '../widgets/jury_voting_modal.dart';
 
 class ReportBuilderScreen extends StatefulWidget {
   const ReportBuilderScreen({super.key});
@@ -134,14 +134,23 @@ class _ReportBuilderScreenState extends State<ReportBuilderScreen> {
                   ),
                 ];
 
-                provider.submitInvestigationReport(findings);
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const ResultRevealScreen()),
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (_) => JuryVotingModal(
+                    submittedCauses: [
+                      selectedTriggerCause!,
+                      selectedHumanErrorCause!,
+                      selectedLatentCause!,
+                    ],
+                    onReportSealed: () {
+                      provider.submitInvestigationReport(findings);
+                    },
+                  ),
                 );
               },
-              icon: const Icon(Icons.send_and_archive, color: Colors.black),
-              label: const Text('RAPORU İMZALA VE NTSB\'YE GÖNDER'),
+              icon: const Icon(Icons.gavel, color: Colors.black),
+              label: const Text('RAPORU HEYETE SUN VE OYLAMAYI BAŞLAT'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppTheme.amber,
                 foregroundColor: Colors.black,
