@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../theme/app_theme.dart';
+import '../../models/auth_model.dart';
+import '../../services/auth_service.dart';
 
 class InspectorProfileScreen extends StatelessWidget {
   const InspectorProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final authService = context.watch<AuthService>();
+    final user = authService.currentUser;
+    final isApple = user?.providerType == AuthProviderType.apple;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('MÜFETTİŞ SİCİL DOSYASI & KARİYER'),
@@ -47,8 +54,12 @@ class InspectorProfileScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(color: AppTheme.amber),
                       ),
-                      child: const Center(
-                        child: Icon(Icons.shield, color: AppTheme.amber, size: 32),
+                      child: Center(
+                        child: Icon(
+                          isApple ? Icons.apple : Icons.shield,
+                          color: isApple ? Colors.white : AppTheme.amber,
+                          size: 32,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 14),
@@ -61,12 +72,17 @@ class InspectorProfileScreen extends StatelessWidget {
                               Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                                 decoration: BoxDecoration(
-                                  color: AppTheme.amberDim,
+                                  color: isApple ? Colors.white24 : AppTheme.amberDim,
                                   borderRadius: BorderRadius.circular(4),
                                 ),
-                                child: const Text(
-                                  'SICIL: #44102',
-                                  style: TextStyle(fontSize: 9, color: AppTheme.amber, fontWeight: FontWeight.bold, fontFamily: 'IBM Plex Mono'),
+                                child: Text(
+                                  isApple ? 'APPLE ID' : 'GOOGLE ID',
+                                  style: TextStyle(
+                                    fontSize: 9,
+                                    color: isApple ? Colors.white : AppTheme.amber,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'IBM Plex Mono',
+                                  ),
                                 ),
                               ),
                               const Spacer(),
@@ -77,14 +93,14 @@ class InspectorProfileScreen extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 6),
-                          const Text(
-                            'BAŞMÜFETTİŞ İBRAHİM',
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppTheme.textPrimary),
+                          Text(
+                            user?.displayName ?? 'BAŞMÜFETTİŞ',
+                            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppTheme.textPrimary),
                           ),
                           const SizedBox(height: 2),
-                          const Text(
-                            'Kıdemli Kaza İnceleme Heyeti Başkanı',
-                            style: TextStyle(fontSize: 11, color: AppTheme.textDim),
+                          Text(
+                            user?.email ?? 'investigator@bureau.gov',
+                            style: const TextStyle(fontSize: 11, color: AppTheme.textDim, fontFamily: 'IBM Plex Mono'),
                           ),
                         ],
                       ),
@@ -162,7 +178,28 @@ class InspectorProfileScreen extends StatelessWidget {
           _buildCaseHistoryItem(context, 'CASE-017: Atlantik Gecesi', 'Airbus A330 • %96 Doğruluk • +520 XP', 'TAM ÇÖZÜM', AppTheme.green),
           _buildCaseHistoryItem(context, 'CASE-002: Hayalet Uçak', 'Boeing 737 • %92 Doğruluk • +480 XP', 'TAM ÇÖZÜM', AppTheme.green),
           _buildCaseHistoryItem(context, 'CASE-001: Sisli Pist', 'Boeing 747 • Kilitli (Rütbe 20 Gerekli)', 'KİLİTLİ', AppTheme.red),
-          const SizedBox(height: 16),
+          const SizedBox(height: 24),
+
+          // Sign Out Action
+          SizedBox(
+            width: double.infinity,
+            height: 48,
+            child: OutlinedButton.icon(
+              onPressed: () async {
+                await authService.signOut();
+                if (context.mounted) {
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                }
+              },
+              icon: const Icon(Icons.logout, color: AppTheme.red, size: 18),
+              label: const Text('MÜFETTİŞ OTURUMUNU KAPAT (ÇIKIŞ YAP)'),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: AppTheme.red,
+                side: const BorderSide(color: AppTheme.red),
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
         ],
       ),
     );
