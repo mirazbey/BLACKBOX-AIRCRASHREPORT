@@ -104,13 +104,14 @@ class HomeScreen extends StatelessWidget {
                     MaterialPageRoute(builder: (_) => const CaseDossierLibraryScreen()),
                   );
                 },
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(10),
                 child: Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: AppTheme.surfaceAlt,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: AppTheme.surfaceBorder),
+                  padding: const EdgeInsets.all(18),
+                  decoration: AppTheme.glassBox(
+                    borderColor: AppTheme.amber,
+                    borderWidth: 1.5,
+                    backgroundColor: const Color(0xFF141922),
+                    borderRadius: 10,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,7 +144,7 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(height: 10),
                       Text(
                         'CASE #017 — ATLANTİK GECESİ',
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 17),
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 17, color: AppTheme.amber),
                       ),
                       const SizedBox(height: 4),
                       Text(
