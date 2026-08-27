@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soruşturma Motoru — Mimari Rapor v3</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg:#0A0D12;
+  --bg-panel:#12161D;
+  --bg-panel-alt:#161B23;
+  --line:#262E38;
+  --line-soft:#1B222B;
+  --text:#E7ECF2;
+  --text-dim:#93A0B0;
+  --text-faint:#57616D;
+  --amber:#FFB020;
+  --amber-dim:#7A5A1E;
+  --cyan:#46D9C9;
+  --cyan-dim:#1F4D48;
+  --red:#FF6161;
+  --red-dim:#5C2323;
+  --violet:#9B8CFF;
+  --violet-dim:#332C57;
+  --font-d:'Space Grotesk',sans-serif;
+  --font-b:'IBM Plex Sans',sans-serif;
+  --font-m:'IBM Plex Mono',monospace;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--font-b);}
+body{
+  background-image:
+    radial-gradient(circle at 15% 0%, rgba(255,176,32,0.05), transparent 40%),
+    radial-gradient(circle at 85% 20%, rgba(70,217,201,0.04), transparent 40%);
+}
+.wrap{max-width:900px;margin:0 auto;padding:0 28px 120px;}
+::selection{background:var(--amber);color:#0A0D12;}
+
+/* ---- typography ---- */
+h1,h2,h3{font-family:var(--font-d);font-weight:600;margin:0;color:var(--text);}
+.eyebrow{
+  font-family:var(--font-m);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--amber);display:flex;align-items:center;gap:10px;margin-bottom:14px;
+}
+.eyebrow::before{content:'';width:22px;height:1px;background:var(--amber);display:inline-block;}
+p{line-height:1.7;color:var(--text-dim);font-size:15.5px;margin:0 0 14px;}
+strong{color:var(--text);font-weight:600;}
+.section{padding:64px 0;border-top:1px solid var(--line-soft);}
+.section:first-of-type{border-top:none;}
+.lede{font-size:18px;color:var(--text);line-height:1.65;}
+a{color:var(--cyan);}
+code{font-family:var(--font-m);background:var(--bg-panel-alt);padding:1px 6px;border-radius:3px;font-size:.92em;color:var(--amber);}
+
+/* ---- cover ---- */
+.cover{
+  padding:80px 0 60px;position:relative;
+}
+.cover .tag-row{
+  display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px;
+}
+.tag{
+  font-family:var(--font-m);font-size:11px;letter-spacing:.06em;
+  border:1px solid var(--line);color:var(--text-faint);padding:4px 10px;border-radius:3px;
+}
+.cover h1{font-size:44px;line-height:1.08;letter-spacing:-.01em;max-width:680px;}
+.cover h1 span{color:var(--amber);}
+.cover .sub{font-size:17px;color:var(--text-dim);margin-top:18px;max-width:560px;}
+.stamp{
+  position:absolute;top:74px;right:0;
+  font-family:var(--font-m);font-size:12px;color:var(--cyan);
+  border:1.5px solid var(--cyan);border-radius:6px;padding:9px 14px;
+  transform:rotate(-6deg);letter-spacing:.1em;opacity:.9;
+}
+.meta-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line);margin-top:40px;border-radius:6px;overflow:hidden;
+}
+.meta-cell{background:var(--bg-panel);padding:16px 18px;}
+.meta-cell .k{font-family:var(--font-m);font-size:10.5px;color:var(--text-faint);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;}
+.meta-cell .v{font-family:var(--font-m);font-size:14px;color:var(--text);}
+
+/* ---- compare table ---- */
+.compare{width:100%;border-collapse:collapse;margin-top:8px;font-size:14px;}
+.compare th,.compare td{border:1px solid var(--line);padding:12px 14px;text-align:left;vertical-align:top;}
+.compare th{font-family:var(--font-m);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-faint);background:var(--bg-panel);font-weight:500;}
+.compare td{color:var(--text-dim);line-height:1.5;}
+.compare tr td:first-child{color:var(--text);font-weight:500;font-family:var(--font-m);font-size:13px;}
+.compare .v3{color:var(--amber);}
+
+/* ---- diagram frame ---- */
+.diagram-wrap{
+  background:var(--bg-panel);border:1px solid var(--line);border-radius:10px;
+  padding:22px 18px 18px;margin:26px 0 14px;
+}
+.diagram-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.diagram-scroll svg{display:block;height:auto;width:100%;}
+.diagram-cap{
+  font-family:var(--font-m);font-size:11.5px;color:var(--text-faint);
+  padding-top:12px;border-top:1px solid var(--line-soft);margin-top:14px;line-height:1.6;
+}
+.diagram-cap b{color:var(--text-dim);}
+
+/* ---- callout ---- */
+.callout{
+  border-left:2px solid var(--amber);background:var(--bg-panel);padding:16px 20px;border-radius:0 8px 8px 0;margin:20px 0;
+}
+.callout p{margin:0;color:var(--text);font-size:14.5px;}
+.callout.violet{border-color:var(--violet);}
+.callout.cyan{border-color:var(--cyan);}
+
+/* ---- legend ---- */
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin:10px 0 0;font-family:var(--font-m);font-size:11.5px;color:var(--text-faint);}
+.legend span{display:inline-flex;align-items:center;gap:6px;}
+.legend i{width:9px;height:9px;border-radius:2px;display:inline-block;}
+
+/* ---- file tree ---- */
+.tree{
+  background:var(--bg-panel-alt);border:1px solid var(--line);border-radius:8px;
+  padding:20px 24px;font-family:var(--font-m);font-size:13px;line-height:1.85;overflow-x:auto;
+}
+.tree .fold{color:var(--amber);}
+.tree .file{color:var(--text-dim);}
+.tree .cm{color:var(--text-faint);}
+.tree .new{color:var(--cyan);}
+
+/* ---- section number pill ---- */
+.snum{font-family:var(--font-m);font-size:12px;color:var(--text-faint);}
+
+/* ---- roadmap steps ---- */
+.steps{counter-reset:step;list-style:none;padding:0;margin:20px 0 0;}
+.steps li{
+  counter-increment:step;position:relative;padding:16px 0 16px 46px;border-top:1px solid var(--line-soft);
+}
+.steps li:first-child{border-top:none;}
+.steps li::before{
+  content:counter(step,decimal-leading-zero);position:absolute;left:0;top:16px;
+  font-family:var(--font-m);font-size:12px;color:var(--amber);border:1px solid var(--amber-dim);
+  width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+}
+.steps li b{display:block;color:var(--text);font-size:15px;margin-bottom:4px;font-weight:600;}
+.steps li p{margin:0;font-size:14px;}
+
+footer{padding:50px 0 10px;color:var(--text-faint);font-family:var(--font-m);font-size:11.5px;border-top:1px solid var(--line-soft);margin-top:20px;}
+
+@media(max-width:640px){
+  .cover h1{font-size:32px;}
+  .stamp{position:static;display:inline-block;margin-top:20px;transform:rotate(-3deg);}
+  .meta-grid{grid-template-columns:1fr;}
+  .section{padding:44px 0;}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ GLOBAL SVG DEFS (paylaşılan ok uçları) ============ -->
+<svg width="0" height="0" style="position:absolute">
+<defs>
+  <marker id="aAmber" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#FFB020"/></marker>
+  <marker id="aCyan" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#46D9C9"/></marker>
+  <marker id="aViolet" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9B8CFF"/></marker>
+  <marker id="aRed" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#FF6161"/></marker>
+  <marker id="aDim" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#57616D"/></marker>
+</defs>
+</svg>
+
+<div class="wrap">
+
+  <!-- ============ KAPAK ============ -->
+  <section class="cover">
+    <div class="tag-row">
+      <span class="tag">CASE-ARCH-V3</span>
+      <span class="tag">EVIDENCE GRAPH × CAUSAL GRAPH × EVENT AXIS</span>
+      <span class="tag">DURUM: NİHAİ SENTEZ</span>
+    </div>
+    <h1>Soruşturma Motoru<br><span>Uçak Kazası Dedektiflik App'i</span></h1>
+    <p class="sub">v1 — v2 tartışmasının tamamen yeniden yazılmış hâli. Bu kez merkezde güvenlik değil, <strong style="color:var(--text)">oyuncunun dağınık ipuçlarından gerçek bir teori kurabilmesi</strong> var.</p>
+    <div class="stamp">✓ SENTEZ ONAYLANDI</div>
+    <div class="meta-grid">
+      <div class="meta-cell"><div class="k">Belge</div><div class="v">Mimari Rapor v3</div></div>
+      <div class="meta-cell"><div class="k">Kapsam</div><div class="v">Veri Modeli + Oynanış</div></div>
+      <div class="meta-cell"><div class="k">Önceki Sürümler</div><div class="v">v1 (taslak) → v2 (güvenlik-ağırlıklı)</div></div>
+    </div>
+  </section>
+
+  <!-- ============ 01 YÖNETİCİ ÖZETİ ============ -->
+  <section class="section">
+    <div class="eyebrow">Bölüm 01 — Yönetici Özeti</div>
+    <p class="lede">v1, oyuna hiç değinmeyen bir JSON şemasıydı. v2, onu düzeltirken <strong>güvenli multiplayer mimarisine</strong> dönüştü — %60 altyapı, %40 oyun. v3, ikisinin de düştüğü tuzaktan kaçınıyor: önce <strong>"oyuncu gerçekten doğru sonuca ulaşabiliyor mu?"</strong> sorusuna cevap veren bir iskelet kuruyor, güvenlik ve rol sistemini bu iskeletin üstüne <em>parametre</em> olarak oturtuyor — temel varsayım olarak değil.</p>
+    <table class="compare">
+      <tr><th>Konu</th><th>v1 — İlk Taslak</th><th>v2 — Güvenlik-Ağırlıklı</th><th>v3 — Bu Rapor</th></tr>
+      <tr><td>Ana soru</td><td>Vaka verisi nasıl paketlenir?</td><td>Veri rollere göre nasıl gizlenir?</td><td class="v3">Oyuncu delillerden gerçekten doğru teoriye ulaşabiliyor mu?</td></tr>
+      <tr><td>Erişim modeli</td><td>Tek paket, yorum satırıyla "gizli"</td><td>Zorunlu sunucu filtresi, her modda</td><td class="v3">Solo / Co-op / Competitive — <em>parametre</em>, mimarinin temeli değil</td></tr>
+      <tr><td>Neden temsili</td><td>Yok</td><td>Doğrusal zincir (causal_chain)</td><td class="v3">Dallanan graf (causal_graph) — çoklu-ebeveyn düğümler</td></tr>
+      <tr><td>Kanıt ilişkileri</td><td>Yok</td><td>Tek yönlü referans</td><td class="v3">Birinci sınıf ilişki: supports / contradicts / refutes</td></tr>
+      <tr><td>Puanlama</td><td>Yok</td><td>Süreç boyunca ceza-ağırlıklı</td><td class="v3">Deneme serbest, yalnız final rapor hesap verir</td></tr>
+      <tr><td>Eksik mekanik</td><td>—</td><td>Çelişki tespiti, dallanan keşif</td><td class="v3">İkisi de eklendi — bkz. Bölüm 05 ve 08</td></tr>
+    </table>
+  </section>
+
+  <!-- ============ 02 TEMEL FELSEFE ============ -->
+  <section class="section">
+    <div class="eyebrow">Bölüm 02 — Temel Felsefe</div>
+    <h2 style="font-size:26px;margin-bottom:16px;">Yanlış soru, doğru soru</h2>
+    <p>v2'nin sorduğu soru: <em>"Oyuncunun verisini nasıl gizlerim?"</em> Teknik olarak sağlam bir soru ama ürünün mucizesi bu değil. Doğru soru şu:</p>
+    <div class="callout">
+      <p>"Bir uçak kazası soruşturmasını veri olarak nasıl temsil ederim ki oyuncu bu veriden <strong>kendi hipotezini</strong> kurabilsin, motor da bu hipotezin doğruluğunu <strong>objektif</strong> değerlendirebilsin?"</p>
+    </div>
+    <p>Bu sorunun cevabı dört bileşenden oluşuyor ve bunlar ürünün kalbi: <strong>Evidence Graph</strong> (deliller ve aralarındaki ilişkiler), <strong>Contradiction Graph</strong> (ifade ↔ veri çelişkileri), <strong>Event Axis</strong> (ortak zaman ekseni), <strong>Causal Graph</strong> (yazarın tanımladığı gerçek — ground truth). Erişim kontrolü, şifreleme, sunucu mimarisi bunların hepsinin <em>altyapısı</em>; kalbi değil.</p>
+  </section>
+
+  <!-- ============ 03 ÇEKİRDEK MİMARİ (HERO) ============ -->
+  <section class="section">
+    <div class="eyebrow">Bölüm 03 — Çekirdek Mimari</div>
+    <h2 style="font-size:26px;margin-bottom:8px;">Soruşturma Motoru — tam akış</h2>
+    <p>Ham kayıttan nihai puana kadar tüm veri akışı. Dikkat edilmesi gereken nokta: <strong>Causal Graph oyuncunun inşa ettiği bir şey değil</strong> — yazarın önceden tanımladığı, oyuncuya kapalı bir "gerçek". Oyuncu sadece <em>Hypotheses → Findings</em> hattını inşa eder; bu iki hat yalnızca Evaluation aşamasında karşılaştırılır.</p>
+
+    <div class="diagram-wrap">
+      <div class="diagram-scroll">
+      <svg viewBox="0 0 1080 800" xmlns="http://www.w3.org/2000/svg" style="min-width:760px">
+        <!-- left access bracket -->
+        <path d="M50,25 L20,25 L20,755 L50,755" fill="none" stroke="#3A4552" stroke-width="1.2"/>
+        <text x="34" y="390" font-family="IBM Plex Mono" font-size="12" fill="#7A8493" text-anchor="middle" transform="rotate(-90 34 390)" letter-spacing="1.5">ERİŞİM MODELİ — SOLO · CO-OP · COMPETITIVE (BÖLÜM 04)</text>
+
+        <!-- Row A: inputs -->
+        <g font-family="IBM Plex Mono">
+          <rect x="110" y="30" width="226" height="70" rx="7" fill="#161B23" stroke="#46D9C9" stroke-width="1.4"/>
+          <text x="223" y="55" text-anchor="middle" font-size="13" font-weight="600" fill="#46D9C9">SOURCES</text>
+          <text x="223" y="75" text-anchor="middle" font-size="10" fill="#93A0B0" font-family="IBM Plex Sans">FDR · CVR · ATC · METAR</text>
+          <text x="223" y="89" text-anchor="middle" font-size="10" fill="#93A0B0" font-family="IBM Plex Sans">Bakım Kayıtları</text>
+
+          <rect x="356" y="30" width="226" height="70" rx="7" fill="#161B23" stroke="#46D9C9" stroke-width="1.4"/>
+          <text x="469" y="55" text-anchor="middle" font-size="13" font-weight="600" fill="#46D9C9">EVENT AXIS</text>
+          <text x="469" y="75" text-anchor="middle" font-size="10" fill="#93A0B0" font-family="IBM Plex Sans">case_time_s — ortak</text>
+          <text x="469" y="89" text-anchor="middle" font-size="10" fill="#93A0B0" font-family="IBM Plex Sans">zaman ekseni</text>
+
+          <rect x="602" y="30" width="226" height="70" rx="7" fill="#161B23" stroke="#46D9C9" stroke-width="1.4"/>
+          <text x="715" y="55" text-anchor="middle" font-size="13" font-weight="600" fill="#46D9C9">ENTITIES</text>
+          <text x="715" y="75" text-anchor="middle" font-size="10" fill="#93A0B0" font-family="IBM Plex Sans">Uçak · Mürettebat</text>
+          <text x="715" y="89" text-anchor="middle" font-size="10" fill="#93A0B0" font-family="IBM Plex Sans">Hava Durumu</text>
+        </g>
+
+        <!-- connectors A->B -->
+        <path d="M223,100 L470,150" fill="none" stroke="#3A4552" stroke-width="1.3" marker-end="url(#aDim)"/>
+        <path d="M469,100 L470,150" fill="none" stroke="#3A4552" stroke-width="1.3" marker-end="url(#aDim)"/>
+        <path d="M715,100 L470,150" fill="none" stroke="#3A4552" stroke-width="1.3" marker-end="url(#aDim)"/>
+
+        <!-- Row B: Observations -->
+        <rect x="240" y="150" width="460" height="60" rx="7" fill="#161B23" stroke="#46D9C9" stroke-width="1.4"/>
+        <text x="470" y="175" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" font-weight="600" fill="#46D9C9">OBSERVATIONS</text>
+        <text x="470" y="194" text-anchor="middle" font-family="IBM Plex Sans" font-size="10.5" fill="#93A0B0">Ham kayıttan çıkarılan gözlem birimleri</text>
+
+        <path d="M470,210 L470,250" fill="none" stroke="#3A4552" stroke-width="1.3" marker-end="url(#aDim)"/>
+
+        <!-- Row C: Evidence -->
+        <rect x="290" y="250" width="360" height="60" rx="7" fill="#1E1608" stroke="#FFB020" stroke-width="1.6"/>
+        <text x="470" y="275" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" font-weight="600" fill="#FFB020">EVIDENCE</text>
+        <text x="470" y="294" text-anchor="middle" font-family="IBM Plex Sans" font-size="10.5" fill="#C9A968">Gözlemden türetilen, ID'li kanıt birimi</text>
+
+        <path d="M470,310 L290,350" fill="none" stroke="#7A5A1E" stroke-width="1.3" marker-end="url(#aAmber)"/>
+        <path d="M470,310 L680,350" fill="none" stroke="#5C2323" stroke-width="1.3" marker-end="url(#aRed)"/>
+
+        <!-- Row D: Evidence Graph / Contradiction Graph -->
+        <rect x="110" y="350" width="350" height="70" rx="7" fill="#1E1608" stroke="#FFB020" stroke-width="1.4"/>
+        <text x="285" y="378" text-anchor="middle" font-family="IBM Plex Mono" font-size="12.5" font-weight="600" fill="#FFB020">EVIDENCE GRAPH</text>
+        <text x="285" y="397" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#C9A968">supports / refutes ilişkileri</text>
+
+        <rect x="480" y="350" width="350" height="70" rx="7" fill="#210E0E" stroke="#FF6161" stroke-width="1.4"/>
+        <text x="655" y="378" text-anchor="middle" font-family="IBM Plex Mono" font-size="12.5" font-weight="600" fill="#FF6161">CONTRADICTION GRAPH</text>
+        <text x="655" y="397" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#CC8686">ifade ↔ veri çelişkileri</text>
+
+        <path d="M285,420 L470,460" fill="none" stroke="#7A5A1E" stroke-width="1.3" marker-end="url(#aViolet)"/>
+        <path d="M655,420 L470,460" fill="none" stroke="#5C2323" stroke-width="1.3" marker-end="url(#aViolet)"/>
+
+        <!-- Row E: Hypotheses -->
+        <rect x="290" y="460" width="360" height="60" rx="7" fill="#181430" stroke="#9B8CFF" stroke-width="1.6"/>
+        <text x="470" y="485" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" font-weight="600" fill="#9B8CFF">HYPOTHESES</text>
+        <text x="470" y="504" text-anchor="middle" font-family="IBM Plex Sans" font-size="10.5" fill="#B3A8E8">Oyuncunun kurduğu neden teorileri</text>
+
+        <path d="M470,520 L470,560" fill="none" stroke="#453A73" stroke-width="1.3" marker-end="url(#aViolet)"/>
+
+        <!-- Row F: Findings -->
+        <rect x="290" y="560" width="360" height="60" rx="7" fill="#181430" stroke="#9B8CFF" stroke-width="1.6"/>
+        <text x="470" y="585" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" font-weight="600" fill="#9B8CFF">FINDINGS</text>
+        <text x="470" y="604" text-anchor="middle" font-family="IBM Plex Sans" font-size="10.5" fill="#B3A8E8">Oyuncunun gönderdiği NTSB raporu</text>
+
+        <path d="M470,620 L470,660" fill="none" stroke="#7A5A1E" stroke-width="1.4" marker-end="url(#aAmber)"/>
+
+        <!-- Row G: Evaluation -->
+        <rect x="290" y="660" width="360" height="70" rx="7" fill="#1E1608" stroke="#FFB020" stroke-width="2"/>
+        <text x="470" y="690" text-anchor="middle" font-family="IBM Plex Mono" font-size="13.5" font-weight="700" fill="#FFB020">EVALUATION</text>
+        <text x="470" y="710" text-anchor="middle" font-family="IBM Plex Sans" font-size="10.5" fill="#C9A968">Rapor × gerçek zincir karşılaştırması</text>
+
+        <!-- ground truth column (dashed, separate track) -->
+        <rect x="890" y="250" width="160" height="370" rx="8" fill="#181430" stroke="#9B8CFF" stroke-width="1.3" stroke-dasharray="5,4"/>
+        <text x="970" y="300" text-anchor="middle" font-family="IBM Plex Mono" font-size="11.5" font-weight="600" fill="#9B8CFF">GERÇEK NEDEN</text>
+        <text x="970" y="316" text-anchor="middle" font-family="IBM Plex Mono" font-size="11.5" font-weight="600" fill="#9B8CFF">ZİNCİRİ</text>
+        <text x="970" y="336" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#7A6FBF">(ground truth)</text>
+        <line x1="915" y1="352" x2="1025" y2="352" stroke="#332C57"/>
+        <text x="970" y="374" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#B3A8E8">Yazar tarafından</text>
+        <text x="970" y="390" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#B3A8E8">önceden tanımlanır</text>
+        <text x="970" y="414" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#B3A8E8">Oyuncuya kapalıdır —</text>
+        <text x="970" y="430" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#B3A8E8">hiçbir ekranda gösterilmez</text>
+        <text x="970" y="454" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#B3A8E8">Sadece Evaluation'da</text>
+        <text x="970" y="470" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#B3A8E8">karşılaştırılır</text>
+
+        <path d="M960,620 C 960,660 780,680 654,690" fill="none" stroke="#9B8CFF" stroke-width="1.3" stroke-dasharray="4,4" marker-end="url(#aViolet)"/>
+      </svg>
+      </div>
+      <div class="diagram-cap"><b>Okuma notu —</b> Sol taraftaki dikey ana hat (SOURCES → OBSERVATIONS → EVIDENCE → HYPOTHESES → FINDINGS) tamamen oyuncunun keşif yolu. Sağdaki kesikli mor kutu ise yazarın önceden yazdığı gerçek — ikisi yalnızca en altta, Evaluation'da kesişir.</div>
+    </div>
+  </section>
+
+  <!-- ============ 04 ERİŞİM MODELİ ============ -->
+  <section class="section">
+    <div class="eyebrow">Bölüm 04 — Erişim Modeli</div>
+    <h2 style="font-size:26px;margin-bottom:8px;">Rol sistemi bir oyun modu, mimarinin temeli değil</h2>
+    <p>v2'nin hatası: "sunucu asla tam veriyi göndermez" kuralını her modda mutlak varsaydı. Ama Solo modda kimden gizleniyor? <code>Case → Evidence → Access Policy</code> üçlüsü sabit, değişen sadece Access Policy parametresi:</p>
+
+    <div class="diagram-wrap">
+      <div class="diagram-scroll">
+      <svg viewBox="0 0 1000 360" xmlns="http://www.w3.org/2000/svg" style="min-width:640px">
+        <!-- SOLO -->
+        <g>
+          <rect x="20" y="10" width="290" height="330" rx="9" fill="#161B23" stroke="#FFB020" stroke-width="1.3"/>
+          <text x="165" y="42" text-anchor="middle" font-family="IBM Plex Mono" font-size="14" font-weight="700" fill="#FFB020">SOLO</text>
+          <text x="165" y="64" text-anchor="middle" font-family="IBM Plex Sans" font-size="10.5" fill="#93A0B0">Tek oyuncu, tüm delillere erişir.</text>
+          <text x="165" y="79" text-anchor="middle" font-family="IBM Plex Sans" font-size="10.5" fill="#93A0B0">Broker filtresi devre dışı.</text>
+        </g>
+        <!-- CO-OP -->
+        <g>
+          <rect x="355" y="10" width="290" height="330" rx="9" fill="#161B23" stroke="#46D9C9" stroke-width="1.3"/>
+          <text x="500" y="42" text-anchor="middle" font-family="IBM Plex Mono" font-size="14" font-weight="700" fill="#46D9C9">CO-OP</text>
+          <text x="500" y="64" text-anchor="middle" font-family="IBM Plex Sans" font-size="10.5" fill="#93A0B0">2–4 oyuncu, role göre bölünmüş</text>
+          <text x="500" y="79" text-anchor="middle" font-family="IBM Plex Sans" font-size="10.5" fill="#93A0B0">delil kümeleri. Paylaşımla birleşir.</text>
+        </g>
+        <!-- COMPETITIVE -->
+        <g>
+          <rect x="690" y="10" width="290" height="330" rx="9" fill="#161B23" stroke="#9B8CFF" stroke-width="1.3"/>
+          <text x="835" y="42" text-anchor="middle" font-family="IBM Plex Mono" font-size="14" font-weight="700" fill="#9B8CFF">COMPETITIVE</text>
+          <text x="835" y="64" text-anchor="middle" font-family="IBM Plex Sans" font-size="10.5" fill="#93A0B0">Herkes yarışır. Sunucu-otoriter,</text>
+          <text x="835" y="79" text-anchor="middle" font-family="IBM Plex Sans" font-size="10.5" fill="#93A0B0">delil kilitli, kademeli açılır.</text>
+        </g>
+
+        <!-- SOLO: all amber filled -->
+        <g fill="#FFB020">
+          <circle cx="85" cy="140" r="6"/><circle cx="115" cy="140" r="6"/><circle cx="145" cy="140" r="6"/><circle cx="175" cy="140" r="6"/><circle cx="205" cy="140" r="6"/><circle cx="235" cy="140" r="6"/>
+          <circle cx="85" cy="170" r="6"/><circle cx="115" cy="170" r="6"/><circle cx="145" cy="170" r="6"/><circle cx="175" cy="170" r="6"/><circle cx="205" cy="170" r="6"/><circle cx="235" cy="170" r="6"/>
+        </g>
+        <text x="165" y="205" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#7A6435">12/12 GÖRÜNÜR</text>
+        <text x="165" y="300" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#5C6A78">Broker: pasif</text>
+        <text x="165" y="316" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#5C6A78">İmza: bütünlük amaçlı</text>
+
+        <!-- COOP: 4 colored groups of 3 -->
+        <g>
+          <circle cx="420" cy="140" r="6" fill="#FFB020"/><circle cx="450" cy="140" r="6" fill="#FFB020"/><circle cx="480" cy="140" r="6" fill="#FFB020"/>
+          <circle cx="420" cy="170" r="6" fill="#46D9C9"/><circle cx="450" cy="170" r="6" fill="#46D9C9"/><circle cx="480" cy="170" r="6" fill="#46D9C9"/>
+          <circle cx="520" cy="140" r="6" fill="#9B8CFF"/><circle cx="550" cy="140" r="6" fill="#9B8CFF"/><circle cx="580" cy="140" r="6" fill="#9B8CFF"/>
+          <circle cx="520" cy="170" r="6" fill="#FF6161"/><circle cx="550" cy="170" r="6" fill="#FF6161"/><circle cx="580" cy="170" r="6" fill="#FF6161"/>
+        </g>
+        <text x="500" y="205" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#7A8493">R1 · R2 · R3 · R4 — 3+3+3+3</text>
+        <text x="500" y="300" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#5C6A78">Broker: role-scoped</text>
+        <text x="500" y="316" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#5C6A78">Paylaşım: sesli + "share" aksiyonu</text>
+
+        <!-- COMPETITIVE: mostly locked -->
+        <g>
+          <circle cx="755" cy="140" r="6" fill="none" stroke="#3A4552" stroke-width="1.3"/><circle cx="785" cy="140" r="6" fill="#FFB020"/><circle cx="815" cy="140" r="6" fill="none" stroke="#3A4552" stroke-width="1.3"/><circle cx="845" cy="140" r="6" fill="none" stroke="#3A4552" stroke-width="1.3"/><circle cx="875" cy="140" r="6" fill="none" stroke="#3A4552" stroke-width="1.3"/><circle cx="905" cy="140" r="6" fill="none" stroke="#3A4552" stroke-width="1.3"/>
+          <circle cx="755" cy="170" r="6" fill="none" stroke="#3A4552" stroke-width="1.3"/><circle cx="785" cy="170" r="6" fill="#FFB020"/><circle cx="815" cy="170" r="6" fill="none" stroke="#3A4552" stroke-width="1.3"/><circle cx="845" cy="170" r="6" fill="none" stroke="#3A4552" stroke-width="1.3"/><circle cx="875" cy="170" r="6" fill="none" stroke="#3A4552" stroke-width="1.3"/><circle cx="905" cy="170" r="6" fill="none" stroke="#3A4552" stroke-width="1.3"/>
+        </g>
+        <text x="835" y="205" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#7A8493">2/12 açık — kademeli</text>
+        <text x="835" y="300" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#5C6A78">Broker: sunucu-otoriter</text>
+        <text x="835" y="316" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#5C6A78">Zorunlu — hile önleme kritik</text>
+      </svg>
+      </div>
+      <div class="diagram-cap"><b>Not —</b> imza/şifreleme bir <b>gizlilik garantisi</b> değil, <b>bütünlük + erişim kontrolü</b> katmanıdır. Offline bir istemciye inen hiçbir veri %100 gizli kalamaz; bunu "casual cheating engelleyici" olarak düşünmek gerekir.</div>
+    </div>
+  </section>
+
+  <!-- ============ 05 DELİL VE ÇELİŞKİ MODELİ ============ -->
+  <section class="section">
+    <div class="eyebrow">Bölüm 05 — Delil &amp; Çelişki Modeli</div>
+    <h2 style="font-size:26px;margin-bottom:8px;">Contradiction Engine — uygulamanın en oyunlaştırıcı mekaniği</h2>
+    <p>Delil tek başına bir veri değil; başka delillerle ilişkisi vardır. <code>SUPPORTS</code>, <code>REFUTES</code>, ve en önemlisi <code>CONTRADICTS</code> — pilotun ifadesiyle FDR'nin çelişmesi gibi. Oyuncu bu çelişkiyi <strong>kendisi fark etmeli</strong>; bu, uygulamayı statik bir PDF okuyucudan çıkarıp gerçek bir dedektiflik oyununa dönüştürür.</p>
+
+    <div class="diagram-wrap">
+      <div class="diagram-scroll">
+      <svg viewBox="0 0 1000 460" xmlns="http://www.w3.org/2000/svg" style="min-width:680px">
+        <rect x="0" y="0" width="1000" height="460" fill="#0F131A" rx="10"/>
+
+        <!-- red contradiction string -->
+        <path d="M150,80 C 85,170 215,180 150,260" fill="none" stroke="#FF6161" stroke-width="1.6" opacity="0.8"/>
+        <rect x="88" y="155" width="76" height="20" rx="10" fill="#210E0E" stroke="#FF6161" stroke-width="1"/>
+        <text x="126" y="169" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#FF6161">ÇELİŞKİ</text>
+
+        <!-- cyan support strings -->
+        <path d="M550,60 C 650,20 720,80 780,140" fill="none" stroke="#46D9C9" stroke-width="1.6" opacity="0.85"/>
+        <path d="M550,220 C 650,220 720,180 780,140" fill="none" stroke="#46D9C9" stroke-width="1.6" opacity="0.85"/>
+        <rect x="628" y="102" width="90" height="20" rx="10" fill="#0F2624" stroke="#46D9C9" stroke-width="1"/>
+        <text x="673" y="116" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#46D9C9">DESTEKLER</text>
+
+        <!-- Card 1 -->
+        <g transform="translate(150,120) rotate(-4)">
+          <rect x="-95" y="-42" width="190" height="84" rx="4" fill="#1A2029" stroke="#3A4552" stroke-width="1"/>
+          <circle cx="0" cy="-42" r="4" fill="#FF6161"/>
+          <text x="0" y="-16" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#7A8493">PİLOT İFADESİ</text>
+          <text x="0" y="4" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#DCE2E8">"Otopilot açıktı"</text>
+          <text x="0" y="22" text-anchor="middle" font-family="IBM Plex Sans" font-size="9.5" fill="#7A8493">— sözlü ifade, CVR 02:12</text>
+        </g>
+
+        <!-- Card 2 -->
+        <g transform="translate(150,300) rotate(3)">
+          <rect x="-95" y="-42" width="190" height="84" rx="4" fill="#1A2029" stroke="#3A4552" stroke-width="1"/>
+          <circle cx="0" cy="-42" r="4" fill="#FF6161"/>
+          <text x="0" y="-16" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#7A8493">FDR KAYDI</text>
+          <text x="0" y="4" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#DCE2E8">Autopilot disconnect</text>
+          <text x="0" y="22" text-anchor="middle" font-family="IBM Plex Sans" font-size="9.5" fill="#7A8493">— ifadeden 14 saniye önce</text>
+        </g>
+
+        <!-- Card 3 -->
+        <g transform="translate(550,90) rotate(2)">
+          <rect x="-95" y="-38" width="190" height="76" rx="4" fill="#1A2029" stroke="#3A4552" stroke-width="1"/>
+          <circle cx="0" cy="-38" r="4" fill="#46D9C9"/>
+          <text x="0" y="-12" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#7A8493">EVD_METAR_ICING</text>
+          <text x="0" y="8" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#DCE2E8">28.000–37.000 ft buzlanma</text>
+        </g>
+
+        <!-- Card 4 -->
+        <g transform="translate(550,250) rotate(-3)">
+          <rect x="-95" y="-38" width="190" height="76" rx="4" fill="#1A2029" stroke="#3A4552" stroke-width="1"/>
+          <circle cx="0" cy="-38" r="4" fill="#46D9C9"/>
+          <text x="0" y="-12" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#7A8493">EVD_MEL_HEATER</text>
+          <text x="0" y="8" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#DCE2E8">Isıtıcı arızası ertelendi</text>
+        </g>
+
+        <!-- Hypothesis card -->
+        <g transform="translate(830,170) rotate(-2)">
+          <rect x="-100" y="-46" width="200" height="92" rx="4" fill="#181430" stroke="#9B8CFF" stroke-width="1.4"/>
+          <circle cx="0" cy="-46" r="4" fill="#9B8CFF"/>
+          <text x="0" y="-18" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#B3A8E8">HİPOTEZ</text>
+          <text x="0" y="4" text-anchor="middle" font-family="IBM Plex Sans" font-size="11.5" font-weight="600" fill="#EDEAFB">Pitot Buzlanması</text>
+          <text x="0" y="24" text-anchor="middle" font-family="IBM Plex Sans" font-size="9.5" fill="#8F82C4">2 delille destekleniyor</text>
+        </g>
+      </svg>
+      </div>
+      <div class="diagram-cap"><b>Örnek çelişki —</b> pilot "otopilot açıktı" diyor, FDR ise otopilotun ifadeden 14 saniye önce devre dışı kaldığını gösteriyor. Bu bir <code>_note</code> alanında yazılı bir bilgi değil; <code>evidence.json</code> içinde birinci sınıf bir <code>relation</code> kaydı olarak modellenir, oyuncu ekranında iki kartı yan yana getirdiğinde otomatik işaretlenir.</div>
+    </div>
+
+    <div class="callout">
+      <p><b>evidence.json ilişki şeması:</b> <code>{"from":"EVD_PILOT_STATEMENT","to":"EVD_FDR_AP_DISCONNECT","type":"CONTRADICTS","strength":0.9}</code> — <code>type</code> alanı <code>SUPPORTS / CONTRADICTS / REFUTES</code> değerlerini alır, <code>strength</code> ise UI'da bağlantı çizgisinin kalınlığını belirler.</p>
+    </div>
+  </section>
+
+  <!-- ============ 06 EVENT AXIS ============ -->
+  <section class="section">
+    <div class="eyebrow">Bölüm 06 — Ortak Zaman Ekseni</div>
+    <h2 style="font-size:26px;margin-bottom:8px;">"Bunlar aynı 10 saniyede olmuş"</h2>
+    <p>FDR, CVR, ATC ve meteoroloji verisi kendi saatini tutmaz; hepsi tek bir <code>event_axis</code>'e bağlanır. İki alan birlikte tutulur: gerçek raporlarda önemli olan <code>timestamp_utc</code>, ve motorun ortak koordinatı olan <code>case_time_s</code>. Oyuncu zaman çubuğunu kaydırdığında dört kaynak da senkron ilerler — <strong>bu, oyunun altın noktasıdır.</strong></p>
+
+    <div class="diagram-wrap">
+      <div class="diagram-scroll">
+      <svg viewBox="0 0 1000 380" xmlns="http://www.w3.org/2000/svg" style="min-width:680px">
+        <!-- main axis -->
+        <line x1="90" y1="40" x2="960" y2="40" stroke="#3A4552" stroke-width="1.3"/>
+        <g font-family="IBM Plex Mono" font-size="10" fill="#7A8493">
+          <line x1="120" y1="35" x2="120" y2="345" stroke="#1E252E" stroke-width="1" stroke-dasharray="3,4"/>
+          <text x="120" y="26" text-anchor="middle">T+0 · 02:10:00</text>
+          <line x1="860" y1="35" x2="860" y2="345" stroke="#1E252E" stroke-width="1" stroke-dasharray="3,4"/>
+          <text x="860" y="26" text-anchor="middle">T+152 · 02:11:32</text>
+        </g>
+
+        <!-- highlighted sync guide -->
+        <line x1="450" y1="30" x2="450" y2="345" stroke="#FFB020" stroke-width="1.3" stroke-dasharray="5,4"/>
+        <rect x="380" y="8" width="140" height="20" rx="10" fill="#1E1608" stroke="#FFB020" stroke-width="1"/>
+        <text x="450" y="22" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#FFB020">02:10:06 — 4 KAYNAK BİRLİKTE</text>
+
+        <!-- track rows -->
+        <g font-family="IBM Plex Mono" font-size="11" fill="#93A0B0">
+          <text x="20" y="104">FDR</text>
+          <line x1="90" y1="100" x2="960" y2="100" stroke="#1E252E" stroke-width="1"/>
+          <text x="20" y="174">CVR</text>
+          <line x1="90" y1="170" x2="960" y2="170" stroke="#1E252E" stroke-width="1"/>
+          <text x="20" y="244">ATC</text>
+          <line x1="90" y1="240" x2="960" y2="240" stroke="#1E252E" stroke-width="1"/>
+          <text x="20" y="314">SİSTEM</text>
+          <line x1="90" y1="310" x2="960" y2="310" stroke="#1E252E" stroke-width="1"/>
+        </g>
+
+        <!-- markers -->
+        <circle cx="450" cy="100" r="6" fill="#FFB020"/>
+        <text x="465" y="93" font-family="IBM Plex Sans" font-size="9.5" fill="#C9A968">IAS 460→110</text>
+
+        <circle cx="470" cy="170" r="6" fill="#46D9C9"/>
+        <text x="485" y="163" font-family="IBM Plex Sans" font-size="9.5" fill="#8FCFC7">"STALL STALL"</text>
+        <circle cx="860" cy="170" r="6" fill="#46D9C9"/>
+        <text x="815" y="192" font-family="IBM Plex Sans" font-size="9.5" fill="#8FCFC7">Kaptan döner</text>
+
+        <circle cx="500" cy="240" r="6" fill="#9B8CFF"/>
+        <text x="515" y="233" font-family="IBM Plex Sans" font-size="9.5" fill="#B3A8E8">Dakar temas kaybı</text>
+
+        <circle cx="452" cy="310" r="6" fill="#FF6161"/>
+        <text x="467" y="303" font-family="IBM Plex Sans" font-size="9.5" fill="#E39E9E">AP disconnect</text>
+      </svg>
+      </div>
+      <div class="diagram-cap"><b>Şema —</b> <code>{"timestamp_utc":"02:10:06","case_time_s":66,"track":"FDR","linked_evidence_id":"EVD_FDR_SPD_DROP"}</code>. İstemci tarafında hizalama gerekmez; her track aynı <code>case_time_s</code> kursörünü dinler.</div>
+    </div>
+  </section>
+
+  <!-- ============ 07 CAUSAL GRAPH ============ -->
+  <section class="section">
+    <div class="eyebrow">Bölüm 07 — Nedensel Graf</div>
+    <h2 style="font-size:26px;margin-bottom:8px;">Zincir değil, graf</h2>
+    <p>Gerçek kazalar <code>A → B → C</code> şeklinde tek doğrusal zincir değildir; çoklu-ebeveyn düğümlerle birleşen bir <strong>DAG</strong>'dir (yönlü döngüsüz graf). Aşağıdaki örnekte tetikleyici düğümün 2 bağımsız kökü, sonuç düğümünün ise 3 farklı girdisi var — biri teknik zincirin dışından (kurumsal baskı) geliyor.</p>
+
+    <div class="diagram-wrap">
+      <div class="diagram-scroll">
+      <svg viewBox="0 0 1300 420" xmlns="http://www.w3.org/2000/svg" style="min-width:900px">
+        <!-- edges first -->
+        <path d="M220,58 C 260,58 260,110 300,118" fill="none" stroke="#3A4552" stroke-width="1.3" marker-end="url(#aAmber)"/>
+        <path d="M220,178 C 260,178 260,128 300,128" fill="none" stroke="#3A4552" stroke-width="1.3" marker-end="url(#aAmber)"/>
+        <path d="M480,118 C 520,80 520,48 560,48" fill="none" stroke="#7A5A1E" stroke-width="1.3" marker-end="url(#aAmber)"/>
+        <path d="M480,128 C 520,170 520,208 560,208" fill="none" stroke="#7A5A1E" stroke-width="1.3" marker-end="url(#aAmber)"/>
+        <path d="M740,48 C 790,60 790,110 820,120" fill="none" stroke="#5C4020" stroke-width="1.3" marker-end="url(#aRed)"/>
+        <path d="M740,208 C 790,200 790,150 820,138" fill="none" stroke="#5C4020" stroke-width="1.3" marker-end="url(#aRed)"/>
+        <path d="M220,298 C 400,380 650,380 880,165" fill="none" stroke="#453A20" stroke-width="1.3" stroke-dasharray="4,3" marker-end="url(#aRed)"/>
+        <path d="M1000,128 C 1040,128 1040,128 1080,128" fill="none" stroke="#7A2323" stroke-width="1.3" marker-end="url(#aRed)"/>
+
+        <!-- root nodes -->
+        <g font-family="IBM Plex Mono">
+          <rect x="40" y="30" width="180" height="56" rx="6" fill="#0F2624" stroke="#46D9C9" stroke-width="1.3"/>
+          <text x="130" y="52" text-anchor="middle" font-size="10.5" fill="#8FCFC7" font-weight="600">ÇEVRE</text>
+          <text x="130" y="70" text-anchor="middle" font-size="9.5" fill="#93A0B0" font-family="IBM Plex Sans">Aşırı Buzlanma Kuşağı</text>
+
+          <rect x="40" y="150" width="180" height="56" rx="6" fill="#181430" stroke="#9B8CFF" stroke-width="1.3"/>
+          <text x="130" y="172" text-anchor="middle" font-size="10.5" fill="#B3A8E8" font-weight="600">GİZLİ ARIZA</text>
+          <text x="130" y="190" text-anchor="middle" font-size="9.5" fill="#93A0B0" font-family="IBM Plex Sans">Ertelenen Isıtıcı</text>
+
+          <rect x="40" y="270" width="180" height="56" rx="6" fill="#181430" stroke="#9B8CFF" stroke-width="1.3" stroke-dasharray="3,3"/>
+          <text x="130" y="292" text-anchor="middle" font-size="10.5" fill="#B3A8E8" font-weight="600">KURUMSAL</text>
+          <text x="130" y="310" text-anchor="middle" font-size="9.5" fill="#93A0B0" font-family="IBM Plex Sans">Fırtına Baypas Baskısı</text>
+
+          <!-- trigger -->
+          <rect x="300" y="90" width="180" height="56" rx="6" fill="#1E1608" stroke="#FFB020" stroke-width="1.5"/>
+          <text x="390" y="112" text-anchor="middle" font-size="10.5" fill="#FFB020" font-weight="600">TETİKLEYİCİ</text>
+          <text x="390" y="130" text-anchor="middle" font-size="9.5" fill="#93A0B0" font-family="IBM Plex Sans">Pitot Eşzamanlı Donması</text>
+
+          <!-- system errors -->
+          <rect x="560" y="20" width="180" height="56" rx="6" fill="#1E1608" stroke="#FFB020" stroke-width="1.3"/>
+          <text x="650" y="42" text-anchor="middle" font-size="10.5" fill="#FFB020" font-weight="600">SİSTEM</text>
+          <text x="650" y="60" text-anchor="middle" font-size="9.5" fill="#93A0B0" font-family="IBM Plex Sans">Yanlış Sürat Göstergesi</text>
+
+          <rect x="560" y="180" width="180" height="56" rx="6" fill="#1E1608" stroke="#FFB020" stroke-width="1.3"/>
+          <text x="650" y="202" text-anchor="middle" font-size="10.5" fill="#FFB020" font-weight="600">SİSTEM</text>
+          <text x="650" y="220" text-anchor="middle" font-size="9.5" fill="#93A0B0" font-family="IBM Plex Sans">Otopilot Otomatik İptali</text>
+
+          <!-- human -->
+          <rect x="820" y="100" width="180" height="56" rx="6" fill="#2A0E0E" stroke="#FF6161" stroke-width="1.5"/>
+          <text x="910" y="122" text-anchor="middle" font-size="10.5" fill="#FF6161" font-weight="600">İNSAN HATASI</text>
+          <text x="910" y="140" text-anchor="middle" font-size="9.5" fill="#93A0B0" font-family="IBM Plex Sans">Lövyeyi Geriye Çekme</text>
+
+          <!-- outcome -->
+          <rect x="1080" y="100" width="180" height="56" rx="6" fill="#161B23" stroke="#E7ECF2" stroke-width="1.5"/>
+          <text x="1170" y="122" text-anchor="middle" font-size="10.5" fill="#E7ECF2" font-weight="600">SONUÇ</text>
+          <text x="1170" y="140" text-anchor="middle" font-size="9.5" fill="#93A0B0" font-family="IBM Plex Sans">Denize Çarpma</text>
+        </g>
+      </svg>
+      </div>
+      <div class="diagram-cap"><b>Çoklu-ebeveyn örneği —</b> "İnsan Hatası" düğümünün <b>3</b> girdisi var: iki sistem hatası (kesikli olmayan çizgiler) + kurumsal baskı (kesikli çizgi, dolaylı katkı). v2'deki tek-yönlü zincir bu tür birleşmeleri temsil edemiyordu.</div>
+    </div>
+  </section>
+
+  <!-- ============ 08 DALLANAN SORUŞTURMA ============ -->
+  <section class="section">
+    <div class="eyebrow">Bölüm 08 — Dallanan Soruşturma</div>
+    <h2 style="font-size:26px;margin-bottom:8px;">Unlock sistemi: 4 bağımsız giriş, tek AND kapısı</h2>
+    <p>En kritik kural: <strong>E1 → E2 → E3 gibi lineer bir gating asla kurulmaz</strong> — bu dedektiflik değil, interaktif hikâye olur. Oyuncuya baştan 4 bağımsız giriş noktası (FDR / CVR / Bakım / Meteoroloji) açılır; derin teoriler ancak birden fazla kaynaktan gelen kanıt birleştiğinde (AND kapısı) kilidini açar. Tek zayıf kanıta dayanan teoriler (aşağıda kırmızı) bilerek bırakılır — bu, yanlış hipotez kurma özgürlüğünün ürünü.</p>
+
+    <div class="diagram-wrap">
+      <div class="diagram-scroll">
+      <svg viewBox="0 0 1100 560" xmlns="http://www.w3.org/2000/svg" style="min-width:760px">
+        <!-- root -->
+        <rect x="465" y="15" width="200" height="50" rx="6" fill="#161B23" stroke="#E7ECF2" stroke-width="1.3"/>
+        <text x="565" y="45" text-anchor="middle" font-family="IBM Plex Mono" font-size="11.5" fill="#E7ECF2" font-weight="600">VAKA AÇILIŞI</text>
+
+        <!-- 4 entry points -->
+        <g font-family="IBM Plex Mono">
+          <rect x="60" y="140" width="200" height="56" rx="6" fill="#161B23" stroke="#46D9C9" stroke-width="1.3"/>
+          <text x="160" y="173" text-anchor="middle" font-size="11" fill="#46D9C9">FDR</text>
+          <rect x="330" y="140" width="200" height="56" rx="6" fill="#161B23" stroke="#46D9C9" stroke-width="1.3"/>
+          <text x="430" y="173" text-anchor="middle" font-size="11" fill="#46D9C9">CVR</text>
+          <rect x="600" y="140" width="200" height="56" rx="6" fill="#161B23" stroke="#46D9C9" stroke-width="1.3"/>
+          <text x="700" y="173" text-anchor="middle" font-size="11" fill="#46D9C9">BAKIM</text>
+          <rect x="870" y="140" width="200" height="56" rx="6" fill="#161B23" stroke="#46D9C9" stroke-width="1.3"/>
+          <text x="970" y="173" text-anchor="middle" font-size="11" fill="#46D9C9">METEOROLOJİ</text>
+        </g>
+        <path d="M500,65 L160,140" fill="none" stroke="#3A4552" stroke-width="1.2" marker-end="url(#aDim)"/>
+        <path d="M545,65 L430,140" fill="none" stroke="#3A4552" stroke-width="1.2" marker-end="url(#aDim)"/>
+        <path d="M585,65 L700,140" fill="none" stroke="#3A4552" stroke-width="1.2" marker-end="url(#aDim)"/>
+        <path d="M630,65 L970,140" fill="none" stroke="#3A4552" stroke-width="1.2" marker-end="url(#aDim)"/>
+        <text x="565" y="105" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#57616D">4 giriş noktası — kilitsiz, eş zamanlı erişim</text>
+
+        <!-- layer 2 discoveries -->
+        <g font-family="IBM Plex Mono">
+          <rect x="60" y="280" width="200" height="56" rx="6" fill="#1E1608" stroke="#FFB020" stroke-width="1.2"/>
+          <text x="160" y="313" text-anchor="middle" font-size="10.5" fill="#FFB020">Sürat Anomalisi</text>
+          <rect x="330" y="280" width="200" height="56" rx="6" fill="#1E1608" stroke="#FFB020" stroke-width="1.2"/>
+          <text x="430" y="313" text-anchor="middle" font-size="10.5" fill="#FFB020">Stall Alarmı</text>
+          <rect x="600" y="280" width="200" height="56" rx="6" fill="#1E1608" stroke="#FFB020" stroke-width="1.2"/>
+          <text x="700" y="313" text-anchor="middle" font-size="10.5" fill="#FFB020">Ertelenen Bakım</text>
+          <rect x="870" y="280" width="200" height="56" rx="6" fill="#1E1608" stroke="#FFB020" stroke-width="1.2"/>
+          <text x="970" y="313" text-anchor="middle" font-size="10.5" fill="#FFB020">Buzlanma Katmanı</text>
+        </g>
+        <path d="M160,196 L160,280" fill="none" stroke="#3A4552" stroke-width="1.2" marker-end="url(#aDim)"/>
+        <path d="M430,196 L430,280" fill="none" stroke="#3A4552" stroke-width="1.2" marker-end="url(#aDim)"/>
+        <path d="M700,196 L700,280" fill="none" stroke="#3A4552" stroke-width="1.2" marker-end="url(#aDim)"/>
+        <path d="M970,196 L970,280" fill="none" stroke="#3A4552" stroke-width="1.2" marker-end="url(#aDim)"/>
+
+        <!-- theory nodes -->
+        <path d="M160,336 C 250,400 350,420 400,440" fill="none" stroke="#453A73" stroke-width="1.3" marker-end="url(#aViolet)"/>
+        <path d="M700,336 C 600,400 480,420 440,440" fill="none" stroke="#453A73" stroke-width="1.3" marker-end="url(#aViolet)"/>
+        <path d="M970,336 C 850,400 520,430 480,440" fill="none" stroke="#453A73" stroke-width="1.3" marker-end="url(#aViolet)"/>
+
+        <rect x="330" y="440" width="220" height="64" rx="6" fill="#181430" stroke="#9B8CFF" stroke-width="1.6"/>
+        <text x="440" y="466" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#9B8CFF" font-weight="600">TEORİ: Pitot Buzlanması</text>
+        <text x="440" y="484" text-anchor="middle" font-family="IBM Plex Sans" font-size="9.5" fill="#8F82C4">AND · 3 delil gerekli</text>
+        <circle cx="530" cy="448" r="9" fill="none" stroke="#9B8CFF" stroke-width="1.3"/>
+        <path d="M526,448 v-3 a4,4 0 0 1 8,0 v3 M524,448 h12 v8 h-12 z" fill="none" stroke="#9B8CFF" stroke-width="1"/>
+
+        <!-- red herring theory -->
+        <path d="M430,336 C 450,380 650,420 750,440" fill="none" stroke="#5C2323" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#aRed)"/>
+        <rect x="700" y="440" width="220" height="64" rx="6" fill="#210E0E" stroke="#FF6161" stroke-width="1.3" stroke-dasharray="4,3"/>
+        <text x="810" y="466" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#FF6161" font-weight="600">TEORİ: Bomba</text>
+        <text x="810" y="484" text-anchor="middle" font-family="IBM Plex Sans" font-size="9.5" fill="#CC8686">tek zayıf bağ — yanlış ipucu</text>
+      </svg>
+      </div>
+      <div class="diagram-cap"><b>AND kapısı —</b> "Pitot Buzlanması" teorisi yalnızca <em>üç</em> bağımsız kaynaktan (FDR + Bakım + Meteoroloji) kanıt toplandığında kilidi açılır. "Bomba" teorisi ise tek bir zayıf bağdan (Stall Alarmı yanlış yorumlanırsa) türetilebilir — enkaz dağılımı kanıtı bunu daha sonra çürütür (bkz. <code>refutes_hypothesis</code>).</div>
+    </div>
+  </section>
+
+  <!-- ============ 09 DEĞERLENDİRME ============ -->
+  <section class="section">
+    <div class="eyebrow">Bölüm 09 — Değerlendirme Modeli</div>
+    <h2 style="font-size:26px;margin-bottom:8px;">Deneme serbest, sadece final rapor hesap verir</h2>
+    <p>v2'nin cezalandırıcı modeli ("yanlış hipotez → -30 puan") oyuncuyu risk almamaya iter, bu da dedektiflik hissini öldürür. Ama "hiçbir zaman ceza yok" da yanlış — <strong>gönderilen final raporun</strong> hiç bedeli olmazsa "rapor gönder" anı gerilimsiz kalır. Doğru ayrım şu: <strong>süreç içindeki keşif tamamen serbest, yalnız imzalanan sonuç puanlanır.</strong></p>
+
+    <div class="diagram-wrap">
+      <div class="diagram-scroll">
+      <svg viewBox="0 0 800 170" xmlns="http://www.w3.org/2000/svg" style="min-width:520px">
+        <rect x="40" y="55" width="360" height="42" fill="#FFB020"/>
+        <rect x="400" y="55" width="252" height="42" fill="#46D9C9"/>
+        <rect x="652" y="55" width="108" height="42" fill="#9B8CFF"/>
+        <text x="220" y="35" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#FFB020" font-weight="600">CAUSAL ACCURACY — 50</text>
+        <text x="526" y="35" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#46D9C9" font-weight="600">EVIDENCE QUALITY — 35</text>
+        <text x="706" y="35" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#9B8CFF" font-weight="600">EFFICIENCY — 15</text>
+        <text x="220" y="120" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#93A0B0">Nedensel graf ne kadar doğru kuruldu</text>
+        <text x="526" y="120" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#93A0B0">Sonuç gerçekten delille destekli mi</text>
+        <text x="706" y="120" text-anchor="middle" font-family="IBM Plex Sans" font-size="9.5" fill="#93A0B0">Gereksiz dağılma</text>
+      </svg>
+      </div>
+      <div class="diagram-cap"><b>Kural —</b> Investigation Efficiency, yanlış teori kurmayı değil, <em>hiç toparlamadan rastgele her şeyi işaretlemeyi</em> cezalandırır. Süreç içindeki hipotez denemeleri (bkz. Bölüm 08'deki "Bomba" teorisi) asla puan kaybettirmez — oyuncu onu keşfedip elese bile.</div>
+    </div>
+  </section>
+
+  <!-- ============ 10 DOSYA MİMARİSİ ============ -->
+  <section class="section">
+    <div class="eyebrow">Bölüm 10 — Dosya Mimarisi</div>
+    <h2 style="font-size:26px;margin-bottom:8px;">Case Engine — mod-bağımsız klasör yapısı</h2>
+    <p>Klasör yapısı artık rol sayısına göre değil, kavramsal katmana göre kurulu; <code>roles/access_policy.json</code> tek başına bir dosya — Solo modda basitçe yok sayılabilir.</p>
+    <div class="tree">
+<span class="cm">case_017_atlantic_night/</span><br>
+├── manifest.json<br>
+├── case.json                    <span class="cm">// vaka kimliği, zorluk, mod desteği</span><br>
+├── flight.json<br>
+├── entities.json                <span class="new">// yeni — uçak/mürettebat/hava profil</span><br>
+│<br>
+├── event_axis.json              <span class="new">// yeni — ortak zaman ekseni</span><br>
+│<br>
+├── <span class="fold">sources/</span><br>
+│&nbsp;&nbsp;&nbsp;├── fdr.json<br>
+│&nbsp;&nbsp;&nbsp;├── cvr.json<br>
+│&nbsp;&nbsp;&nbsp;├── atc.json<br>
+│&nbsp;&nbsp;&nbsp;├── maintenance.json<br>
+│&nbsp;&nbsp;&nbsp;└── environment.json<br>
+│<br>
+├── <span class="fold">investigation/</span>          <span class="cm">// sistemin kalbi</span><br>
+│&nbsp;&nbsp;&nbsp;├── observations.json<br>
+│&nbsp;&nbsp;&nbsp;├── evidence.json         <span class="new">// artık gerçekten tanımlı, node+relations</span><br>
+│&nbsp;&nbsp;&nbsp;├── contradictions.json   <span class="new">// yeni — çelişki motoru</span><br>
+│&nbsp;&nbsp;&nbsp;├── hypotheses.json<br>
+│&nbsp;&nbsp;&nbsp;├── causal_graph.json     <span class="new">// artık graf, zincir değil</span><br>
+│&nbsp;&nbsp;&nbsp;├── unlock_rules.json     <span class="new">// yeni — AND/OR kapıları</span><br>
+│&nbsp;&nbsp;&nbsp;└── evaluation.json<br>
+│<br>
+├── <span class="fold">media/</span><br>
+│&nbsp;&nbsp;&nbsp;├── audio/ · images/ · documents/<br>
+│<br>
+├── <span class="fold">locales/</span><br>
+│&nbsp;&nbsp;&nbsp;├── tr.json · en.json<br>
+│<br>
+└── <span class="fold">roles/</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;└── access_policy.json     <span class="cm">// Solo'da yok sayılır, Co-op/Competitive'de zorunlu</span>
+    </div>
+  </section>
+
+  <!-- ============ 11 YOL HARİTASI ============ -->
+  <section class="section">
+    <div class="eyebrow">Bölüm 11 — Yol Haritası</div>
+    <h2 style="font-size:26px;margin-bottom:8px;">Kod yazmadan önce: kağıt üzerinde test</h2>
+    <p>Bu mimari kağıt üzerinde iyi görünüyor — ama tek gerçek doğrulama, oyuncunun (ya da sizin) gerçekten dağınık ipuçlarından doğru sonuca ulaşıp ulaşamayacağı. Önerilen sıra:</p>
+    <ol class="steps">
+      <li><b>5 çekirdek şemayı sabitle</b><p>Case, Evidence (+relations), Event, Hypothesis/Causal Graph, Evaluation — kod yok, sadece JSON Schema.</p></li>
+      <li><b>Tek sahte vaka üret</b><p>20 evidence, 15 event, 4 hipotez, 1 gerçek causal graph. Bu raporun kullandığı "Atlantik Gecesi" örneği zaten iyi bir başlangıç noktası.</p></li>
+      <li><b>Kağıt/JSON üzerinde oynanabilirlik testi</b><p>Vakayı üçüncü bir kişiye (ekipten biri, tasarımcı değil) elle inceletin: dağınık delillerden gerçek nedene ulaşabiliyor mu? Kaç dakika sürüyor? Hangi noktada tıkanıyor?</p></li>
+      <li><b>Erişim modunu en son seç</b><p>Test Solo modda bile çalışıyorsa, Co-op/Competitive katmanını üstüne ekleyin — tersini yapmayın.</p></li>
+      <li><b>Ancak bundan sonra backend'e geç</b><p>Broker, imzalama, sunucu-otoriter kilit sistemi — hepsi bu noktada, kanıtlanmış bir çekirdek üzerine inşa edilir.</p></li>
+    </ol>
+    <div class="callout violet">
+      <p>Bu test geçerse app'i inşa etmeye değer. Geçmezse, teknik olarak kusursuz bir backend yazılsa da elde <strong>oynanması sıkıcı bir uygulama</strong> kalır.</p>
+    </div>
+  </section>
+
+  <footer>
+    CASE-ARCH-V3 · Soruşturma Motoru Mimari Raporu · v1 → v2 → v3 sentez süreci tamamlandı
+  </footer>
+
+</div>
+</body>
+</html>
