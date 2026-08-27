@@ -12,6 +12,7 @@ import '../widgets/radio_ptt_widget.dart';
 import '../widgets/forensic_video_player_widget.dart';
 import '../widgets/interrogation_view_widget.dart';
 import '../widgets/tactical_comms_wheel_widget.dart';
+import '../widgets/crash_site_radar_widget.dart';
 import 'report_builder_screen.dart';
 
 class InvestigationScreen extends StatefulWidget {
@@ -114,7 +115,7 @@ class _InvestigationScreenState extends State<InvestigationScreen>
           unselectedLabelColor: AppTheme.textDim,
           tabs: [
             Tab(text: role.shortName.toUpperCase()),
-            const Tab(text: 'ADLİ FEED'),
+            const Tab(text: '3D RADAR & FLIR'),
             const Tab(text: 'KARA TAHTA'),
             const Tab(text: 'VAKA DOSYASI'),
           ],
@@ -130,8 +131,8 @@ class _InvestigationScreenState extends State<InvestigationScreen>
                   children: [
                     // Tab 1: Role Specific Source View
                     _buildRoleSpecificView(role),
-                    // Tab 2: Forensic CCTV & 3D Video Feed
-                    const ForensicVideoPlayerWidget(),
+                    // Tab 2: Combined 3D Radar & FLIR Forensic Station
+                    _buildRadarAndFlirStation(activeCase, provider),
                     // Tab 3: Shared Investigation Board
                     const InvestigationBoardWidget(),
                     // Tab 4: Case Profile Briefing
@@ -165,6 +166,29 @@ class _InvestigationScreenState extends State<InvestigationScreen>
       case InvestigatorRole.humanFactorsPsych:
         return const InterrogationViewWidget();
     }
+  }
+
+  Widget _buildRadarAndFlirStation(CaseBundle activeCase, InvestigationProvider provider) {
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Column(
+        children: [
+          Expanded(
+            flex: 6,
+            child: CrashSiteRadarWidget(
+              activeCase: activeCase,
+              currentTimeSeconds: provider.currentTimeSeconds,
+              onTimeScrubbed: provider.setTimelineCursor,
+            ),
+          ),
+          const SizedBox(height: 10),
+          const Expanded(
+            flex: 5,
+            child: ForensicVideoPlayerWidget(),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildBriefingView(CaseBundle activeCase) {
