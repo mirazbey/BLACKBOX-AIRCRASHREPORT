@@ -1,0 +1,97 @@
+{
+  "nodes": [
+    {
+      "id": "EVD_FDR_SPD_DROP",
+      "owner_role": "telemetryFdr",
+      "source_tag": "fdr",
+      "title": "Sürat Göstergesi 110 kt Düşüşü",
+      "description": "02:10:06 UTC'de FDR kayıtlarına göre gösterge sürati 460 kt'tan 110 kt'a aniden düştü. Otopilot devre dışı kaldı.",
+      "case_time_seconds": 66,
+      "tags": ["fdr", "telemetri", "hiz"]
+    },
+    {
+      "id": "EVD_FDR_STICK_PULL",
+      "owner_role": "telemetryFdr",
+      "source_tag": "fdr",
+      "title": "Lövye Geri Çekişi (Stall Girişi)",
+      "description": "Yardımcı pilot Bonin lövyeyi %85 geriye çekerek uçağı 16 derece burun yukarı tırmanışa zorladı.",
+      "case_time_seconds": 70,
+      "tags": ["fdr", "kumanda", "insan_faktoru"]
+    },
+    {
+      "id": "EVD_METAR_ICING",
+      "owner_role": "avionicsFlir",
+      "source_tag": "environment",
+      "title": "Ekvatoral Fırtına Kuşağı Buzlanması",
+      "description": "FL350 irtifasında -42 derecede süper soğumuş su damlacıkları ve yoğun buz kristalleri mevcuttu.",
+      "case_time_seconds": 60,
+      "tags": ["flir", "radar", "hava_durumu"]
+    },
+    {
+      "id": "EVD_MEL_HEATER",
+      "owner_role": "maintenanceOps",
+      "source_tag": "maintenance",
+      "title": "Ertelenmiş Pitot Isıtıcı MEL Kaydı",
+      "description": "Thales AA pitot tüplerinin buzlanmaya karşı bilinen zafiyeti vardı; havayolu parça değişimini 3 hafta ertelemişti.",
+      "case_time_seconds": 0,
+      "tags": ["mel", "bakim", "sirket_ihmali"]
+    },
+    {
+      "id": "EVD_CVR_STALL_WARN",
+      "owner_role": "acousticCvr",
+      "source_tag": "cvr",
+      "title": "Sürekli Stall Düdüğü ve Panik Sesleri",
+      "description": "Kokpitte 54 saniye boyunca 'STALL! STALL!' sesli uyarısı çaldı; pilotlar alarmı teşhis edemedi.",
+      "case_time_seconds": 75,
+      "tags": ["cvr", "ses", "alarm"]
+    },
+    {
+      "id": "EVD_PILOT_STATEMENT",
+      "owner_role": "humanFactorsPsych",
+      "source_tag": "crm",
+      "title": "Pilotun İlk İfadesi: 'Otopilot Açık Sandım'",
+      "description": "Pilot acil durumda lövyeyi çekerken otopilotun uçağı koruyacağını varsaydığını belirtti.",
+      "case_time_seconds": 70,
+      "tags": ["crm", "sorgu", "ifade"]
+    },
+    {
+      "id": "EVD_WRECKAGE_COMPACT",
+      "owner_role": "avionicsFlir",
+      "source_tag": "flir",
+      "title": "Kompakt Enkaz Alanı (Bombalama İhtimalini Çürütür)",
+      "description": "Enkaz 3980 metre derinlikte tek bir dar alanda bulundu; uçak havada parçalanmadı, bütün halde denize vurdu.",
+      "case_time_seconds": 240,
+      "tags": ["flir", "enkaz", "darbe"]
+    }
+  ],
+  "relations": [
+    {
+      "from": "EVD_PILOT_STATEMENT",
+      "to": "EVD_FDR_SPD_DROP",
+      "type": "CONTRADICTS",
+      "strength": 0.95,
+      "explanation": "Pilot otopilotun devrede olduğunu iddia ediyor ancak FDR AP'nin 14 saniye önce çıktığını kanıtlıyor."
+    },
+    {
+      "from": "EVD_METAR_ICING",
+      "to": "EVD_FDR_SPD_DROP",
+      "type": "SUPPORTS",
+      "strength": 0.90,
+      "explanation": "Buz kristalleri pitot tüpünü tıkadığı için hız göstergesi aniden sıfırlandı."
+    },
+    {
+      "from": "EVD_MEL_HEATER",
+      "to": "EVD_METAR_ICING",
+      "type": "SUPPORTS",
+      "strength": 0.85,
+      "explanation": "Ertelenen eski model pitot ısıtıcısı bu fırtına kuşağındaki buzu eritemedi."
+    },
+    {
+      "from": "EVD_WRECKAGE_COMPACT",
+      "to": "EVD_CVR_STALL_WARN",
+      "type": "REFUTES",
+      "strength": 0.99,
+      "explanation": "Kompakt enkaz, bombayla havada patlama teorisini çürütür; aerodinamik stall sonrası gövde bütün halde denize vurmuştur."
+    }
+  ]
+}

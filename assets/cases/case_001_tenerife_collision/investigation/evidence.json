@@ -1,0 +1,40 @@
+{
+  "nodes": [
+    {
+      "id": "EVD_TEN_FOG",
+      "owner_role": "avionicsFlir",
+      "source_tag": "environment",
+      "title": "Yoğun Sis ve Sıfır Pist Görüşü",
+      "description": "Los Rodeos havalimanında aniden çöken sis nedeniyle kule ne KLM'yi ne de Pan Am'ı pistte göremiyordu.",
+      "case_time_seconds": 0,
+      "tags": ["flir", "hava_durumu", "gorus_kaybi"]
+    },
+    {
+      "id": "EVD_TEN_HETERODYNE_BLOCK",
+      "owner_role": "acousticCvr",
+      "source_tag": "cvr",
+      "title": "Telsiz Eşzamanlı Bastırma (Heterodyne Paraziti)",
+      "description": "Kule 'Stand by' derken Pan Am 'Pistteyiz' dedi; frekansta ıslık sesi oluştu ve KLM 'Stand by' uyarısını hiç duymadı.",
+      "case_time_seconds": 184,
+      "tags": ["cvr", "telsiz", "parazit"]
+    },
+    {
+      "id": "EVD_TEN_DUTY_TIME_RUSH",
+      "owner_role": "humanFactorsPsych",
+      "source_tag": "crm",
+      "title": "KLM Kaptanının Mesai Süresi Baskısı & Acele",
+      "description": "Kaptan Van Zanten Hollanda uçuş saati limitini aşmamak için kalkış iznini beklemeden gaz kollarını açtı.",
+      "case_time_seconds": 180,
+      "tags": ["crm", "insan_faktoru", "mesai_baskisi"]
+    }
+  ],
+  "relations": [
+    {
+      "from": "EVD_TEN_FOG",
+      "to": "EVD_TEN_HETERODYNE_BLOCK",
+      "type": "SUPPORTS",
+      "strength": 0.90,
+      "explanation": "Görsel temas sıfır olduğu için telsizdeki parazit ölümcül kaza zincirini tetikledi."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "max_score": 100,
+  "weights": {
+    "causal_accuracy_max": 50,
+    "evidence_quality_max": 35,
+    "efficiency_max": 15
+  },
+  "correct_findings": [
+    {
+      "category": "Gizli Bakım",
+      "expected_cause_pattern": "MANUAL",
+      "mandatory_evidence_ids": ["EVD_H_MANUAL_SWITCH"],
+      "points": 50
+    },
+    {
+      "category": "İnsan Faktörü",
+      "expected_cause_pattern": "Hipoksi",
+      "mandatory_evidence_ids": ["EVD_H_CABIN_ALT_HORN", "EVD_H_HYPOXIA_BLACKOUT"],
+      "points": 50
+    }
+  ],
+  "rank_thresholds": [
+    {"min_score": 90, "rank_title": "BAŞMÜFETTİŞ (EXPERT LEAD INVESTIGATOR)", "xp_reward": 500},
+    {"min_score": 75, "rank_title": "KIDEMLİ MÜFETTİŞ (SENIOR INSPECTOR)", "xp_reward": 350},
+    {"min_score": 50, "rank_title": "ADLİ MÜFETTİŞ YARDIMCISI (JUNIOR)", "xp_reward": 180},
+    {"min_score": 0, "rank_title": "STAJYER MÜFETTİŞ (TRAINEE)", "xp_reward": 40}
+  ]
+}

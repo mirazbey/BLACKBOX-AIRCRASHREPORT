@@ -1,0 +1,20 @@
+[
+  {
+    "id": "HYP_TEN_RADIO_BLOCK",
+    "title": "Telsiz Heterodyne Paraziti & İletişim Blokajı",
+    "category": "trigger",
+    "required_evidence_ids": ["EVD_TEN_HETERODYNE_BLOCK", "EVD_TEN_FOG"],
+    "gate_type": "AND",
+    "is_correct_root_cause": true,
+    "confidence_boost": 0.50
+  },
+  {
+    "id": "HYP_TEN_PREMATURE_TAKEOFF",
+    "title": "İnsan Faktörü: İzin Almadan Erken Kalkışa Başlama",
+    "category": "human_factor",
+    "required_evidence_ids": ["EVD_TEN_DUTY_TIME_RUSH"],
+    "gate_type": "OR",
+    "is_correct_root_cause": true,
+    "confidence_boost": 0.50
+  }
+]

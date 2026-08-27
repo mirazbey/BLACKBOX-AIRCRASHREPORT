@@ -1,0 +1,39 @@
+[
+  {
+    "id": "HYP_PITOT_ICING",
+    "title": "Pitot Tüpü Buzlanması & Sürat Kaybı",
+    "category": "trigger",
+    "required_evidence_ids": ["EVD_METAR_ICING", "EVD_MEL_HEATER", "EVD_FDR_SPD_DROP"],
+    "gate_type": "AND",
+    "is_correct_root_cause": true,
+    "confidence_boost": 0.40
+  },
+  {
+    "id": "HYP_PILOT_PANIC_PULL",
+    "title": "İnsan Faktörü: Stall Esnasında Lövyeyi Geriye Çekme",
+    "category": "human_factor",
+    "required_evidence_ids": ["EVD_FDR_STICK_PULL", "EVD_CVR_STALL_WARN"],
+    "gate_type": "AND",
+    "is_correct_root_cause": true,
+    "confidence_boost": 0.35
+  },
+  {
+    "id": "HYP_MEL_DEFERRED_NEGLECT",
+    "title": "Kurumsal İhmal: Ertelenmiş Pitot Isıtıcı Değişimi",
+    "category": "latent_failure",
+    "required_evidence_ids": ["EVD_MEL_HEATER"],
+    "gate_type": "OR",
+    "is_correct_root_cause": true,
+    "confidence_boost": 0.25
+  },
+  {
+    "id": "HYP_RED_HERRING_BOMB",
+    "title": "Havada Patlama / Bombalı Terör Eylemi",
+    "category": "red_herring",
+    "required_evidence_ids": ["EVD_CVR_STALL_WARN"],
+    "refuted_by_evidence_id": "EVD_WRECKAGE_COMPACT",
+    "gate_type": "OR",
+    "is_correct_root_cause": false,
+    "confidence_boost": -0.50
+  }
+]

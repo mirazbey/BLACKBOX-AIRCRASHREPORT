@@ -1,0 +1,15 @@
+{
+  "recorder_model": "Honeywell Solid State FDR (SSFDR)",
+  "channels_recorded": 1280,
+  "sampling_rate_hz": 8,
+  "time_series": [
+    {"t_s": 60, "alt_ft": 35000, "ias_kt": 460, "pitch_deg": 2.5, "roll_deg": 0.0, "stick_pull_pct": 0, "ap_engaged": true},
+    {"t_s": 66, "alt_ft": 35000, "ias_kt": 210, "pitch_deg": 3.0, "roll_deg": 1.2, "stick_pull_pct": 10, "ap_engaged": false},
+    {"t_s": 67, "alt_ft": 35020, "ias_kt": 110, "pitch_deg": 4.5, "roll_deg": -2.1, "stick_pull_pct": 85, "ap_engaged": false},
+    {"t_s": 75, "alt_ft": 35800, "ias_kt": 95, "pitch_deg": 11.2, "roll_deg": 5.4, "stick_pull_pct": 90, "ap_engaged": false},
+    {"t_s": 90, "alt_ft": 37800, "ias_kt": 60, "pitch_deg": 16.5, "roll_deg": 12.0, "stick_pull_pct": 95, "ap_engaged": false},
+    {"t_s": 120, "alt_ft": 28000, "ias_kt": 75, "pitch_deg": 14.0, "roll_deg": -18.0, "stick_pull_pct": 100, "ap_engaged": false},
+    {"t_s": 180, "alt_ft": 12000, "ias_kt": 85, "pitch_deg": 15.2, "roll_deg": 8.0, "stick_pull_pct": 100, "ap_engaged": false},
+    {"t_s": 240, "alt_ft": 0, "ias_kt": 152, "pitch_deg": 16.2, "roll_deg": 0.0, "stick_pull_pct": 100, "ap_engaged": false}
+  ]
+}

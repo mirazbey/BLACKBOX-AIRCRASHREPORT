@@ -1,0 +1,36 @@
+{
+  "graph_id": "DAG_TENERIFE_GROUND_TRUTH",
+  "root_nodes": ["NODE_TEN_FOG", "NODE_TEN_DUTY_RUSH"],
+  "nodes": [
+    {
+      "id": "NODE_TEN_FOG",
+      "type": "ENVIRONMENT",
+      "label": "Yoğun Sis ve Görüşün Sıfırlanması",
+      "parent_ids": []
+    },
+    {
+      "id": "NODE_TEN_DUTY_RUSH",
+      "type": "ORGANIZATIONAL",
+      "label": "KLM Kaptanının Mesai Süresi Baskısı",
+      "parent_ids": []
+    },
+    {
+      "id": "NODE_TEN_HETERODYNE",
+      "type": "TRIGGER",
+      "label": "Telsiz Eşzamanlı Bastırma (Heterodyne)",
+      "parent_ids": ["NODE_TEN_FOG"]
+    },
+    {
+      "id": "NODE_TEN_UNAUTHORIZED_TAKEOFF",
+      "type": "HUMAN_ERROR",
+      "label": "İzinsiz Kalkış Koşusuna Başlama",
+      "parent_ids": ["NODE_TEN_DUTY_RUSH", "NODE_TEN_HETERODYNE"]
+    },
+    {
+      "id": "NODE_TEN_RUNWAY_COLLISION",
+      "type": "OUTCOME",
+      "label": "Pistte 583 Can Kaybıyla Çarpışma",
+      "parent_ids": ["NODE_TEN_UNAUTHORIZED_TAKEOFF"]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "solo_mode": {
+    "evidence_visibility": "ALL_VISIBLE",
+    "broker_filter_active": false
+  },
+  "coop_mode": {
+    "broker_filter_active": true,
+    "role_allotments": {
+      "acousticCvr": ["EVD_TEN_HETERODYNE_BLOCK"],
+      "humanFactorsPsych": ["EVD_TEN_DUTY_TIME_RUSH"],
+      "avionicsFlir": ["EVD_TEN_FOG"],
+      "telemetryFdr": ["EVD_TEN_HETERODYNE_BLOCK"],
+      "maintenanceOps": ["EVD_TEN_DUTY_TIME_RUSH"]
+    }
+  }
+}

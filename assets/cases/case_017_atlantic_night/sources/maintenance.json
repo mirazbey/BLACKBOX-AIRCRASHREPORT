@@ -1,0 +1,20 @@
+{
+  "operator_airline": "Air France",
+  "logbook_status": "CONFIDENTIAL_COURT_EXHIBIT",
+  "deferred_mel_items": [
+    {
+      "mel_item_code": "MEL-34-11-01A",
+      "system_affected": "Pitot Probe Thales AA Model",
+      "defect_reported": "Yüksek irtifa buzlanmasında su/buz tahliye rezistans gecikmesi",
+      "airline_action": "Thales BA modeline geçiş bülteni yayınlandı ancak F-GZCP tescilli uçağın değişimi 3 hafta sonrasına ertelendi (DEFERRED)",
+      "is_legal_violation": true,
+      "sign_off_inspector": "Jean-Luc Dupont (Chief of Line Maintenance)"
+    }
+  ],
+  "acars_messages": [
+    {"utc": "02:10:10", "code": "WRN/WN0906010210 228300205 AUTO FLT AP OFF"},
+    {"utc": "02:10:16", "code": "WRN/WN0906010210 279334006 F/CTL ALTN LAW"},
+    {"utc": "02:10:23", "code": "FLR/FR0906010210 34111506 EFCS2 1,EFCS1,AFS, PROBE-PITOT 1+2 / 2+3 / 1+3 DISAGREE"},
+    {"utc": "02:11:00", "code": "FLR/FR0906010211 34120006 ISIS SPEED DISAGREE"}
+  ]
+}

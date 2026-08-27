@@ -1,0 +1,17 @@
+{
+  "satellite_source": "Meteosat-9 Infrared",
+  "convective_storm_cluster": "Mesoscale Convective System (MCS)",
+  "lightning_density_flashes_min": 45,
+  "turbulence_intensity": "SEVERE_CONVECTIVE",
+  "doppler_reflectivity_dbz": 54,
+  "metar_reports": [
+    {
+      "station": "SBGL",
+      "raw": "METAR SBGL 312300Z 15004KT 9999 FEW020 23/19 Q1015 NOSIG"
+    },
+    {
+      "station": "GOOY",
+      "raw": "METAR GOOY 010200Z 04008KT 9999 SCT016 22/19 Q1012 NOSIG"
+    }
+  ]
+}

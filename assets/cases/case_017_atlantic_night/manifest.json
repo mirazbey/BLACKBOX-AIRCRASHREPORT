@@ -1,0 +1,13 @@
+{
+  "case_id": "CASE-017",
+  "bundle_version": "3.0.0",
+  "code": "AF-2009-ATLANTIC",
+  "title": "Atlantik Gecesi (Atlantic Night)",
+  "subtitle": "FL350 Gece Seyrinde Pitot Donması & Aerodinamik Stall",
+  "difficulty": "hard",
+  "duration_minutes": 20,
+  "supported_modes": ["solo", "coop", "competitive"],
+  "entry_points": ["FDR", "CVR", "MAINTENANCE", "ENVIRONMENT"],
+  "min_operators": 1,
+  "max_operators": 5
+}

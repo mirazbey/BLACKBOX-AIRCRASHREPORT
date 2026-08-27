@@ -1,0 +1,20 @@
+[
+  {
+    "id": "CTR_01",
+    "title": "Pilot İfadesi vs FDR Otopilot Verisi",
+    "primary_evidence_id": "EVD_PILOT_STATEMENT",
+    "conflicting_evidence_id": "EVD_FDR_SPD_DROP",
+    "severity": "CRITICAL",
+    "contradiction_type": "TIMELINE_MISMATCH",
+    "forensic_note": "Pilot 'otopilot devredeydi' diyerek hatasını gizlemeye çalışıyor; FDR otopilotun stall öncesi devreden çıktığını kanıtlıyor."
+  },
+  {
+    "id": "CTR_02",
+    "title": "Terör/Bomba İddiası vs Enkaz Dağılımı",
+    "primary_evidence_id": "EVD_CVR_STALL_WARN",
+    "conflicting_evidence_id": "EVD_WRECKAGE_COMPACT",
+    "severity": "HIGH",
+    "contradiction_type": "PHYSICAL_IMPOSSIBILITY",
+    "forensic_note": "Stall düdüğü terör saldırısı olarak yorumlanamaz; enkaz okyanus dibinde tek bir dar alanda bir arada bulundu."
+  }
+]

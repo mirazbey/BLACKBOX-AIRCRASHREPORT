@@ -1,0 +1,56 @@
+{
+  "nodes": [
+    {
+      "id": "EVD_H_MANUAL_SWITCH",
+      "owner_role": "maintenanceOps",
+      "source_tag": "maintenance",
+      "title": "Basınçlandırma Şalterinin MANUAL Unutulması",
+      "description": "Larnaka yer bakım teknisyeni Alan Irwin kapı basınç kaçak testinden sonra tavan panelindeki şalteri AUTO moduna almadı.",
+      "case_time_seconds": 0,
+      "tags": ["mel", "bakim", "insan_ihmali"]
+    },
+    {
+      "id": "EVD_H_CABIN_ALT_HORN",
+      "owner_role": "telemetryFdr",
+      "source_tag": "fdr",
+      "title": "Kabin İrtifa Alarmı (Takeoff Horn ile Karıştırıldı)",
+      "description": "Kabin basıncı düşünce çalan korna, kalkış konfigürasyon düdüğü ile birebir aynı sondaydı; pilotlar teşhis edemedi.",
+      "case_time_seconds": 120,
+      "tags": ["fdr", "alarm", "insan_faktoru"]
+    },
+    {
+      "id": "EVD_H_HYPOXIA_BLACKOUT",
+      "owner_role": "humanFactorsPsych",
+      "source_tag": "crm",
+      "title": "Sinsi Hipoksi & Faydalı Bilinç Kaybı",
+      "description": "FL340 irtifada 15 saniyede faydalı bilinç kayboldu; pilotlar oksijen maskesi takamadan bayıldı.",
+      "case_time_seconds": 1800,
+      "tags": ["crm", "hipoksi", "fiziksel_yetersizlik"]
+    },
+    {
+      "id": "EVD_H_F16_INTERCEPT",
+      "owner_role": "avionicsFlir",
+      "source_tag": "flir",
+      "title": "F-16 Kask Kamerası: Donmuş Pencereler & Baygın Kokpit",
+      "description": "Yunan F-16 pilotları kokpitte baygın pilotları ve Andreas Prodromou'nun son çabasını kaydetti.",
+      "case_time_seconds": 7000,
+      "tags": ["flir", "video", "onleme"]
+    }
+  ],
+  "relations": [
+    {
+      "from": "EVD_H_MANUAL_SWITCH",
+      "to": "EVD_H_CABIN_ALT_HORN",
+      "type": "SUPPORTS",
+      "strength": 0.95,
+      "explanation": "Şalter MANUAL kaldığı için uçak tırmandıkça kabin basınçlanamadı."
+    },
+    {
+      "from": "EVD_H_CABIN_ALT_HORN",
+      "to": "EVD_H_HYPOXIA_BLACKOUT",
+      "type": "SUPPORTS",
+      "strength": 0.90,
+      "explanation": "Alarm kalkış hatası sanılıp çözülemeyince oksijensizlik hipoksiye yol açtı."
+    }
+  ]
+}

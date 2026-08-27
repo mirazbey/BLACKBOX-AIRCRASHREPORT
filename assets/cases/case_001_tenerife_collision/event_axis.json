@@ -1,0 +1,35 @@
+{
+  "epoch_utc": "17:00:00",
+  "total_duration_seconds": 450,
+  "tracks": ["CVR", "ATC", "SYSTEM"],
+  "markers": [
+    {
+      "case_time_s": 0,
+      "timestamp_utc": "17:00:00",
+      "track": "SYSTEM",
+      "label": "Los Rodeos: Yoğun Sis Görüşü 300 Metre Altına İndirdi",
+      "roles_notified": [3]
+    },
+    {
+      "case_time_s": 180,
+      "timestamp_utc": "17:05:44",
+      "track": "ATC",
+      "label": "KLM: 'We are now at take-off' (Belirsiz Telsiz İfadesi)",
+      "roles_notified": [2, 5]
+    },
+    {
+      "case_time_s": 183,
+      "timestamp_utc": "17:05:47",
+      "track": "ATC",
+      "label": "Kule ve Pan Am Aynı Anda Bastı: Heterodyne Islık Sesi (Telsiz Blokajı)",
+      "roles_notified": [2]
+    },
+    {
+      "case_time_s": 240,
+      "timestamp_utc": "17:06:50",
+      "track": "SYSTEM",
+      "label": "Pistte 140 Knot Hızla Kafa Kafaya Çarpışma",
+      "roles_notified": [1, 2, 3, 4, 5]
+    }
+  ]
+}

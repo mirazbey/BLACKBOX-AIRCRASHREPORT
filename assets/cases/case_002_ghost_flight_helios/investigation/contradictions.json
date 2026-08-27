@@ -1,0 +1,11 @@
+[
+  {
+    "id": "CTR_H01",
+    "title": "Yer Teknisyeni Test Tutanağı vs Kokpit Şalter Konumu",
+    "primary_evidence_id": "EVD_H_MANUAL_SWITCH",
+    "conflicting_evidence_id": "EVD_H_CABIN_ALT_HORN",
+    "severity": "CRITICAL",
+    "contradiction_type": "CHECKLIST_OMISSION",
+    "forensic_note": "Yer bakım tutanağında test tamamlandı yazıyor ancak tavan paneli MANUAL konumunda bırakılmış."
+  }
+]

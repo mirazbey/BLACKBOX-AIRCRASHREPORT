@@ -1,0 +1,29 @@
+{
+  "recorder_model": "Fairchild A100 CVR",
+  "transcripts": [
+    {
+      "case_time_s": 180,
+      "utc": "17:05:44",
+      "speaker": "KLM FO",
+      "text": "We are now at take-off."
+    },
+    {
+      "case_time_s": 182,
+      "utc": "17:05:45",
+      "speaker": "Tower",
+      "text": "OK... Stand by for take-off, I will call you."
+    },
+    {
+      "case_time_s": 183,
+      "utc": "17:05:46",
+      "speaker": "Pan Am",
+      "text": "No, eh, and we are still taxiing down the runway, the Clipper 1736!"
+    },
+    {
+      "case_time_s": 184,
+      "utc": "17:05:47",
+      "speaker": "RADIO HETERODYNE",
+      "text": "SQUEALLLLL (İki telsiz aynı anda basıldığı için kokpitte yalnızca 'OK' duyuldu, geri kalanı parazite boğuldu!)"
+    }
+  ]
+}

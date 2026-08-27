@@ -1,0 +1,32 @@
+{
+  "aircraft": {
+    "model": "Boeing 737-31S",
+    "tail_number": "5B-DBY",
+    "msn": 29099,
+    "engines": "2x CFM56-3C1 Turbofan",
+    "flight_control_law": "Conventional Flight Control / Auto-Pressurization"
+  },
+  "crew": [
+    {
+      "role": "Captain",
+      "name": "Hans-Jürgen Merten",
+      "age": 58,
+      "flight_hours": 16900,
+      "duty_state": "Sol koltukta baygın (Hipoksi kurbanı)"
+    },
+    {
+      "role": "First Officer",
+      "name": "Pampos Charalambous",
+      "age": 51,
+      "flight_hours": 7549,
+      "duty_state": "Sağ koltukta baygın (Hipoksi kurbanı)"
+    },
+    {
+      "role": "Flight Attendant",
+      "name": "Andreas Prodromou",
+      "age": 25,
+      "flight_hours": 200,
+      "duty_state": "Taşınabilir oksijenle kokpite girip uçağı kurtarmaya çalışan kahraman"
+    }
+  ]
+}

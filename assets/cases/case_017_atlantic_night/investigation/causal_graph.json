@@ -1,0 +1,54 @@
+{
+  "graph_id": "DAG_AF447_GROUND_TRUTH",
+  "root_nodes": ["NODE_ENV_ICING", "NODE_LATENT_MEL", "NODE_CORP_PRESSURE"],
+  "nodes": [
+    {
+      "id": "NODE_ENV_ICING",
+      "type": "ENVIRONMENT",
+      "label": "Aşırı Buzlanma Kuşağı (ITCZ)",
+      "parent_ids": []
+    },
+    {
+      "id": "NODE_LATENT_MEL",
+      "type": "LATENT_MAINTENANCE",
+      "label": "Ertelenen Isıtıcı (Thales AA)",
+      "parent_ids": []
+    },
+    {
+      "id": "NODE_CORP_PRESSURE",
+      "type": "ORGANIZATIONAL",
+      "label": "Fırtına Baypas Baskısı & Maliyet",
+      "parent_ids": []
+    },
+    {
+      "id": "NODE_TRIGGER_PITOT",
+      "type": "TRIGGER",
+      "label": "Pitot Eşzamanlı Donması",
+      "parent_ids": ["NODE_ENV_ICING", "NODE_LATENT_MEL"]
+    },
+    {
+      "id": "NODE_SYS_SPD_ERR",
+      "type": "SYSTEM_ERROR",
+      "label": "Yanlış Sürat Göstergesi (IAS 110kt)",
+      "parent_ids": ["NODE_TRIGGER_PITOT"]
+    },
+    {
+      "id": "NODE_SYS_AP_DISC",
+      "type": "SYSTEM_ERROR",
+      "label": "Otopilot Otomatik İptali (Alt Law)",
+      "parent_ids": ["NODE_TRIGGER_PITOT"]
+    },
+    {
+      "id": "NODE_HUMAN_STICK_PULL",
+      "type": "HUMAN_ERROR",
+      "label": "Lövyeyi Geriye Çekme & Stall Girişi",
+      "parent_ids": ["NODE_SYS_SPD_ERR", "NODE_SYS_AP_DISC", "NODE_CORP_PRESSURE"]
+    },
+    {
+      "id": "NODE_FINAL_IMPACT",
+      "type": "OUTCOME",
+      "label": "Okyanusa Yüksek Varyo ile Çarpma",
+      "parent_ids": ["NODE_HUMAN_STICK_PULL"]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "flight_number": "KLM-4805 / PA-1736",
+  "callsign": "KLM 4805 / CLIPPER 1736",
+  "departure_icao": "EHAM / KJFK",
+  "departure_name": "Amsterdam / New York",
+  "destination_icao": "GCLP",
+  "destination_name": "Gran Canaria ➔ Los Rodeos (Divert)",
+  "planned_altitude_fl": 0,
+  "planned_speed_mach": 0.0,
+  "route_segment": "RUNWAY 30 - LOS RODEOS AIRPORT",
+  "last_radar_contact_utc": "17:06:50"
+}

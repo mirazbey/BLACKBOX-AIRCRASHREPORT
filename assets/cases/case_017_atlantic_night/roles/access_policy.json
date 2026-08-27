@@ -1,0 +1,20 @@
+{
+  "solo_mode": {
+    "evidence_visibility": "ALL_VISIBLE",
+    "broker_filter_active": false
+  },
+  "coop_mode": {
+    "broker_filter_active": true,
+    "role_allotments": {
+      "telemetryFdr": ["EVD_FDR_SPD_DROP", "EVD_FDR_STICK_PULL"],
+      "acousticCvr": ["EVD_CVR_STALL_WARN"],
+      "avionicsFlir": ["EVD_METAR_ICING", "EVD_WRECKAGE_COMPACT"],
+      "maintenanceOps": ["EVD_MEL_HEATER"],
+      "humanFactorsPsych": ["EVD_PILOT_STATEMENT"]
+    }
+  },
+  "competitive_mode": {
+    "broker_filter_active": true,
+    "progressive_unlock_threshold": 3
+  }
+}

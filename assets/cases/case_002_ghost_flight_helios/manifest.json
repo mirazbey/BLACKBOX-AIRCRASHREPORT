@@ -1,0 +1,13 @@
+{
+  "case_id": "CASE-002",
+  "bundle_version": "3.0.0",
+  "code": "HCY-2005-HELIOS",
+  "title": "Hayalet Uçak Faciası (Ghost Flight Helios 522)",
+  "subtitle": "Kabin Basınç Kaybı, Hipoksi & Yakıt Tükenişi",
+  "difficulty": "medium",
+  "duration_minutes": 20,
+  "supported_modes": ["solo", "coop", "competitive"],
+  "entry_points": ["FDR", "CVR", "MAINTENANCE", "ENVIRONMENT"],
+  "min_operators": 1,
+  "max_operators": 5
+}

@@ -67,6 +67,20 @@ flutter:
 
   assets:
     - assets/forensics/
+    - assets/cases/
+    - assets/cases/case_017_atlantic_night/
+    - assets/cases/case_017_atlantic_night/sources/
+    - assets/cases/case_017_atlantic_night/investigation/
+    - assets/cases/case_017_atlantic_night/roles/
+    - assets/cases/case_017_atlantic_night/locales/
+    - assets/cases/case_002_ghost_flight_helios/
+    - assets/cases/case_002_ghost_flight_helios/sources/
+    - assets/cases/case_002_ghost_flight_helios/investigation/
+    - assets/cases/case_002_ghost_flight_helios/roles/
+    - assets/cases/case_001_tenerife_collision/
+    - assets/cases/case_001_tenerife_collision/sources/
+    - assets/cases/case_001_tenerife_collision/investigation/
+    - assets/cases/case_001_tenerife_collision/roles/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

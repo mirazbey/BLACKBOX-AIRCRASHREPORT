@@ -1,0 +1,11 @@
+[
+  {
+    "id": "CTR_TEN_01",
+    "title": "KLM 'We are at take-off' vs Kule 'Stand by for take-off'",
+    "primary_evidence_id": "EVD_TEN_HETERODYNE_BLOCK",
+    "conflicting_evidence_id": "EVD_TEN_DUTY_TIME_RUSH",
+    "severity": "CRITICAL",
+    "contradiction_type": "CLEARANCE_DISAGREEMENT",
+    "forensic_note": "Kule kalkış izni (take-off clearance) vermemişti, yalnızca rota talimatı vermişti; KLM bunu kalkış izni sandı."
+  }
+]

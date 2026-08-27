@@ -1,0 +1,20 @@
+[
+  {
+    "id": "HYP_H_PRESSURIZATION_FAIL",
+    "title": "Basınçlandırma Şalterinin MANUAL Unutulması",
+    "category": "latent_failure",
+    "required_evidence_ids": ["EVD_H_MANUAL_SWITCH"],
+    "gate_type": "OR",
+    "is_correct_root_cause": true,
+    "confidence_boost": 0.50
+  },
+  {
+    "id": "HYP_H_HYPOXIA_BLACKOUT",
+    "title": "İnsan Faktörü: Alarm Yanılgısı ve Hipoksiye Bağlı Bayılma",
+    "category": "human_factor",
+    "required_evidence_ids": ["EVD_H_CABIN_ALT_HORN", "EVD_H_HYPOXIA_BLACKOUT"],
+    "gate_type": "AND",
+    "is_correct_root_cause": true,
+    "confidence_boost": 0.50
+  }
+]

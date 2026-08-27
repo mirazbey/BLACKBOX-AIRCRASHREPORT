@@ -1,0 +1,12 @@
+{
+  "recorder_model": "Sundstrand Solid State FDR",
+  "channels_recorded": 64,
+  "sampling_rate_hz": 4,
+  "time_series": [
+    {"t_s": 0, "alt_ft": 0, "cabin_alt_ft": 0, "pressurization_mode": "MANUAL", "ap_engaged": false},
+    {"t_s": 120, "alt_ft": 12000, "cabin_alt_ft": 10200, "pressurization_mode": "MANUAL", "ap_engaged": true},
+    {"t_s": 1800, "alt_ft": 34000, "cabin_alt_ft": 28000, "pressurization_mode": "MANUAL", "ap_engaged": true},
+    {"t_s": 7000, "alt_ft": 34000, "cabin_alt_ft": 34000, "pressurization_mode": "MANUAL", "ap_engaged": true},
+    {"t_s": 7350, "alt_ft": 1500, "cabin_alt_ft": 1500, "pressurization_mode": "MANUAL", "ap_engaged": false}
+  ]
+}

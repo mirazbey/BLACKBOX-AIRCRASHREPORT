@@ -1,0 +1,25 @@
+{
+  "aircraft": {
+    "model": "Boeing 747-206B / 747-121",
+    "tail_number": "PH-BUF / N736PA",
+    "msn": 20400,
+    "engines": "4x Pratt & Whitney JT9D-7Q",
+    "flight_control_law": "Hydraulic Flight Controls / VHF Non-Radar Procedures"
+  },
+  "crew": [
+    {
+      "role": "KLM Captain",
+      "name": "Jacob Veldhuyzen van Zanten",
+      "age": 50,
+      "flight_hours": 11700,
+      "duty_state": "Şirketin baş uçuş eğitmeni / Mesafe ve görev süresi baskısı"
+    },
+    {
+      "role": "Pan Am Captain",
+      "name": "Victor Grubbs",
+      "age": 56,
+      "flight_hours": 21043,
+      "duty_state": "Pist üzerinde takside (Backtrack C-3/C-4 çıkışı arıyor)"
+    }
+  ]
+}

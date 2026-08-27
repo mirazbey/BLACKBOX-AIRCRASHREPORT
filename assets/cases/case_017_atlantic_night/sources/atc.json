@@ -1,0 +1,27 @@
+{
+  "radar_coverage": "NON_RADAR_OCEANIC",
+  "atc_sectors": ["Recife Control (Brazil)", "Dakar Oceanic (Senegal)"],
+  "radio_transmissions": [
+    {
+      "utc": "01:35:15",
+      "frequency_mhz": "127.15",
+      "station": "Recife FIR",
+      "speaker": "AF447",
+      "message": "AF447, passing INTOL waypoint at 01:33, FL350, Mach .82, estimate SALPU at 02:27"
+    },
+    {
+      "utc": "02:01:10",
+      "frequency_mhz": "HF 8861",
+      "station": "Recife FIR",
+      "speaker": "Recife",
+      "message": "Air France 447, contact Dakar Oceanic on 6535 kHz"
+    },
+    {
+      "utc": "02:10:45",
+      "frequency_mhz": "HF 6535",
+      "station": "Dakar Oceanic",
+      "speaker": "Dakar",
+      "message": "Air France 447, Dakar. No reply. (Temas kesildi)"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "max_score": 100,
+  "weights": {
+    "causal_accuracy_max": 50,
+    "evidence_quality_max": 35,
+    "efficiency_max": 15
+  },
+  "correct_findings": [
+    {
+      "category": "Tetikleyici",
+      "expected_cause_pattern": "Pitot",
+      "mandatory_evidence_ids": ["EVD_FDR_SPD_DROP", "EVD_METAR_ICING"],
+      "points": 20
+    },
+    {
+      "category": "İnsan Faktörü",
+      "expected_cause_pattern": "Lövye",
+      "mandatory_evidence_ids": ["EVD_FDR_STICK_PULL", "EVD_CVR_STALL_WARN"],
+      "points": 20
+    },
+    {
+      "category": "Gizli Bakım",
+      "expected_cause_pattern": "Ertelenen",
+      "mandatory_evidence_ids": ["EVD_MEL_HEATER"],
+      "points": 10
+    }
+  ],
+  "rank_thresholds": [
+    {"min_score": 90, "rank_title": "BAŞMÜFETTİŞ (EXPERT LEAD INVESTIGATOR)", "xp_reward": 520},
+    {"min_score": 75, "rank_title": "KIDEMLİ MÜFETTİŞ (SENIOR INSPECTOR)", "xp_reward": 380},
+    {"min_score": 50, "rank_title": "ADLİ MÜFETTİŞ YARDIMCISI (JUNIOR)", "xp_reward": 200},
+    {"min_score": 0, "rank_title": "STAJYER MÜFETTİŞ (TRAINEE)", "xp_reward": 50}
+  ]
+}

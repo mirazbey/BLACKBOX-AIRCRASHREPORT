@@ -1,0 +1,42 @@
+{
+  "epoch_utc": "09:00:00",
+  "total_duration_seconds": 7400,
+  "tracks": ["FDR", "CVR", "ATC", "SYSTEM"],
+  "markers": [
+    {
+      "case_time_s": 0,
+      "timestamp_utc": "09:00:00",
+      "track": "MAINTENANCE",
+      "label": "Larnaka Yer Bakım: Basınç Şalteri MANUAL'de Unutuldu",
+      "roles_notified": [4]
+    },
+    {
+      "case_time_s": 120,
+      "timestamp_utc": "09:12:00",
+      "track": "FDR",
+      "label": "Kabin İrtifası 10.000 ft: Kabin İrtifası Uyarı Düdüğü Çaldı",
+      "roles_notified": [1, 2]
+    },
+    {
+      "case_time_s": 1800,
+      "timestamp_utc": "09:30:00",
+      "track": "SYSTEM",
+      "label": "FL340 Seyir: Tüm Mürettebat ve Yolcular Hipoksiye Girdi",
+      "roles_notified": [1, 5]
+    },
+    {
+      "case_time_s": 7000,
+      "timestamp_utc": "11:24:00",
+      "track": "SYSTEM",
+      "label": "F-16 Kol Uçuşu: Andreas Prodromou Kokpite Girdi",
+      "roles_notified": [3, 5]
+    },
+    {
+      "case_time_s": 7350,
+      "timestamp_utc": "11:41:00",
+      "track": "SYSTEM",
+      "label": "Yakıt Tükendi: Grammatiko Dağlarına Çarpış",
+      "roles_notified": [1, 2, 3, 4, 5]
+    }
+  ]
+}

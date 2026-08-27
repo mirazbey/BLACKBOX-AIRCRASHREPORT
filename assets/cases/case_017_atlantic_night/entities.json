@@ -1,0 +1,38 @@
+{
+  "aircraft": {
+    "model": "Airbus A330-203",
+    "tail_number": "F-GZCP",
+    "msn": 660,
+    "engines": "2x General Electric CF6-80E1A2",
+    "flight_control_law": "Fly-by-wire (Normal Law -> Alternate Law on disagree)"
+  },
+  "crew": [
+    {
+      "role": "Captain",
+      "name": "Marc Dubois",
+      "age": 58,
+      "flight_hours": 10988,
+      "duty_state": "Dinlenme odasında (Rest) / Olay anında kokpitte yok"
+    },
+    {
+      "role": "First Officer (Flying)",
+      "name": "Pierre-Cédric Bonin",
+      "age": 32,
+      "flight_hours": 2936,
+      "duty_state": "Sağ koltukta kumanda onda (PF) / Panik ve lövye çekişi"
+    },
+    {
+      "role": "First Officer (Monitoring)",
+      "name": "David Robert",
+      "age": 37,
+      "flight_hours": 6547,
+      "duty_state": "Sol koltukta izleme (PM) / Çelişkiyi sonradan fark etti"
+    }
+  ],
+  "meteorology": {
+    "phenomenon": "Intertropical Convergence Zone (ITCZ)",
+    "cloud_top_fl": 500,
+    "temperature_celsius": -42,
+    "icing_type": "Supercooled Liquid Water & High Altitude Ice Crystals"
+  }
+}

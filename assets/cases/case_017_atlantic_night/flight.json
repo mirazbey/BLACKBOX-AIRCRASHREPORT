@@ -1,0 +1,12 @@
+{
+  "flight_number": "AF-447",
+  "callsign": "AIRFRANCE 447",
+  "departure_icao": "SBGL",
+  "departure_name": "Rio de Janeiro Galeão",
+  "destination_icao": "LFPG",
+  "destination_name": "Paris Charles de Gaulle",
+  "planned_altitude_fl": 350,
+  "planned_speed_mach": 0.82,
+  "route_segment": "ATLANTIC OCEAN - INTOS WAYPOINT",
+  "last_radar_contact_utc": "02:10:00"
+}

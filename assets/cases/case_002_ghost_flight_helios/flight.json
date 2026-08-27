@@ -1,0 +1,12 @@
+{
+  "flight_number": "HCY-522",
+  "callsign": "HELIOS 522",
+  "departure_icao": "LCLK",
+  "departure_name": "Larnaka (LCA)",
+  "destination_icao": "LGAV",
+  "destination_name": "Atina (ATH)",
+  "planned_altitude_fl": 340,
+  "planned_speed_mach": 0.78,
+  "route_segment": "LARNAKA - ATHENS - PRAGUE",
+  "last_radar_contact_utc": "09:20:00"
+}

@@ -1,0 +1,37 @@
+[
+  {
+    "id": "OBS_01",
+    "source": "FDR",
+    "case_time_s": 66,
+    "summary": "IAS göstergesi aniden 460 kt'tan 110 kt'a düştü.",
+    "raw_value": "IAS=110, Alt=35000"
+  },
+  {
+    "id": "OBS_02",
+    "source": "FDR",
+    "case_time_s": 70,
+    "summary": "Sağ lövye %85 geriye çekildi, burun 16 derece yukarı dikildi.",
+    "raw_value": "Stick_Pull=0.85, Pitch=16.2"
+  },
+  {
+    "id": "OBS_03",
+    "source": "CVR",
+    "case_time_s": 75,
+    "summary": "Kokpitte sentetik sesli Stall alarmı çaldı.",
+    "raw_value": "Audio: STALL_ALARM_CHIME"
+  },
+  {
+    "id": "OBS_04",
+    "source": "MAINTENANCE",
+    "case_time_s": 0,
+    "summary": "Thales AA pitot tüpü değişim bülteni ertelendi.",
+    "raw_value": "MEL-34-11-01A DEFERRED"
+  },
+  {
+    "id": "OBS_05",
+    "source": "ENVIRONMENT",
+    "case_time_s": 60,
+    "summary": "Ekvatoral fırtına kuşağında aşırı buz kristalleri tespit edildi.",
+    "raw_value": "ITCZ MCS dbZ=54"
+  }
+]

@@ -1,0 +1,28 @@
+{
+  "max_score": 100,
+  "weights": {
+    "causal_accuracy_max": 50,
+    "evidence_quality_max": 35,
+    "efficiency_max": 15
+  },
+  "correct_findings": [
+    {
+      "category": "Tetikleyici",
+      "expected_cause_pattern": "Heterodyne",
+      "mandatory_evidence_ids": ["EVD_TEN_HETERODYNE_BLOCK"],
+      "points": 50
+    },
+    {
+      "category": "İnsan Faktörü",
+      "expected_cause_pattern": "Baskı",
+      "mandatory_evidence_ids": ["EVD_TEN_DUTY_TIME_RUSH"],
+      "points": 50
+    }
+  ],
+  "rank_thresholds": [
+    {"min_score": 90, "rank_title": "BAŞMÜFETTİŞ (EXPERT LEAD INVESTIGATOR)", "xp_reward": 550},
+    {"min_score": 75, "rank_title": "KIDEMLİ MÜFETTİŞ (SENIOR INSPECTOR)", "xp_reward": 400},
+    {"min_score": 50, "rank_title": "ADLİ MÜFETTİŞ YARDIMCISI (JUNIOR)", "xp_reward": 200},
+    {"min_score": 0, "rank_title": "STAJYER MÜFETTİŞ (TRAINEE)", "xp_reward": 50}
+  ]
+}

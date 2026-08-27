@@ -1,0 +1,16 @@
+{
+  "solo_mode": {
+    "evidence_visibility": "ALL_VISIBLE",
+    "broker_filter_active": false
+  },
+  "coop_mode": {
+    "broker_filter_active": true,
+    "role_allotments": {
+      "maintenanceOps": ["EVD_H_MANUAL_SWITCH"],
+      "telemetryFdr": ["EVD_H_CABIN_ALT_HORN"],
+      "humanFactorsPsych": ["EVD_H_HYPOXIA_BLACKOUT"],
+      "avionicsFlir": ["EVD_H_F16_INTERCEPT"],
+      "acousticCvr": ["EVD_H_CABIN_ALT_HORN"]
+    }
+  }
+}

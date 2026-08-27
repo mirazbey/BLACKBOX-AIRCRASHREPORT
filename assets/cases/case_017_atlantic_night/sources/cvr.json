@@ -1,0 +1,56 @@
+{
+  "recorder_model": "L3 Communications FA2100 Solid State CVR",
+  "channels": 4,
+  "duration_recorded_minutes": 120,
+  "transcripts": [
+    {
+      "case_time_s": 66,
+      "utc": "02:10:06",
+      "speaker": "CAM (Cockpit Acoustic Meter)",
+      "text": "CRICK-CRICK (Buz kristalleri kokpit camına çarpıyor)",
+      "confidence": 0.98
+    },
+    {
+      "case_time_s": 67,
+      "utc": "02:10:07",
+      "speaker": "FO Robert (PM)",
+      "text": "Otopilot çıktı! Alternatif kumanda kanununa geçtik!",
+      "confidence": 0.95
+    },
+    {
+      "case_time_s": 75,
+      "utc": "02:10:15",
+      "speaker": "SYNTHETIC VOICE",
+      "text": "STALL! STALL! (Sesli aerodinamik tutunma kaybı düdüğü)",
+      "confidence": 0.99
+    },
+    {
+      "case_time_s": 80,
+      "utc": "02:10:20",
+      "speaker": "FO Bonin (PF)",
+      "text": "Kumandalar bende, tırmanıyorum!",
+      "confidence": 0.92
+    },
+    {
+      "case_time_s": 152,
+      "utc": "02:11:32",
+      "speaker": "Captain Dubois",
+      "text": "Neler oluyor burada? Ne yapıyorsunuz?",
+      "confidence": 0.96
+    },
+    {
+      "case_time_s": 230,
+      "utc": "02:13:50",
+      "speaker": "FO Bonin (PF)",
+      "text": "Ama baştan beri lövyeyi sonuna kadar geriye çekiyorum!",
+      "confidence": 0.99
+    },
+    {
+      "case_time_s": 235,
+      "utc": "02:13:55",
+      "speaker": "Captain Dubois",
+      "text": "Hayır! Çekme! Burnu aşağı ver! Kumandayı ver!",
+      "confidence": 0.99
+    }
+  ]
+}

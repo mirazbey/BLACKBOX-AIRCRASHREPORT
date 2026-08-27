@@ -13,6 +13,7 @@ import '../models/interrogation_model.dart';
 import '../models/tactical_ping_model.dart';
 import '../models/cinematic_debrief_model.dart';
 import '../services/case_repository.dart';
+import '../services/case_loader_service.dart';
 import '../services/evaluation_engine.dart';
 import '../services/unlock_engine.dart';
 
@@ -78,6 +79,25 @@ class InvestigationProvider extends ChangeNotifier {
     currentTimeSeconds = 60;
     _initDefaultState();
     notifyListeners();
+  }
+
+  Future<void> loadCaseFromAssetBundle(String caseFolder) async {
+    final pkg = await CaseLoaderService.loadCaseBundleFromAssets(caseFolder);
+    if (pkg != null) {
+      activeCase = pkg.manifest;
+      eventAxis = pkg.eventAxis;
+      allEvidences = pkg.evidenceNodes;
+      allRelations = pkg.evidenceRelations;
+      groundTruthGraph = pkg.causalGraph;
+      discoveredEvidenceIds.clear();
+      boardPins.clear();
+      boardConnections.clear();
+      tacticalPings.clear();
+      lastEvaluationResult = null;
+      currentTimeSeconds = 60;
+      _initDefaultState();
+      notifyListeners();
+    }
   }
 
   void switchRole(InvestigatorRole newRole) {

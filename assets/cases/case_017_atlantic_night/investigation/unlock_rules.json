@@ -1,0 +1,35 @@
+{
+  "rules": [
+    {
+      "target_hypothesis_id": "HYP_PITOT_ICING",
+      "gate_operator": "AND",
+      "conditions": [
+        {"evidence_id": "EVD_METAR_ICING", "status": "DISCOVERED"},
+        {"evidence_id": "EVD_MEL_HEATER", "status": "DISCOVERED"},
+        {"evidence_id": "EVD_FDR_SPD_DROP", "status": "DISCOVERED"}
+      ],
+      "unlocks_action": "ALLOW_FINDING_SELECTION"
+    },
+    {
+      "target_hypothesis_id": "HYP_PILOT_PANIC_PULL",
+      "gate_operator": "AND",
+      "conditions": [
+        {"evidence_id": "EVD_FDR_STICK_PULL", "status": "DISCOVERED"},
+        {"evidence_id": "EVD_CVR_STALL_WARN", "status": "DISCOVERED"}
+      ],
+      "unlocks_action": "ALLOW_FINDING_SELECTION"
+    },
+    {
+      "target_hypothesis_id": "HYP_RED_HERRING_BOMB",
+      "gate_operator": "OR",
+      "conditions": [
+        {"evidence_id": "EVD_CVR_STALL_WARN", "status": "DISCOVERED"}
+      ],
+      "refutation_condition": {
+        "evidence_id": "EVD_WRECKAGE_COMPACT",
+        "status": "DISCOVERED",
+        "action": "LOCK_AND_MARK_REFUTED"
+      }
+    }
+  ]
+}

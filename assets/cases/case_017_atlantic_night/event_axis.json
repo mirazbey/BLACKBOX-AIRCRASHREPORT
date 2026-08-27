@@ -1,0 +1,78 @@
+{
+  "epoch_utc": "02:09:00",
+  "total_duration_seconds": 240,
+  "tracks": ["FDR", "CVR", "ATC", "SYSTEM"],
+  "markers": [
+    {
+      "case_time_s": 60,
+      "timestamp_utc": "02:10:00",
+      "track": "FDR",
+      "label": "Normal Seyir (FL350, Mach 0.82)",
+      "roles_notified": [1]
+    },
+    {
+      "case_time_s": 66,
+      "timestamp_utc": "02:10:06",
+      "track": "SYSTEM",
+      "label": "Pitot Tüpleri Buz Kristalleriyle Tıkandı",
+      "linked_evidence_id": "EVD_METAR_ICING",
+      "roles_notified": [1, 3, 4]
+    },
+    {
+      "case_time_s": 67,
+      "timestamp_utc": "02:10:07",
+      "track": "FDR",
+      "label": "IAS Sürat 460kt -> 110kt Düştü & AP Disconnect",
+      "linked_evidence_id": "EVD_FDR_SPD_DROP",
+      "roles_notified": [1, 2]
+    },
+    {
+      "case_time_s": 70,
+      "timestamp_utc": "02:10:10",
+      "track": "FDR",
+      "label": "FO Bonin Lövyeyi %85 Geri Çekmeye Başladı",
+      "linked_evidence_id": "EVD_FDR_STICK_PULL",
+      "roles_notified": [1, 5]
+    },
+    {
+      "case_time_s": 75,
+      "timestamp_utc": "02:10:15",
+      "track": "CVR",
+      "label": "Akustik Stall Alarmı: STALL! STALL! Çaldı",
+      "linked_evidence_id": "EVD_CVR_STALL_WARN",
+      "roles_notified": [2, 5]
+    },
+    {
+      "case_time_s": 90,
+      "timestamp_utc": "02:10:30",
+      "track": "FDR",
+      "label": "Tırmanış FL380 & Aerodinamik Tutunma Kaybı",
+      "linked_evidence_id": "EVD_FDR_ALT_APEX",
+      "roles_notified": [1, 3]
+    },
+    {
+      "case_time_s": 105,
+      "timestamp_utc": "02:10:45",
+      "track": "ATC",
+      "label": "Dakar Kontrol ile Telsiz Teması Kesildi",
+      "linked_evidence_id": "EVD_ATC_LOSS",
+      "roles_notified": [2, 5]
+    },
+    {
+      "case_time_s": 152,
+      "timestamp_utc": "02:11:32",
+      "track": "CVR",
+      "label": "Kaptan Dubois Kokpite Girdi: 'Neler oluyor?'",
+      "linked_evidence_id": "EVD_CVR_CAPTAIN_RETURN",
+      "roles_notified": [2, 5]
+    },
+    {
+      "case_time_s": 240,
+      "timestamp_utc": "02:14:00",
+      "track": "SYSTEM",
+      "label": "Okyanusa Darbe: -10,912 ft/dk Varyo ile Çarpma",
+      "linked_evidence_id": "EVD_WRECKAGE_COMPACT",
+      "roles_notified": [1, 2, 3, 4, 5]
+    }
+  ]
+}
