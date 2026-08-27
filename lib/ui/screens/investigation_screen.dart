@@ -14,6 +14,7 @@ import '../widgets/interrogation_view_widget.dart';
 import '../widgets/tactical_comms_wheel_widget.dart';
 import '../widgets/crash_site_radar_widget.dart';
 import '../widgets/tactical_comms_drawer_widget.dart';
+import '../widgets/information_broker_widget.dart';
 import 'report_builder_screen.dart';
 
 class InvestigationScreen extends StatefulWidget {
@@ -78,6 +79,17 @@ class _InvestigationScreenState extends State<InvestigationScreen>
                 ),
               );
             }).toList(),
+          ),
+          // Information Broker Button
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const InformationBrokerWidget()),
+              );
+            },
+            icon: const Icon(Icons.hub, color: AppTheme.cyan, size: 20),
+            tooltip: 'Delil Brokeri / Havuz',
           ),
           // Tactical Comms Drawer Button
           IconButton(
