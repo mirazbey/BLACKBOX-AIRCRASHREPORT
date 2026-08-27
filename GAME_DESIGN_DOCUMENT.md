@@ -1,120 +1,120 @@
-# BLACK BOX: AIR CRASH BUREAU (GAME DESIGN DOCUMENT)
+# BLACKBOX-AIRCRASHREPORT (GAME DESIGN DOCUMENT)
 
 ---
 
 ## 1. VİZYON VE OYUN KİMLİĞİ
 
-* **Oyun Başlığı:** *Black Box: Air Crash Bureau*
-* **Tür:** Çok Oyunculu Asimetrik Dedüksiyon & Soruşturma (Co-op Aviation Investigation)
-* **Platform:** Mobil (iOS & Android) — Teknoloji: Flutter + WebRTC
-* **Seans Süresi:** 15 – 25 Dakika
-* **Oyuncu Sayısı:** 1 (Solo AI/Eğitim) veya 2 – 4 Kişi (Hızlı Eşleşme / Özel Oda)
-* **Temel Hedef:** Oyunculara hazır hikaye anlatılmaz; oyuncular bağımsız veri katmanlarını inceleyip telsiz üzerinden iletişim kurarak uçağın düşüş nedenini İsviçre Peyniri kaza zinciriyle ortaya çıkarır.
+* **Oyun Başlığı:** *BLACKBOX-AIRCRASHREPORT*
+* **Tür:** Çok Oyunculu Asimetrik Dedüksiyon & Adli Tıp Kriz Masası (Co-op Aviation Forensics & Investigation)
+* **İlham Kaynağı:** *Rainbow Six Siege / Valorant Operatör Dinamikleri + Mayday: Air Crash Investigation + Apex Taktiksel Ping Sistemi*
+* **Platform:** Mobil (iOS & Android) — Teknoloji: Flutter (Offline-First / Edge WebSocket)
+* **Seans Süresi:** 15 – 20 Dakika (3 Fazlı Taktiksel Sprint Döngüsü)
+* **Oyuncu Sayısı:** 1 (Solo AI/Rol Değiştirme) veya 5 Kişi (5 Operatörlü Kriz Masası)
+* **Temel Felsefe:** Oyunculara hazır metin verilmez. 5 uzman operatör kendi özel terminalindeki canlı grafikleri, ses dalgalarını, termal kamera kayıtlarını, bakım belgelerini ve biyometrik sorgu ağacını inceler; taktik telsiz çarkından direktif paslaşarak uçağın düşüş nedenini İsviçre Peyniri Kaza Modeli üzerinden çözerler.
 
 ---
 
-## 2. MAÇ DÖNGÜSÜ (CORE GAMEPLAY LOOP)
+## 2. MAÇ DÖNGÜSÜ (CORE 3-PHASE SPRINT LOOP)
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ 1. LOBİ & HIZLI EŞLEŞME ("Oyun Ara" Butonu)                 │
-│ • Oyuncu eşleşme kuyruğuna girer. 2-4 kişi dolunca başlar.  │
+│ 1. LOBİ & 5 KİŞİLİK KRİZ MASASI EŞLEŞMESİ                   │
+│ • "Oyun Ara" radarı 5 oyuncuyu toplar, rolleri gizli dağıtır│
 └──────────────────────────────┬──────────────────────────────┘
                                │
                                ▼
 ┌─────────────────────────────────────────────────────────────┐
-│ 2. ASİMETRİK ROL DAĞITIMI (Gizli / Rastgele)                │
-│ • Her oyuncunun telefonuna SADECE KENDİ UZMANLIK VERİSİ iner│
+│ FAZ 1: ALARM & HIZLI ANOMALİ TARAMASI (30-45 Saniye)        │
+│ • Her operatör kendi terminalindeki acil anomalileri yakalar│
+│ • FDR hız düşüşünü, FLIR pitot buzunu, CVR stall ikazını bul│
 └──────────────────────────────┬──────────────────────────────┘
                                │
                                ▼
 ┌─────────────────────────────────────────────────────────────┐
-│ 3. SORUŞTURMA & TELSİZ MUHABERESİ (15 Dakika)               │
-│ • Dahili Bas-Konuş (Push-to-Talk) Havacılık Telsizi         │
-│ • Herkes kendi ekranındaki anomalileri bulur ve anlatır     │
-│ • Ortak "Dedektif Masası"na (Investigation Board) pin atma  │
+│ FAZ 2: TAKTİK TELSİZ ÇARKI & DELİL PASLAŞMASI (45-60 Saniye)│
+│ • Sesli sohbet YOKTUR. Taktik Çarktan hızlı direktif atılır:│
+│   [🚨 ACİL ZAMAN SENKRONU] [🔍 ÇELİŞKİ VAR] [👤 SORGU İSTE] │
+│ • Deliller masaya fırlatılır; araya Kırmızı Çelişki İpi çeki│
 └──────────────────────────────┬──────────────────────────────┘
                                │
                                ▼
 ┌─────────────────────────────────────────────────────────────┐
-│ 4. ORTAK RAPOR TESLİMİ & OYLAMA                             │
-│ • Boşluk doldurmalı İsviçre Peyniri (Swiss Cheese) Raporu   │
-│ • Ortak Karar veya Bireysel Ayrık Rapor Teslimi             │
+│ FAZ 3: NTSB RAPOR OYLAMASI & MÜHÜRLEME                      │
+│ • İsviçre Peyniri boşlukları doldurulur (Tetikleyici, İnsan,│
+│   Gizli Bakım, CRM Hatası). Heyet oylaması yapılır.         │
 └──────────────────────────────┬──────────────────────────────┘
                                │
                                ▼
 ┌─────────────────────────────────────────────────────────────┐
-│ 5. RESMİ RAPOR İLE YÜZLEŞME & SKOR                          │
-│ • NTSB/BEA Resmi Rapor Animasyonu açılır                    │
-│ • % Doğruluk Oranı, Kaçırılan İpuçları, Rütbe Puanı         │
+│ BÜYÜK FİNAL: SİNEMATİK KAZA REKONSTRÜKSİYON KOLAJI & XP     │
+│ • 5 Operatörün bulduğu delillerden oluşan 5 Sahneli FİLM!   │
+│ • Bireysel Operatör XP Karnesi, MVP Rozeti ve Rütbe Terfisi │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 3. ASİMETRİK ROLLER & OYUNCU EKRANLARI
-
-4 kişilik tam bir soruşturma ekibinde roller ve erişebildikleri ekranlar:
+## 3. 5 ASİMETRİK OPERATÖR (ROLLER & ÖZEL TERMİNALLER)
 
 ```
-                  ┌─────────────────────────────────────┐
-                  │          VAKA: FLIGHT 817           │
-                  └──────────────────┬──────────────────┘
-                                     │
-         ┌──────────────────┬────────┴─────────┬──────────────────┐
-         ▼                  ▼                  ▼                  ▼
-┌─────────────────┐┌─────────────────┐┌─────────────────┐┌─────────────────┐
-│ ROL 1: TELEMETRİ││ ROL 2: AKUSTİK  ││ ROL 3: ADLİ BAKIM││ ROL 4: METEOROLO│
-│ & KARA KUTU     ││ & KOKPİT SESİ   ││ & OPERASYON      ││ Jİ & ENKAZ     │
-├─────────────────┤├─────────────────┤├─────────────────┤├─────────────────┤
-│ • FDR Grafikleri││ • CVR Ses Kaydı ││ • Uçak Bakım    ││ • Canlı Radar   │
-│   (İrtifa, Hız, ││   (Kokpit içi   ││   Defteri (MEL) ││   Fırtına Harita│
-│   Lövye, Motor) ││   konuşmalar)   ││ • Pilot Sağlık &││ • Enkaz Dağılım │
-│ • GPWS/Stall    ││ • Kule (ATC)    ││   Uçuş Geçmişi  ││   Şeması        │
-│   Alarmları     ││   Telsiz Kaydı  ││ • Şirket İçi    ││ • Rüzgar/Buzlan │
-│ • Otopilot Modu ││ • Spektrum Ses  ││   Baskı E-maili ││   ma Katmanları │
-└─────────────────┘└─────────────────┘└─────────────────┘└─────────────────┘
+                            ┌────────────────────────────────────────────────────────┐
+                            │           BLACKBOX-AIRCRASHREPORT KRİZ MASASI          │
+                            └───────────────────────────┬────────────────────────────┘
+                                                        │
+         ┌──────────────────┬───────────────────────────┼───────────────────────────┬──────────────────┐
+         ▼                  ▼                           ▼                           ▼                  ▼
+┌─────────────────┐┌─────────────────┐         ┌─────────────────┐         ┌─────────────────┐┌─────────────────┐
+│ OP-01: TELEMETRİ││ OP-02: AKUSTİK  │         │ OP-03: FLIR     │         │ OP-04: BAKIM    ││ OP-05: PSİKOLOG │
+│ (FDR Mühendisi) ││ (CVR Analisti)  │         │ (Video Rekonst.)│         │ (MEL Müfettişi) ││ (CRM & Sorgu)   │
+├─────────────────┤├─────────────────┤         ├─────────────────┤         ├─────────────────┤├─────────────────┤
+│ • Canlı PFD     ││ • İnteraktif Ses│         │ • Termal FLIR   │         │ • MEL Arıza     ││ • Çapraz Sorgu  │
+│   Yapay Ufuk    ││   Dalga Formu   │         │   Palet Filtresi│         │   Defteri       ││   Diyalog Ağacı │
+│ • İrtifa/Sürat  ││ • DSP Ses İzol. │         │ • Gece Kokpit   │         │ • Şirket İçi    ││ • Canlı EKG/    │
+│   Zaman Eğrisi  ││   (Voice/Alarm) │         │   CCTV (VHS)    │         │   Gizli Mail    ││   Poligraf Testi│
+│ • Lövye Açısı % ││ • 4-Kanal CVR   │         │ • 3D Darbe Tel  │         │ • Islak İmza &  ││ • Pilot/Teknisyen│
+│ • Stall Alarmlar││   Transkripti   │         │   Kafes Modeli  │         │   Mühür Analizi ││   İtirafları    │
+└─────────────────┘└─────────────────┘         └─────────────────┘         └─────────────────┘└─────────────────┘
 ```
-
-### Oynanış İçi Telsiz Diyaloğu Örneği:
-* **Rol 2 (Akustik):** *(Telsize basar)* "Kaptan 'Gazı kökledim ama uçak hızlanmıyor' diyor, arkadan motor sesi geliyor."
-* **Rol 1 (Telemetri):** "İmkansız! Bende motor devri (N1) %30 görünüyor. Pilot levyeyi geriye çekiyor ama motorlar rölantide!"
-* **Rol 3 (Bakım):** "Bakım defterine bakın, 2 gün önce otomatik gaz kelebeği (Auto-throttle) arızalanmış ve 'manuel sefere devam' denmiş!"
-* **Rol 4 (Meteoroloji):** "Ve şu an fırtına içine girmişler, aşırı buzlanma motor sensörünü kilitledi!"
 
 ---
 
-## 4. İKİ VAKA MOTORU (EL YAPIMI VS. SONSUZ ÜRETİM)
+## 4. TAKTİK TELSİZ ÇARKI (NON-VOICE DIRECTIVE WHEEL)
 
-### A. Tarihi / Hikayeli Vakalar (Handcrafted Cases)
-* Gerçek havacılık felaketlerinin (AF447, Helios 522, Kegworth, Tenerife, Spanair 5022) kurgusallaştırılmış senaryoları.
-* Profesyonel seslendirme, gerçek dökümler ve derin anlatım.
-* **Format:** Sezonluk Paketler (Season Pass / Case DLC).
+Sesli sohbetin getirdiği arka plan gürültüsü, dil bariyeri ve toksisite tamamen kaldırılmıştır. Bunun yerine:
 
-### B. Prosedürel Sonsuz Kaza Motoru (Procedural Swiss Cheese Engine)
-Her yeni eşleşmede motor 4 katmanı rastgele birleştirerek benzersiz bir kaza senaryosu üretir:
-
-```
-[ KATMAN 1: TETİKLEYİCİ ] ➔ [ KATMAN 2: GİZLİ ARIZA ] ➔ [ KATMAN 3: İNSAN HATASI ] ➔ [ KATMAN 4: ÇEVRESEL FAKTÖR ]
- Örn: Pitot Buzlanması        Örn: İkaz Işığı Patlak     Örn: Yanlış Motoru Kapatma    Örn: Gece / Sıfır Görüş
-```
-* **Sonuç:** FDR grafiği, CVR dökümü ve bakım defteri bu parametrelere göre dinamik oluşturulur. Ezberlenemez, sonsuz tekrar oynanabilirlik sağlar.
+| Direktif Kodu | Telsiz Mesajı | Hedef Operatör | Etkisi |
+| :--- | :--- | :--- | :--- |
+| **`🚨 ACİL ZAMAN SENKRONU`** | *"T+66s anomali anına geçin ve verilerinizi eşitleyin!"* | Herkese (Broadcast) | Tüm ekranların zaman kursörünü tek tıkla o saniyeye odaklar. |
+| **`🔍 ÇELİŞKİ BİLDİR`** | *"Bu ifade telemetri verileriyle çelişiyor!"* | Ortak Tahta | İki delil arasına kalın Kırmızı Çelişki İpi çeker. |
+| **`👤 SORGU TALEBİ`** | *"Psikolog: Pilotun lövye çekiş motivasyonunu sorgulayın!"* | OP-05 [CRM] | Psikoloğun ekranında ilgili tanık soru dalını parlatır. |
+| **`🛠️ MEL KONTROLÜ`** | *"Bakım: Pitot ısıtıcısının MEL erteleme kaydını bulun!"* | OP-04 [MEL] | Bakım kütüğündeki ertelenen arıza sayfasına odaklatır. |
+| **`📹 FLIR ODAKLANMA`** | *"FLIR: T+66s termal kamerasında pitot donmasını doğrulayın!"* | OP-03 [FLIR] | Video oynatıcıyı FLIR termal kamera açısına kilitler. |
+| **`✅ HİPOTEZ ONAYLANDI`** | *"Bu delil kök neden zincirini doğruluyor, masaya pinliyorum!"* | Herkese | İsviçre peyniri kaza zincirine yeşil teyit mührü basar. |
 
 ---
 
-## 5. DEDEKTİFLİK MEKANİĞİ: ÇELİŞKİ VE YALAN YAKALAMA (RED HERRINGS)
+## 5. BÜYÜK FİNAL: SİNEMATİK KAZA REKONSTRÜKSİYON KOLAJI
 
-1. **Yanıltıcı Tanık (Red Herring):** Kabin amiri veya yolcu ifadesi teknik veriyle çelişir. Oyuncular bunu fark edip tanığı "Güvenilmez" olarak işaretlemelidir.
-2. **Kör Noktalar (Fog of Mystery):** Her oyuncu kendi ekranındaki kritik bir bilgiyi tahtaya koymadan nihai kaza zinciri tamamlanamaz.
-3. **İsviçre Peyniri Rapor Formu:** Maç sonunda oyuncular boşlukları delil kartlarıyla doldurur:
-   > `[ Telsiz Arızası ]` ➔ `[ Kule Talimatının Yanlış Anlaşılması ]` ➔ `[ Sisli Havada İzin Almadan Piste Giriş ]` ➔ `[ Çarpışma ]`
+Soruşturma raporu teslim edildikten sonra 5 operatör ortak bir sinema ekranına kilitlenir:
+1. **1. Sahne (OP-04 Bakım):** 2 gün önceki MEL bakım ertelemesi belgesi ekranda mühürlenir.
+2. **2. Sahne (OP-03 FLIR):** T+66s'de pitot tüplerinin buz tuttuğu termal FLIR görüntüsü oynar.
+3. **3. Sahne (OP-01 FDR):** T+75s'de otopilotun atışı ve lövyenin geriye çekildiği PFD HUD grafiği oynar.
+4. **4. Sahne (OP-02 CVR):** T+152s'de kaptanın kokpite girişi ve STALL alarmının ses dalgaları çınlar.
+5. **5. Sahne (OP-05 CRM):** T+240s'de uçağın okyanusa çarpış tel kafes simülasyonu oynar.
 
 ---
 
-## 6. GELİR MODELİ (MONETIZATION)
+## 6. OPERATÖR BİREYSEL XP & RÜTBE SİSTEMİ
 
-* **Fiyatlandırma:** Ücretsiz İndirme (Free-to-Play).
-* **Ücretsiz İçerik:** 1 Eğitim Vakası + 2 Tarihi Vaka + Günde 2 Maç Ücretsiz Prosedürel Matchmaking.
-* **Vaka Paketleri (IAP):** 3'lü Tarihi Kaza Paketleri ($2.99 – $4.99).
-* **Sınırsız Dedektiflik Lisansı:** Tek Seferlik ($9.99 ömür boyu sınırsız prosedürel vaka).
-* **Kozmetikler:** Özel Telsiz Filtreleri (Retro 70'ler Kule Sesi, Modern Dijital VHF), Özel Soruşturma Masası Temaları.
+Her operatör kendi uzmanlık alanındaki doğruluğuna göre bireysel puan ve unvan kazanır:
+* **XP Dağılımı:**
+  * Kök Neden Tespiti: **+500 XP**
+  * Yanıltıcı İpucunu (Red Herring) Çürütme: **+200 XP**
+  * Hızlı Telsiz Eşzamanlaması: **+100 XP**
+  * **★ MVP Unvanı:** Maçın en yüksek doğruluk oranına sahip uzmanına verilir (+250 Bonus XP).
+* **Rütbe Terfileri:**
+  1. *Stajyer Araştırmacı (Level 1-5)*
+  2. *Kıdemli Saha Müfettişi (Level 6-15)*
+  3. *Başmüfettiş (Level 16-30)*
+  4. *NTSB Daire Başkanı / Bureau Director (Level 31+)*
+* **Açılabilir İçerikler:** Klasik tarihi kaza dosyaları (*Tenerife, Helios 522, Concorde*), özel HUD termal filtre kaplamaları ve adli dedektif unvanları.
