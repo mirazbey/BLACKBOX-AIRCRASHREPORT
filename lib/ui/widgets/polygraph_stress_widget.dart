@@ -130,10 +130,31 @@ class _PolygraphStressWidgetState extends State<PolygraphStressWidget>
               ),
               const Spacer(),
               Text(
-                widget.isHighStress ? '⚠ AKUT ANKSİYETE / PANİK' : 'DENGELİ SOLUNUM',
+                widget.isHighStress ? '⚠ YÜKSEK BİYOMETRİK TEPKİ' : 'DENGELİ SOLUNUM',
                 style: TextStyle(fontSize: 8, color: accentColor, fontFamily: 'IBM Plex Mono'),
               ),
             ],
+          ),
+          const SizedBox(height: 6),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: const Color(0xFF141A22),
+              borderRadius: BorderRadius.circular(4),
+              border: Border.all(color: AppTheme.surfaceBorder),
+            ),
+            child: Row(
+              children: const [
+                Icon(Icons.info_outline, size: 12, color: AppTheme.amber),
+                SizedBox(width: 6),
+                Expanded(
+                  child: Text(
+                    'ADLİ NOT: Yüksek nabız her zaman yalan demek değildir; travmatik ölüm korkusu da 140 BPM üretir. FDR/CVR ile çapraz teyit yapın!',
+                    style: TextStyle(fontSize: 8, color: AppTheme.amber, fontFamily: 'IBM Plex Sans'),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

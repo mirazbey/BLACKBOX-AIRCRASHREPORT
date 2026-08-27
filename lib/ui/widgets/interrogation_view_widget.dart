@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../theme/app_theme.dart';
+import '../../models/interrogation_model.dart';
 import '../../providers/investigation_provider.dart';
 import 'polygraph_stress_widget.dart';
 
@@ -171,14 +172,43 @@ class _InterrogationViewWidgetState extends State<InterrogationViewWidget> {
                           style: const TextStyle(fontSize: 12, fontStyle: FontStyle.italic, color: AppTheme.textPrimary, height: 1.4),
                         ),
                         const SizedBox(height: 10),
-                        Text('ADLİ PSİKOLOG GÖZLEMİ:', style: Theme.of(context).textTheme.labelSmall?.copyWith(color: AppTheme.amber)),
-                        const SizedBox(height: 2),
+                        Row(
+                          children: [
+                            Text('BİYOMETRİK DEĞERLENDİRME:', style: Theme.of(context).textTheme.labelSmall?.copyWith(color: AppTheme.amber)),
+                            const Spacer(),
+                            _buildStressNatureBadge(q.stressNature),
+                          ],
+                        ),
+                        const SizedBox(height: 4),
                         Text(
                           q.stressReaction,
                           style: const TextStyle(fontSize: 11, color: AppTheme.textDim),
                         ),
+                        if (q.contradictionHint != null) ...[
+                          const SizedBox(height: 8),
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF0F151D),
+                              borderRadius: BorderRadius.circular(6),
+                              border: Border.all(color: AppTheme.cyanDim),
+                            ),
+                            child: Row(
+                              children: [
+                                const Icon(Icons.compare_arrows, size: 14, color: AppTheme.cyan),
+                                const SizedBox(width: 6),
+                                Expanded(
+                                  child: Text(
+                                    'ÇAPRAZ KANIT: ${q.contradictionHint}',
+                                    style: const TextStyle(fontSize: 10, color: AppTheme.cyan, fontFamily: 'IBM Plex Mono'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                         if (q.unlocksEvidenceId != null) ...[
-                          const SizedBox(height: 14),
+                          const SizedBox(height: 12),
                           Align(
                             alignment: Alignment.centerRight,
                             child: ElevatedButton.icon(
@@ -205,6 +235,41 @@ class _InterrogationViewWidgetState extends State<InterrogationViewWidget> {
           );
         }),
       ],
+    );
+  }
+
+  Widget _buildStressNatureBadge(StressNature nature) {
+    Color color;
+    String label;
+    switch (nature) {
+      case StressNature.calmTruth:
+        color = AppTheme.green;
+        label = 'SAKİN DOĞRULUK (74 BPM)';
+        break;
+      case StressNature.traumaFlashback:
+        color = AppTheme.cyan;
+        label = 'TRAVMA FLASHBACK (138 BPM - DOĞRU)';
+        break;
+      case StressNature.guiltAnxiety:
+        color = AppTheme.amber;
+        label = 'VİCDAN AZABI (112 BPM - İTİRAF)';
+        break;
+      case StressNature.deliberateDeception:
+        color = AppTheme.red;
+        label = 'BİLİNÇLİ ÖRTBAS (148 BPM - ÇELİŞKİ)';
+        break;
+    }
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      decoration: BoxDecoration(
+        color: color.withAlpha(40),
+        borderRadius: BorderRadius.circular(4),
+        border: Border.all(color: color),
+      ),
+      child: Text(
+        label,
+        style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: color, fontFamily: 'IBM Plex Mono'),
+      ),
     );
   }
 }
