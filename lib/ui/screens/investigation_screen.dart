@@ -13,6 +13,7 @@ import '../widgets/forensic_video_player_widget.dart';
 import '../widgets/interrogation_view_widget.dart';
 import '../widgets/tactical_comms_wheel_widget.dart';
 import '../widgets/crash_site_radar_widget.dart';
+import '../widgets/tactical_comms_drawer_widget.dart';
 import 'report_builder_screen.dart';
 
 class InvestigationScreen extends StatefulWidget {
@@ -77,6 +78,19 @@ class _InvestigationScreenState extends State<InvestigationScreen>
                 ),
               );
             }).toList(),
+          ),
+          // Tactical Comms Drawer Button
+          IconButton(
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                builder: (_) => const TacticalCommsDrawerWidget(),
+              );
+            },
+            icon: const Icon(Icons.forum, color: AppTheme.amber, size: 20),
+            tooltip: 'Taktik Akış / Telsiz',
           ),
           // Submit Report Action Button
           Padding(

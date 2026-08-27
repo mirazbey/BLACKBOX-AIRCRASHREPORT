@@ -7,6 +7,7 @@ import 'matchmaking_screen.dart';
 import 'investigation_screen.dart';
 import 'case_dossier_library_screen.dart';
 import 'inspector_profile_screen.dart';
+import 'multiplayer_room_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -174,6 +175,31 @@ class HomeScreen extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppTheme.amber,
                     foregroundColor: Colors.black,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+
+              // Multiplayer Room Lobby (Code based)
+              SizedBox(
+                width: double.infinity,
+                height: 48,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const MultiplayerRoomScreen()),
+                    );
+                  },
+                  icon: const Icon(Icons.meeting_room, color: AppTheme.amber, size: 18),
+                  label: const Text(
+                    'ÖZEL ODA KUR / ARKADAŞINLA OYNA',
+                    style: TextStyle(color: AppTheme.amber, fontWeight: FontWeight.bold, fontSize: 12),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF161E28),
+                    foregroundColor: AppTheme.amber,
+                    side: const BorderSide(color: AppTheme.amber),
                   ),
                 ),
               ),

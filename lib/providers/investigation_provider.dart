@@ -16,6 +16,7 @@ import '../services/case_repository.dart';
 import '../services/case_loader_service.dart';
 import '../services/evaluation_engine.dart';
 import '../services/unlock_engine.dart';
+import '../services/audio_haptic_service.dart';
 
 class InvestigationProvider extends ChangeNotifier {
   CaseBundle activeCase = CaseRepository.sampleCaseManifest;
@@ -189,6 +190,12 @@ class InvestigationProvider extends ChangeNotifier {
           ? 'CONTRADICTS'
           : 'SUPPORTS';
 
+      if (relType == 'CONTRADICTS') {
+        AudioHapticService.playContradictionFound();
+      } else {
+        AudioHapticService.playPinDrop();
+      }
+
       boardConnections.add(
         BoardConnection(
           connectionId: const Uuid().v4().substring(0, 6),
@@ -210,6 +217,9 @@ class InvestigationProvider extends ChangeNotifier {
 
   void setRadioActive(bool active) {
     isRadioActive = active;
+    if (active) {
+      AudioHapticService.playRadioClick();
+    }
     notifyListeners();
   }
 
@@ -220,6 +230,7 @@ class InvestigationProvider extends ChangeNotifier {
     int? targetTimestampSeconds,
     String? linkedEvidenceId,
   }) {
+    AudioHapticService.playRadioClick();
     final ping = TacticalPing(
       id: const Uuid().v4().substring(0, 6),
       fromRole: currentRole,
@@ -235,6 +246,7 @@ class InvestigationProvider extends ChangeNotifier {
   }
 
   void submitInvestigationReport(List<SubmittedFinding> findings) {
+    AudioHapticService.playReportSealed();
     lastEvaluationResult = EvaluationEngine.evaluateInvestigation(
       submittedFindings: findings,
       groundTruthGraph: groundTruthGraph,

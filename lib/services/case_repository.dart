@@ -867,9 +867,117 @@ class CaseRepository {
     ),
   ];
 
+  static final List<SuspectProfile> tenerifeSuspects = [
+    const SuspectProfile(
+      id: 'SUSPECT_TEN_TOWER',
+      name: 'Fernando Murian',
+      title: 'Los Rodeos Meydan Kontrolörü',
+      organization: 'İspanyol Sivil Havacılık İdaresi',
+      avatarCode: '📡',
+      stressStatus: 'AĞIR TRAVMA (136 BPM - DOĞRU ANLATIYOR)',
+      questions: [
+        DialogueQuestion(
+          id: 'Q_TENTWR_01',
+          questionText: 'KLM uçağına kalkış izni verdiniz mi?',
+          answerText: 'Asla kalkış izni vermedim! Sadece kalkıştan sonraki rota talimatını (ATC clearance) verdim. KLM "We are now at take-off" deyince hemen "OK... Stand by for take-off, I will call you" dedim...',
+          stressReaction: 'Ses bandını titreyen ellerle gösteriyor (Travmatik Şok).',
+          stressNature: StressNature.traumaFlashback,
+          contradictionHint: 'CVR kaset kaydıyla birebir örtüşüyor.',
+          unlocksEvidenceId: 'EVD_TEN_HETERODYNE_BLOCK',
+          unlockedEvidenceTitle: 'Telsiz Heterodyne Blokajı Teyidi',
+        ),
+      ],
+    ),
+    const SuspectProfile(
+      id: 'SUSPECT_PANAM_COPILOT',
+      name: 'Robert Bragg',
+      title: 'Pan Am 1736 First Officer (Hayatta Kalan)',
+      organization: 'Pan American World Airways',
+      avatarCode: '👨‍✈️',
+      stressStatus: 'SAKİN & GÖZLEMCİ (82 BPM)',
+      questions: [
+        DialogueQuestion(
+          id: 'Q_PANAM_01',
+          questionText: 'Pist üzerinde taksi yaparken KLM\'yi ne zaman gördünüz?',
+          answerText: 'Sisin içinde birden KLM\'nin iniş farlarını gördük. Kaptanımız Grubbs hemen çimene doğru gaz açtı ama KLM havalanamadan üst gövdemize çarptı...',
+          stressReaction: 'Kaza krokisini çiziyor.',
+          stressNature: StressNature.calmTruth,
+          contradictionHint: 'Pist radar simülasyonuyla %100 uyumlu.',
+          unlocksEvidenceId: 'EVD_TEN_FOG',
+          unlockedEvidenceTitle: 'Pist Üzerinde Sis Yoğunluğu Teyidi',
+        ),
+      ],
+    ),
+  ];
+
+  static final List<CinematicReconstructionScene> tenerifeReconstructionScenes = [
+    const CinematicReconstructionScene(
+      sequenceOrder: 1,
+      timeUtc: '17:00 UTC',
+      timeOffsetLabel: 'T-6m',
+      primaryOperatorRole: InvestigatorRole.avionicsFlir,
+      stageTitle: 'AŞAMA 1: LOS RODEOS SİS İSTİLASI',
+      headline: 'Pist Görüşünün 300 Metrenin Altına Düşmesi',
+      description: 'Gran Canaria bomba ihbarı nedeniyle Los Rodeos\'a yönlendirilen uçaklar yoğun sisten dolayı kule tarafından görülemiyordu.',
+      mediaAssetOrSceneType: 'flir_ice',
+      audioVoiceOver: '[METEOROLOJİ]: "Pistte yoğun sis dalgası var. Görüş kritik seviyede."',
+      swissCheeseHoleTitle: 'Çevresel Görüş Kaybı (Environmental Fog)',
+    ),
+    const CinematicReconstructionScene(
+      sequenceOrder: 2,
+      timeUtc: '17:05 UTC',
+      timeOffsetLabel: 'T-2m',
+      primaryOperatorRole: InvestigatorRole.humanFactorsPsych,
+      stageTitle: 'AŞAMA 2: MESAİ VE GÖREV BASKISI',
+      headline: 'KLM Kaptanının Uçuş Limitini Aşma Korkusu',
+      description: 'Amsterdam\'a gecikmesiz dönmek isteyen kıdemli eğitmen kaptan, kalkış iznini beklemeden acele etti.',
+      mediaAssetOrSceneType: 'pfd_stall',
+      audioVoiceOver: '[ADLİ PSİKOLOJİ]: "Şirket kuralları ve mesai limiti kaptan üzerinde aşırı zaman baskısı yarattı."',
+      swissCheeseHoleTitle: 'Kurumsal & Bireysel Zaman Baskısı',
+    ),
+    const CinematicReconstructionScene(
+      sequenceOrder: 3,
+      timeUtc: '17:05:46 UTC',
+      timeOffsetLabel: 'T-64s',
+      primaryOperatorRole: InvestigatorRole.acousticCvr,
+      stageTitle: 'AŞAMA 3: TELSİZ HETERODYNE BLOKAJI',
+      headline: 'Kule ve Pan Am Telsizinin Birbirini Susturması',
+      description: 'Kule "Stand by" derken Pan Am "Pistteyiz" dedi; aynı anda mandala basıldığı için KLM kokpitinde sadece ıslık sesi duyuldu.',
+      mediaAssetOrSceneType: 'mel_log',
+      audioVoiceOver: '[CVR AKUSTİK]: "SQUEALLL! İki verici birbirini nötrledi, uyarı havada kayboldu."',
+      swissCheeseHoleTitle: 'Telsiz Frekans Paraziti & İletişim Kesintisi',
+    ),
+    const CinematicReconstructionScene(
+      sequenceOrder: 4,
+      timeUtc: '17:06:20 UTC',
+      timeOffsetLabel: 'T-30s',
+      primaryOperatorRole: InvestigatorRole.humanFactorsPsych,
+      stageTitle: 'AŞAMA 4: İZİNSİZ KALKIŞ KOŞUSU',
+      headline: 'Stand-by Uyarısını Duymayan KLM\'nin Gaz Açması',
+      description: 'Kalkış izni aldığını sanan kaptan Van Zanten 140 knot ile sisin içinde hızlandı.',
+      mediaAssetOrSceneType: 'pfd_stall',
+      audioVoiceOver: '[KOKPİT CVR]: "KLM tam güç kalkış koşusunda. Pan Am henüz pistten çıkmadı."',
+      swissCheeseHoleTitle: 'İnsan Faktörü & Yanlış Anlaşılan Talimat',
+    ),
+    const CinematicReconstructionScene(
+      sequenceOrder: 5,
+      timeUtc: '17:06:50 UTC',
+      timeOffsetLabel: 'T+0s',
+      primaryOperatorRole: InvestigatorRole.avionicsFlir,
+      stageTitle: 'AŞAMA 5: PİSTTE ÇİFT 747 ÇARPIŞMASI',
+      headline: 'Havacılık Tarihinin En Büyük Faciası',
+      description: 'KLM\'nin gövdesi Pan Am\'ın üst kabinini biçti. 583 kişi hayatını kaybetti.',
+      mediaAssetOrSceneType: 'impact_3d',
+      audioVoiceOver: '[ICAO / NTSB KARARI]: "Telsiz frazeolojisi ve CRM standartları bu kazayla tamamen değiştirildi."',
+      swissCheeseHoleTitle: 'Nihai Kaza Sonucu (Fatal Collision Event)',
+    ),
+  ];
+
   static List<SuspectProfile> getSuspectsForCase(String caseId) {
     if (caseId == 'CASE-002') {
       return heliosSuspects;
+    } else if (caseId == 'CASE-001') {
+      return tenerifeSuspects;
     }
     return sampleSuspects;
   }
@@ -877,6 +985,8 @@ class CaseRepository {
   static List<CinematicReconstructionScene> getReconstructionScenesForCase(String caseId) {
     if (caseId == 'CASE-002') {
       return heliosReconstructionScenes;
+    } else if (caseId == 'CASE-001') {
+      return tenerifeReconstructionScenes;
     }
     return sampleReconstructionScenes;
   }
