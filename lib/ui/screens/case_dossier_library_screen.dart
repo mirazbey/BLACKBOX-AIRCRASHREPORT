@@ -142,15 +142,29 @@ class CaseDossierLibraryScreen extends StatelessWidget {
                     child: ElevatedButton.icon(
                       onPressed: isClassified
                           ? null
-                          : () {
-                              context.read<InvestigationProvider>().loadCase(c);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Vaka Yüklendi: ${c.title}')),
-                              );
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(builder: (_) => const InvestigationScreen()),
-                              );
+                          : () async {
+                              final provider = context.read<InvestigationProvider>();
+                              final folder = switch (c.id) {
+                                'CASE-002' => 'assets/cases/case_002_ghost_flight_helios',
+                                'CASE-001' => 'assets/cases/case_001_tenerife_collision',
+                                'CASE-017' => 'assets/cases/case_017_atlantic_night',
+                                _ => 'assets/cases/case_017_atlantic_night',
+                              };
+                              await provider.loadCaseFromAssetBundle(folder);
+                              provider.loadCase(c);
+
+                              if (context.mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('Vaka Yüklendi: ${c.title}'),
+                                    backgroundColor: AppTheme.surfaceHighlight,
+                                  ),
+                                );
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => const InvestigationScreen()),
+                                );
+                              }
                             },
                       icon: Icon(
                         isClassified ? Icons.lock : Icons.flight_land,

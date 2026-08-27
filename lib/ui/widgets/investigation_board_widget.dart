@@ -304,11 +304,42 @@ class _BoardThreadPainter extends CustomPainter {
 
         canvas.drawPath(path, paint);
 
-        // Draw center badge for contradiction
-        if (isContradiction) {
-          final badgeCenter = controlPoint;
-          canvas.drawCircle(badgeCenter, 8, Paint()..color = AppTheme.red);
-        }
+        // Draw center badge for relation type as per MIMARI_RAPOR_V3 Bölüm 05
+        final badgeCenter = controlPoint;
+        final badgeColor = isContradiction ? AppTheme.red : AppTheme.cyan;
+        final badgeText = isContradiction ? '⚡ ÇELİŞKİ' : '✓ DESTEKLER';
+
+        final bgRect = RRect.fromRectAndRadius(
+          Rect.fromCenter(center: badgeCenter, width: isContradiction ? 74 : 80, height: 18),
+          const Radius.circular(9),
+        );
+
+        canvas.drawRRect(bgRect, Paint()..color = const Color(0xFF101419));
+        canvas.drawRRect(
+          bgRect,
+          Paint()
+            ..color = badgeColor
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 1.2,
+        );
+
+        final textPainter = TextPainter(
+          text: TextSpan(
+            text: badgeText,
+            style: TextStyle(
+              color: badgeColor,
+              fontSize: 8.5,
+              fontWeight: FontWeight.w700,
+              fontFamily: 'IBM Plex Mono',
+            ),
+          ),
+          textDirection: TextDirection.ltr,
+        );
+        textPainter.layout();
+        textPainter.paint(
+          canvas,
+          badgeCenter - Offset(textPainter.width / 2, textPainter.height / 2),
+        );
       }
     }
   }
