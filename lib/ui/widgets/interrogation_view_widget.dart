@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../theme/app_theme.dart';
 import '../../providers/investigation_provider.dart';
+import 'polygraph_stress_widget.dart';
 
 class InterrogationViewWidget extends StatefulWidget {
   const InterrogationViewWidget({super.key});
@@ -96,25 +97,11 @@ class _InterrogationViewWidgetState extends State<InterrogationViewWidget> {
                   ),
                 ],
               ),
-              const Divider(color: AppTheme.surfaceBorder, height: 24),
-              Row(
-                children: [
-                  const Icon(Icons.favorite, color: AppTheme.red, size: 14),
-                  const SizedBox(width: 6),
-                  const Text('PSİKOLOJİK STRES İNDEKSİ:', style: TextStyle(fontSize: 10, color: AppTheme.textDim, fontFamily: 'IBM Plex Mono')),
-                  const Spacer(),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: AppTheme.redDim,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Text(
-                      suspect.stressStatus,
-                      style: const TextStyle(fontSize: 9, color: AppTheme.red, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
+              const Divider(color: AppTheme.surfaceBorder, height: 20),
+              PolygraphStressWidget(
+                suspectName: suspect.name,
+                stressStatus: suspect.stressStatus,
+                isHighStress: suspect.stressStatus.contains('PANİK') || suspect.stressStatus.contains('GERGİN'),
               ),
             ],
           ),

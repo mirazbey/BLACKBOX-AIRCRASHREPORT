@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../theme/app_theme.dart';
 import '../../providers/investigation_provider.dart';
+import '../widgets/cinematic_reconstruction_reel_widget.dart';
+import '../widgets/operator_xp_breakdown_widget.dart';
 import 'home_screen.dart';
 
 class ResultRevealScreen extends StatelessWidget {
@@ -18,15 +20,21 @@ class ResultRevealScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SORUŞTURMA SONUÇ RAPORU'),
+        title: const Text('SORUŞTURMA BÜYÜK FİNALİ & DEBRİEF'),
         automaticallyImplyLeading: false,
       ),
       body: ListView(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(16),
         children: [
-          // Total Score Banner
+          // 1. Grand Finale: Shared Cinematic Crash Reconstruction Montage Reel
+          CinematicReconstructionReelWidget(
+            scenes: provider.reconstructionScenes,
+          ),
+          const SizedBox(height: 20),
+
+          // 2. Total Score & Rank Promotion Banner
           Container(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(18),
             decoration: BoxDecoration(
               color: AppTheme.surfaceAlt,
               borderRadius: BorderRadius.circular(10),
@@ -38,12 +46,12 @@ class ResultRevealScreen extends StatelessWidget {
                   'TOPLAM DOĞRULUK SKORU',
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 6),
                 Text(
                   '%${result.totalScore}',
                   style: Theme.of(context).textTheme.displayLarge?.copyWith(
                     color: AppTheme.amber,
-                    fontSize: 44,
+                    fontSize: 40,
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -55,9 +63,9 @@ class ResultRevealScreen extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 16),
 
-          // 50 / 35 / 15 Metric Breakdown
+          // 3. 50 / 35 / 15 Metric Breakdown
           Row(
             children: [
               Expanded(
@@ -87,7 +95,13 @@ class ResultRevealScreen extends StatelessWidget {
           ),
           const SizedBox(height: 20),
 
-          // Official Findings Feedback
+          // 4. Per-Operator Individual XP & MVP Badges
+          OperatorXpBreakdownWidget(
+            operatorScores: provider.operatorScores,
+          ),
+          const SizedBox(height: 20),
+
+          // 5. Official Findings Feedback
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -103,7 +117,7 @@ class ResultRevealScreen extends StatelessWidget {
                     const Icon(Icons.verified, color: AppTheme.cyan, size: 18),
                     const SizedBox(width: 8),
                     Text(
-                      'RESMİ SORUŞTURMA KARARI',
+                      'RESMİ NTSB / BEA SORUŞTURMA KARARI',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(color: AppTheme.cyan),
                     ),
                   ],
@@ -141,7 +155,7 @@ class ResultRevealScreen extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 28),
+          const SizedBox(height: 24),
 
           // Return Home Button
           SizedBox(

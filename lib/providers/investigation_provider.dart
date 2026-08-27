@@ -11,6 +11,7 @@ import '../models/evaluation_model.dart';
 import '../models/forensic_clip_model.dart';
 import '../models/interrogation_model.dart';
 import '../models/tactical_ping_model.dart';
+import '../models/cinematic_debrief_model.dart';
 import '../services/case_repository.dart';
 import '../services/evaluation_engine.dart';
 import '../services/unlock_engine.dart';
@@ -32,6 +33,8 @@ class InvestigationProvider extends ChangeNotifier {
   List<TheoryUnlockRule> theoryRules = CaseRepository.sampleTheoryRules;
   List<ForensicClip> forensicClips = CaseRepository.sampleForensicClips;
   List<PingPreset> pingPresets = CaseRepository.samplePingPresets;
+  List<CinematicReconstructionScene> reconstructionScenes = CaseRepository.sampleReconstructionScenes;
+  List<OperatorScoreDetail> operatorScores = [];
 
   // Active State
   int currentTimeSeconds = 66; // Defaults to anomaly T+66s
@@ -203,6 +206,9 @@ class InvestigationProvider extends ChangeNotifier {
       groundTruthGraph: groundTruthGraph,
       pinnedEvidenceIds: discoveredEvidenceIds,
       totalDiscoveredEvidences: discoveredEvidenceIds.length,
+    );
+    operatorScores = CaseRepository.getSampleOperatorScores(
+      lastEvaluationResult?.totalScore ?? 85,
     );
     notifyListeners();
   }

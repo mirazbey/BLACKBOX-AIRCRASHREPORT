@@ -7,6 +7,7 @@ import '../models/unlock_rules_model.dart';
 import '../models/forensic_clip_model.dart';
 import '../models/interrogation_model.dart';
 import '../models/tactical_ping_model.dart';
+import '../models/cinematic_debrief_model.dart';
 
 class CaseRepository {
   static final List<ForensicClip> sampleForensicClips = [
@@ -614,4 +615,122 @@ class CaseRepository {
       defaultMessage: '✅ Bu delil kök neden zincirini doğruluyor, masaya pinliyorum!',
     ),
   ];
+
+  static final List<CinematicReconstructionScene> sampleReconstructionScenes = [
+    const CinematicReconstructionScene(
+      sequenceOrder: 1,
+      timeUtc: '2 Gün Önce',
+      timeOffsetLabel: 'T-48h',
+      primaryOperatorRole: InvestigatorRole.maintenanceOps,
+      stageTitle: 'AŞAMA 1: GİZLİ BAKIM ERTELEMESİ',
+      headline: 'Rio İstasyonunda Ertelenen Pitot Isıtıcı Değişimi',
+      description: 'Yedek parça bulunamadığı için pitot ısıtıcı probundaki direnç arızası şirket emriyle MEL kapsamına sokulup ertelendi.',
+      mediaAssetOrSceneType: 'mel_log',
+      audioVoiceOver: '[BAKIM DEFTERİ]: "Parça yokluğu teyit edildi. Uçuş gecikmesin, Paris\'te değişsin."',
+      swissCheeseHoleTitle: 'Gizli Organizasyonel İhmal (Latent Failure)',
+    ),
+    const CinematicReconstructionScene(
+      sequenceOrder: 2,
+      timeUtc: '02:10:06 UTC',
+      timeOffsetLabel: 'T+66s',
+      primaryOperatorRole: InvestigatorRole.avionicsFlir,
+      stageTitle: 'AŞAMA 2: SENSÖR KİLİTLENMESİ',
+      headline: 'FL350 Tropikal Fırtınada Pitot Tüplerinin Donması',
+      description: 'Tropikal fırtına hücresindeki aşırı rime buzu ısıtılmayan pitot problarını tamamen tıkadı. Hız verisi sıfırlandı.',
+      mediaAssetOrSceneType: 'flir_ice',
+      audioVoiceOver: '[FLIR TERMAL]: "Pitot tüpleri aşırı buzlanmayla tıkandı. Otopilot devreden çıktı."',
+      swissCheeseHoleTitle: 'Doğrudan Mekanik Tetikleyici (Active Trigger)',
+    ),
+    const CinematicReconstructionScene(
+      sequenceOrder: 3,
+      timeUtc: '02:10:15 UTC',
+      timeOffsetLabel: 'T+75s',
+      primaryOperatorRole: InvestigatorRole.telemetryFdr,
+      stageTitle: 'AŞAMA 3: GÖSTERGE İLLÜZYONU & STALL ÇEKİŞİ',
+      headline: 'Yardımcı Pilotun Lövyeyi Panikle %85 Geriye Çekmesi',
+      description: 'Hız göstergelerinin düşüşüyle uçağın irtifa kaybettiğini sanan yardımcı pilot, burnu 15 derece yukarı dikerek uçağı ölümcül Stall\'a soktu.',
+      mediaAssetOrSceneType: 'pfd_stall',
+      audioVoiceOver: '[FDR TELEMETRİ]: "Lövye sonuna kadar geride. Hücum açısı aşıldı: STALL! STALL!"',
+      swissCheeseHoleTitle: 'İnsan Hatası & Durumsal Farkındalık Kaybı',
+    ),
+    const CinematicReconstructionScene(
+      sequenceOrder: 4,
+      timeUtc: '02:11:32 UTC',
+      timeOffsetLabel: 'T+152s',
+      primaryOperatorRole: InvestigatorRole.acousticCvr,
+      stageTitle: 'AŞAMA 4: KOKPİT İLETİŞİM KOPUKLUĞU (CRM)',
+      headline: 'Kaptanın Kokpite Dönüşü ve Geç Müdahale',
+      description: 'Dinlenme kabininden dönen kaptan pilot lövye pozisyonunu fark ettiğinde uçak derin perdövitese girmişti.',
+      mediaAssetOrSceneType: 'pfd_stall',
+      audioVoiceOver: '[CVR SES]: "KAPTAN: Ne yapıyorsunuz siz?! Burnu derhal aşağı ver!"',
+      swissCheeseHoleTitle: 'Mürettebat Kaynak Yönetimi (CRM) Çöküşü',
+    ),
+    const CinematicReconstructionScene(
+      sequenceOrder: 5,
+      timeUtc: '02:14:28 UTC',
+      timeOffsetLabel: 'T+240s',
+      primaryOperatorRole: InvestigatorRole.humanFactorsPsych,
+      stageTitle: 'AŞAMA 5: DENİZE DARBE & NİHAİ KAZA',
+      headline: 'Okyanus Yüzeyine Tek Parça Kompakt Çarpışma',
+      description: 'Uçak havada parçalanmamış, derin stall açısıyla okyanusa çarpmıştır. 228 can kaybı.',
+      mediaAssetOrSceneType: 'impact_3d',
+      audioVoiceOver: '[NTSB RESMİ KARARI]: "Tüm kaza faktörleri doğrulandı. Soruşturma tamamlandı."',
+      swissCheeseHoleTitle: 'Nihai Kaza Sonucu (Fatal Crash Event)',
+    ),
+  ];
+
+  static List<OperatorScoreDetail> getSampleOperatorScores(int totalScore) {
+    return [
+      const OperatorScoreDetail(
+        role: InvestigatorRole.telemetryFdr,
+        operatorCode: 'OP-01 [FDR]',
+        specialistTitle: 'Telemetri & FDR Mühendisi',
+        earnedXp: 520,
+        accuracyPercentage: 96,
+        isMvp: true,
+        keyDiscoveryTitle: 'Lövye Geri Çekişi (Stall Girişi)',
+        unlockedBadges: ['★ MVP', 'KARA KUTU HACKER', 'STALL AVCISI'],
+      ),
+      const OperatorScoreDetail(
+        role: InvestigatorRole.avionicsFlir,
+        operatorCode: 'OP-03 [FLIR]',
+        specialistTitle: 'FLIR & Video Rekonstrüksiyon',
+        earnedXp: 480,
+        accuracyPercentage: 92,
+        isMvp: false,
+        keyDiscoveryTitle: 'Termal Pitot Buzlanma Kadrajı',
+        unlockedBadges: ['KESKİN GÖZ: FLIR', 'TERMAL DEDEKTİF'],
+      ),
+      const OperatorScoreDetail(
+        role: InvestigatorRole.maintenanceOps,
+        operatorCode: 'OP-04 [MEL]',
+        specialistTitle: 'Adli Bakım & MEL Müfettişi',
+        earnedXp: 500,
+        accuracyPercentage: 94,
+        isMvp: false,
+        keyDiscoveryTitle: 'Ertelenmiş Pitot Isıtıcı MEL Kaydı',
+        unlockedBadges: ['ADLİ MÜHÜR AVCI', 'KÖK NEDEN BULUCU'],
+      ),
+      const OperatorScoreDetail(
+        role: InvestigatorRole.humanFactorsPsych,
+        operatorCode: 'OP-05 [CRM]',
+        specialistTitle: 'Adli Psikolog & CRM Sorgu',
+        earnedXp: 490,
+        accuracyPercentage: 90,
+        isMvp: false,
+        keyDiscoveryTitle: 'Pilotun Panik Refleksi İtirafı',
+        unlockedBadges: ['YALAN AVCISI', 'BİYOMETRİK UZMAN'],
+      ),
+      const OperatorScoreDetail(
+        role: InvestigatorRole.acousticCvr,
+        operatorCode: 'OP-02 [CVR]',
+        specialistTitle: 'Akustik & CVR Analisti',
+        earnedXp: 440,
+        accuracyPercentage: 88,
+        isMvp: false,
+        keyDiscoveryTitle: 'Stall Alarmı & Kaptan Uyarısı',
+        unlockedBadges: ['SES FİLTRE USTASI', 'CVR KULAK'],
+      ),
+    ];
+  }
 }
