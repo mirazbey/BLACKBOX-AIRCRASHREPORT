@@ -1,0 +1,106 @@
+workflows:
+  ios-release:
+    name: Black Box: Air Crash Report - iOS TestFlight Release
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+      groups:
+        - appstore_credentials # Codemagic UI > Teams / Env variables > Group: appstore_credentials
+      vars:
+        BUNDLE_ID: "com.blackboxaircrash"
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+          source: true
+      tag_patterns:
+        - pattern: v*
+          include: true
+    scripts:
+      - name: Set up code signing settings on Xcode project
+        script: |
+          xcode-project use-profiles
+
+      - name: Get Flutter dependencies
+        script: |
+          flutter packages pub get
+
+      - name: Run Flutter analyze and tests
+        script: |
+          flutter analyze
+          flutter test
+
+      - name: Pod install
+        script: |
+          find . -name "Podfile" -execdir pod install \;
+
+      - name: Build iOS IPA
+        script: |
+          flutter build ipa --release \
+            --build-name=1.0.0 \
+            --build-number=$BUILD_NUMBER \
+            --export-options-plist=/Users/builder/export_options.plist
+
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - flutter_drive.log
+
+    publishing:
+      app_store_connect:
+        auth: integration # Codemagic Teams > Integrations > Apple Developer Portal API Key
+        submit_to_testflight: true
+        beta_groups:
+          - AppStore Testers
+        submit_to_app_store: false
+
+  android-release:
+    name: Black Box: Air Crash Report - Android Google Play Release
+    instance_type: linux
+    max_build_duration: 30
+    environment:
+      flutter: stable
+      groups:
+        - google_play_credentials # Opsiyonel: Google Play API JSON key
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+          source: true
+      tag_patterns:
+        - pattern: v*
+          include: true
+    scripts:
+      - name: Get Flutter dependencies
+        script: |
+          flutter packages pub get
+
+      - name: Run Flutter analyze and tests
+        script: |
+          flutter analyze
+          flutter test
+
+      - name: Build Android App Bundle (AAB)
+        script: |
+          flutter build appbundle --release \
+            --build-name=1.0.0 \
+            --build-number=$BUILD_NUMBER
+
+    artifacts:
+      - build/app/outputs/bundle/release/*.aab
+      - build/app/outputs/flutter-apk/*.apk
+
+    publishing:
+      email:
+        recipients:
+          - miraz@example.com
+        notify:
+          success: true
+          failure: true
